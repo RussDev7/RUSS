@@ -5,6 +5,15 @@
   margin: 0;
 }
 
+.background {
+    position: relative;
+    margin-left: auto;
+    margin-right: auto;
+    width: 800px;
+    height: 783px;
+    background-color: white;
+}
+
 body{
     background-image: url(../images/Background.jpg);
 	background-repeat: repeat;
