@@ -11,6 +11,8 @@
 
 <div class="background"> <!-- The Black Start -->
 
+<p></p>
+  
 <div id="box">
 <b><p>Type a base damage, Then click the button.</p></b>
 <input type="text" placeholder="Type something..." type="text" id="BaseDamage" value=""></input>
@@ -58,7 +60,7 @@ function Calculate() {
   // Grab Base Damage
   var a = document.getElementById("BaseDamage").value;
   document.getElementById("BaseValue").innerHTML = a;
-  document.getElementById("BaseValueText").innerHTML = "Bellow is your weapons base damage.";
+  document.getElementById("BaseValueText").innerHTML = "Below is your weapons base damage.";
   
   // Double Base Value
   var b = (a * 2);
@@ -69,7 +71,7 @@ function Calculate() {
   var z = Math.floor((Math.random() * 2) + 1);
   var x = Math.floor((Math.random() * 15) + 1);
   document.getElementById("percentText1").innerHTML = "Bellow is a random number between -15 and 15."
-  document.getElementById("percentText2").innerHTML = "(This value is the precentage increased or decreased to output)"
+  document.getElementById("percentText2").innerHTML = "(This value is the percentage increased or decreased to output)"
   if (z == 1) {
     document.getElementById("percent").innerHTML = -x;
   } else {
