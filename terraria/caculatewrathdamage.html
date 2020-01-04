@@ -83,8 +83,14 @@ function Calculate() {
   var d = (c * b);
   var e = (d / 100);
   var f = (e + b);
+  var g = (-15 * b);
+  var h = (g / 100);
+  var i = (h + b);
+  var j = (15 * b);
+  var k = (j / 100);
+  var l = (k + b);
   document.getElementById("FinalValueText").innerHTML = "Bellow is your weapons final output damage.";
-  document.getElementById("FinalValue").innerHTML = f;
+  document.getElementById("FinalValue").innerHTML = f + " (Min: " + i + " - Max: " + l + ")";
   
 }
 </script>
