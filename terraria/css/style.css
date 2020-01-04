@@ -1,0 +1,12 @@
+#box {
+  width: 500px;
+  padding: 10px;
+  border: 5px solid gray;
+  margin: 0;
+}
+
+body{
+    background-image: url(../images/Background.jpg);
+	background-repeat: repeat;
+    background-size: 2000px;
+}

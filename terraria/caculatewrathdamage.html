@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<!-- saved from url=(0014)about:internet -->
+<html>
+
+<title>StarWrath Damage Caculator</title>
+<link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
+<link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+
+<body background="">
+<center>
+
+<div class="background"> <!-- The Black Start -->
+
+<div id="box">
+<b><p>Type a base damage, Then click the button.</p></b>
+<input type="text" placeholder="Type something..." type="text" id="BaseDamage" value=""></input>
+<button onclick="Calculate()">Set Value</button>
+</div>
+
+<p></p>
+
+<div id="box">
+<b><p id="BaseValueText"></p></b>
+<p id="BaseValue"></p>
+</div>
+
+<p></p>
+
+<div id="box">
+<b><p id="DoubleValueText"></p></b>
+<p id="DoubleValue"></p>
+</div>
+
+<p></p>
+
+<div id="box">
+<b><p id="percentText1"></p></b>
+<b><p id="percentText2"></p></b>
+<p id="percent"></p>
+</div>
+
+<p></p>
+
+<div id="box">
+<b><p id="FinalValueText"></p></b>
+<p id="FinalValue"></p>
+</div>
+
+<p></p>
+
+<div id="box">
+<b>Released: 03Jan20 | Created By: <td><a href="http://steamcommunity.com/id/CrypticNight7/">xXCrypticNightXx</a></td> | All rights reserved.</b>
+</div>
+
+<script>
+function Calculate() {
+
+  // Grab Base Damage
+  var a = document.getElementById("BaseDamage").value;
+  document.getElementById("BaseValue").innerHTML = a;
+  document.getElementById("BaseValueText").innerHTML = "Bellow is your weapons base damage.";
+  
+  // Double Base Value
+  var b = (a * 2);
+  document.getElementById("DoubleValueText").innerHTML = "Bellow is your weapons base damage multiplied by 2.";
+  document.getElementById("DoubleValue").innerHTML = b;
+  
+  // Caculate Random Number Between -15 and 15.
+  var z = Math.floor((Math.random() * 2) + 1);
+  var x = Math.floor((Math.random() * 15) + 1);
+  document.getElementById("percentText1").innerHTML = "Bellow is a random number between -15 and 15."
+  document.getElementById("percentText2").innerHTML = "(This value is the precentage increased or decreased to output)"
+  if (z == 1) {
+    document.getElementById("percent").innerHTML = -x;
+  } else {
+    document.getElementById("percent").innerHTML = x;
+  }
+  
+  // Start Conversion
+  var c = document.getElementById("percent").innerHTML;
+  var d = (c * b);
+  var e = (d / 100);
+  var f = (e + b);
+  document.getElementById("FinalValueText").innerHTML = "Bellow is your weapons final output damage.";
+  document.getElementById("FinalValue").innerHTML = f;
+  
+}
+</script>
+
+</div>
+</center>
+</body>
+</html>
