@@ -1,0 +1,23 @@
+{"dir" : "ltr",
+    "lang" : "en",
+    "name" : "Ru$$'s Zalgo Text Generator",
+    "scope" : "/",
+    "display" : "fullscreen",
+    "start_url" : "https://russdev.mooo.com/",
+    "short_name" : "Zalgo Text Generator ",
+    "theme_color" : "transparent",
+    "description" : "RU$$'s Cracked API Zalgo Text Generator. Fully Unlocked - Supports Up To Multiplier 50,000!",
+    "orientation" : "portrait",
+    "background_color" : "transparent",
+    "related_applications" : "",
+    "prefer_related_applications" : "false",
+    "generated" : "true",
+    "icons": [
+  ],
+  
+  "start_url": "/?source=pwa",
+  "background_color": "#3367D6",
+  "display": "standalone",
+  "scope": "/",
+  "theme_color": "#3367D6"
+}
