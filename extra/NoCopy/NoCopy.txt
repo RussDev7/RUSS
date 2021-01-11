@@ -1,0 +1,311 @@
+==================================================================================
+[] ---- Required Argument
+() ---- Optional Argument
+=================================CONSOLE COMMANDS=================================
+~~WorldEdit~~
+point1 -------------------------------------------------------- Marks location 1 for world edit.
+point2 -------------------------------------------------------- Marks location 2 for world edit.
+wand [on/off] ------------------------------------------------- Virtual /point1 & /point2 selection tool.
+set [block(,array)] ------------------------------------------- Fills a location with a desired block type.
+wall [block type(all)] [amount] [up/down] --------------------- Stacks a block type up or down within a desired area.
+nuke [radius] ------------------------------------------------- Removes a large amount of land.
+floor [block] ------------------------------------------------- Replaces the block you're standing on.
+prism [block] ------------------------------------------------- Creates a prism with a desired block type.
+trig [block] -------------------------------------------------- Creates a tetrahedron with a desired block type. (3d rectangle)
+masschange [radius] [source block(all)] [block(,array)] ------- Changes block types in radius.
+hollow [block] ------------------------------------------------ Hollows a location with a desired block type.
+replace [source block(all)] [r block(,array)] ----------------- Replaces a location with a desired block type.
+fireball [Dragon ID] ------------------------------------------ Summons a fireball crash location.
+hitler -------------------------------------------------------- Draws a swastyka out of bedrock.
+tree (max_height) --------------------------------------------- Spawns an on surface level tree at players location.
+forest [area_size] [density] (max_height) --------------------- Spawn a forest area at players location with parameters. [180 Max Area]
+paint [on/off] [block] (brush size) (replace mode) ------------ Draws using the desired block and region size.
+spell [word] (!linebreak) (,block) ---------------------------- Draws the desired text out of blocks relitive to the players location.
+snow [radius] [block(,array)] --------------------------------- Places a desired block type on the upper most layer of blocks.
+dig [radius] -------------------------------------------------- Replaces all blocks above the players feet to air.
+stack [block type(all)] [amount] ------------------------------ Stacks a desired blocktype to a desired lengh XZ.
+flatland [radius] [block(,array)] ----------------------------- Create a flat square of a desired size under the users feet.
+schem [save/load/list/remove] [schem name] (rotate#) (flat) --- Save any desired structure to a schematic file to load later.
+flatr [radius] [replace block(all)] [block(,array)] ----------- Replace flat land the user is standing on to a desired block.
+wrap [replace block] (exclude surface) ------------------------ Replace only the outer-most blocks of a region.
+up [amount] --------------------------------------------------- Places a block at a desired height and teleports the player.
+walkpaint [on/off] [size] [block] ----------------------------- Paints a desired block on the floor your walking on.
+circle [size] [r block(,array)] ------------------------------- Makes a hollowed circle out of a desired block type.
+diamond [size] [r block(,array)] (half [top/bottom]) ---------- Makes a 3d diamond out of a desired block type.
+tincan [size] [r block(,array)] ------------------------------- Makes a circle wall around the player of a desired block type.
+cone [size] [r block(,array)] (half [top/bottom]) ------------- Makes a 3d cone out of a desired block type.
+ring [space] [amount] [r block(,array)] ----------------------- Makes a rings out of a desired block type.
+hole ---------------------------------------------------------- Digs a hole from your feet through hell. Great for clearing becons.
+fill [source] [block] ----------------------------------------- Fills the inside of a region within desired blocks per row.
+lite ---------------------------------------------------------- Spawns an empty tnt fuse effect under the player.
+loot (loot all blocks true/false) ----------------------------- Breaks and loots all lucky loot blocks within a desired area.
+sphere [radius] [height] [hallow] [r block(,array)] (sphere) -- Create a 3d sphere out of a desired block.
+dropblock [block type] ---------------------------------------- Spawns a desired type of item in the selected region blocks.
+cnuker [on/off] [radius] (delay) ------------------------------ Nukes a desired area size around the player.
+regionstack [amount] (up/down) -------------------------------- Stacks a desired region to a desired lengh X(Y)Z.
+allbut [ex block(,array)] (block) ----------------------------- Removes all but desired block types.
+
+~~Generic~~
+showcmds [on/off] --------------------------------------------- Makes all cmds shown to the server.
+help [page] --------------------------------------------------- Display all available commands.
+tp [x] [y] [z] ------------------------------------------------ Teleports the player.
+playertp [player] --------------------------------------------- Teleports you to another player.
+restart ------------------------------------------------------- Attampts to restart the level.
+summon [mob] [amount] ----------------------------------------- Summons a desired monster type.
+dragon [type] [hp] (amount) ----------------------------------- Summons a desired dragon type.
+time [time] --------------------------------------------------- Changes World Time. [Morning: 0.4134239 -------- Midnight: 1.0]
+creative [on/off] --------------------------------------------- Turns on/off infinite recourses.
+seed ---------------------------------------------------------- Grabs the world seed number.
+noclip [on/off] ----------------------------------------------- Phase through walls.
+spam [start/stop] [msg] --------------------------------------- Spams a desired message to chat.
+kick [player] (ban) ------------------------------------------- Kicks or bans a player from the server.
+fly [on/off] -------------------------------------------------- Enable or disable fly mode.
+shome [home] -------------------------------------------------- Set a desired home at playerd current location.
+dhome [home] -------------------------------------------------- Delete a desired home.
+home (list) [home] -------------------------------------------- Teleport to a desired home location.
+profile [player] ---------------------------------------------- Opens player profile in steam.
+servermsg [message] ------------------------------------------- Change your local servers message; Any Lengh.
+butcher ------------------------------------------------------- Kills all enemies on the map including dragons.
+peacemode [on/off] -------------------------------------------- Continuously butcher all mobs on the map until stoped.
+day [day] ----------------------------------------------------- Will change the days survived. (Host Only)
+announce [message] -------------------------------------------- Display an anonymous message to the lobby.
+p [player] [message] ------------------------------------------ Private msg another user.
+cmds [on/off] ------------------------------------------------- Enable or disable server commands.
+nadespam [fuse_amount] ([on/off]) ----------------------------- Spawns a grenade with a desired fuse via middle mouse button.
+autodragon [on/off] (clock tick) ------------------------------ Spawns a random dragon type every x miliseconds.
+cannon [on/off] (dragon id) (rapidfire) ----------------------- Shoot desired fireballs from a default pistal.
+picture [on/off] ---------------------------------------------- Attempts to make your avatar invisible.
+freezetime [on/off] [time] ------------------------------------ Sends a desired time change every 5 seconds to the server.
+starwars [on/off] --------------------------------------------- Summon a laser fuck show.
+fullbright [on/off] ------------------------------------------- Toggle full brightness mode.
+fireworks [on/off] [item] [speed] ----------------------------- Spawn a firework array of flying items to the heavens.
+hoard (waves) (player) ---------------------------------------- Summon all monsers at a desired player's location.
+monster [id] [amount] [size] (player) (freeze [time]) (hp) ---- Summon a super sized monster with special properties.
+notarget [on/off] (everyone) ---------------------------------- Make enemies instantly give up when targeting you.
+spawn (player) ------------------------------------------------ Sends a desired player back to spawn.
+xray [on/off] ------------------------------------------------- Allows to xray all blocks. Reveals ore locations under the map.
+relight ------------------------------------------------------- Forces chunk updates around your player. Will relight blocks.
+idragon [on/off] ---------------------------------------------- Host only command that teleports the dragon to your player.
+sizedragon [scale] (frozen) ----------------------------------- Host only dragon size command.
+sky [on/off] -------------------------------------------------- Cause a non-hurtfull recreation of the nosky glitch.
+dropitem [on/off] (multiplier) -------------------------------- Quickly eject your current held item/stack one by one.
+nomonsters (check) [on/off] ----------------------------------- Disables enemy spawning. Makes you not a valid spawn target.
+difficulty [0-noenemies : 1-easy : 2-hard : 3-hardcore] ------- Host only command to change the current games difficulty.
+fastshot [on/off] (shotsperrun) ------------------------------- Fire an unreal amount of bullets at once.
+ipower (check) [outdamage] ------------------------------------ Changes all guns basic usetime.
+godmode [on/off] ---------------------------------------------- Disable or re-enable godmode plus infinite stamina.
+jumps (check) [amount] ---------------------------------------- Change your defualt max jumps.
+forceclose ---------------------------------------------------- Force your client to exit the application.
+antifog [on/off] ---------------------------------------------- Reduces fog levels from longer render settings.
+doorspam [speed] [on/off] ------------------------------------- Spams a door open/closed unhumanly fast.
+hug [on/off] [player] ----------------------------------------- Spam teleports to another players.
+runspeed [speed] ---------------------------------------------- Changes how fast your max sprint speed is.
+winfo --------------------------------------------------------- Displays basic information about the server/world.
+istat [statid] [value] ---------------------------------------- Change your players in game stats. Beta.
+reachitem [on/off] [distance] --------------------------------- Change the pickup range of items.
+gravity (check) [value] --------------------------------------- Changes the players current gravity vortex.
+maxjumps (check) [value] -------------------------------------- Changes the players max jump limit.
+gunspeed (check) [value] -------------------------------------- Changes the players global gunspeed. Effects tools also.
+blackout [on/off] --------------------------------------------- Disable or enable full dark mode.
+yeet [on/off] (fuse) ------------------------------------------ Yeets an grenade of a desired fuse time.
+mute [player] [on/off] ---------------------------------------- Attempts to mute a player as non-host via chat flooding.
+health (check) [health] --------------------------------------- Change your players health. Above 100% is an advanced fullbright.
+rainbow [on/off] (true-randomized) ---------------------------- Changes all weapons laser colors to multicolors.
+enderpearl ---------------------------------------------------- Teleports the player to the block your looking at.
+dropall ------------------------------------------------------- Drops all inventory items.
+entkill ------------------------------------------------------- Kills all items on the ground. Client Only.
+shy (on/off) -------------------------------------------------- Makes your chat have no name.
+xyzsummon [mob] [x] [y] [z] ----------------------------------- Summon a monster at a desired xyz.
+maxplayers (check) [value] ------------------------------------ Changes the max allowed players for the server. WIP.
+eammo [on/off] (everyone) ------------------------------------- Allows for global laser explosive rounds.
+freezelasers [on/off] ----------------------------------------- Disable laser rounds from updating. Client only.
+clear --------------------------------------------------------- Deletes all inventory items.
+hat [on/off] [block] (boots) ---------------------------------- Wear a desired block on your head or feet.
+trialmode [on/off] -------------------------------------------- Enable or disable trial mode.
+craftall [on/off] --------------------------------------------- Disable or enable craftall mode. Added recipes are always free.
+infistack [on/off] -------------------------------------------- Enable or disable infinite item stacks.
+fakedead [on/off] --------------------------------------------- Makes you look dead to other players. AKA laying on ground.
+trail [on/off] [player] --------------------------------------- Creates a trail of torches that follow a players footsteps.
+cc ------------------------------------------------------------ Clears the server chat.
+msgupload ----------------------------------------------------- Loads the server message from a rich detailed text file.
+fastplace [on/off] (speed) (multiplier) ----------------------- Auto place blocks at a desired speed.
+
+~~Attack/Defence~~
+corrupt ------------------------------------------------------- Creates hole at spawn from sky to hell. Restarts level.
+crash --------------------------------------------------------- Crashes the server.
+name [new name] ----------------------------------------------- Change your local displayed gamertag.
+uuid [new UUID] ----------------------------------------------- Change your local players uuid.
+banprotect [on/off] ------------------------------------------- Crash the server when kicked or banned.
+lagg [player] [amount] ---------------------------------------- Spawns a desired amount of blocks at one persons. (20K Server Safe**)
+ddos [player] [on/off] (multiplier) --------------------------- Spams a user packets in an attempt to crash the user.
+pinfo [player] ------------------------------------------------ Generate player info.
+blacklist [on/off/add/remove] --------------------------------- Create a blacklist to autocrash a user when connecting to same server.
+sendcrash [player] -------------------------------------------- Sends the desired player an invalid packet causing them to crash.
+nolasers [on/off] --------------------------------------------- Kills all users minus the host who equip laser weapons.
+antibuild [on/off] -------------------------------------------- Prevent others from building or breaking blocks.
+anticheat [on/off] -------------------------------------------- Searches for other users placing or breaking invalid blocks.
+regionprotect [on/off] [size] --------------------------------- Prevents building or breaking blocks within x radius of the player.
+autokick [on/off] --------------------------------------------- Kicks all new players that joins the session.
+torchsky ------------------------------------------------------ Spawns a 100 radius of torches in the sky to cause large server lagg.
+hardhatzone [on/off] [size] ----------------------------------- Sends all players within a desired range of yourself back to spawn.
+box [on/off] [(all)player] (block) ---------------------------- Traps a player in an unbreakable box.
+limititems (check) [value] ------------------------------------ Bypasses the anti exploit check for the creative item dump.
+flood [player] ------------------------------------------------ Sends 100,000 entities to a player causing them to crash.
+suicide ------------------------------------------------------- Kills yourself. Will auto disable/re-enable godmode.
+vanish -------------------------------------------------------- Teleports your avatar to 0,0,0 and disables updating.
+litecrash [(all)player] (power) ------------------------------- Encases the player of empty tnt fuse effects to cause a crash.
+minecrash [(all)player] (power) ------------------------------- Encases the player of dig block effects to cause a crash.
+zombiecrash [(all)player] (power) ----------------------------- Encases the player of zombie dig block effects to cause a crash.
+nadecrash [(all)player] (power) ------------------------------- Encases the player of grenade models to cause a crash.
+sudo [player] [message] --------------------------------------- Impersonate another user.
+admin [on/off] ------------------------------------------------ Adds the [ADMIN] suffex to your name.
+torchfloor (depth : -63 default) ------------------------------ Spawns a 100 radius of torches in hells floor to cause large server lagg.
+leavespoof [on/off] ------------------------------------------- Spoofs leaving the game when kicked.
+forcespawn [on/off] (player) ---------------------------------- Continuously restarts the game session until stoped.
+burrow [on/off] (player) -------------------------------------- Continuously digs a hole under a player to the hell floor.
+limitents [on/off] -------------------------------------------- Limit the total amount of fired entities from weapons.
+ents [on/off] ------------------------------------------------- Disable weapon projectile entities such as rockets from rendering.
+logger (check) [on/off] --------------------------------------- Logs all incoming net massges from players including all datacalls.
+
+~~PvP~~
+aimbot [on/off] (speed) (visiblepathtracer) ------------------- Middle-mouse will rapidfire lock-on nearest visible player.
+npcaimbot [on/off] (speed) (visiblepathtracer) ---------------- Middle-mouse will rapidfire lock-on nearest visible enemy.
+forcekill [on/off] -------------------------------------------- Aimbot add-on that forcekills targets when PvP is diabled.
+kill [player] ------------------------------------------------- Sends a kill packet to another online user.
+killall (all) [on/off] ---------------------------------------- Kill all valid gamers until stoped.
+banish [player] [on/off] -------------------------------------- Kill desired valid gamer until stoped.
+aura [on/off] (range) ----------------------------------------- Melee a player within a desired range of the player.
+sack [on/off] [player] ---------------------------------------- Continuously sends kill and restart packets to a desired player.
+serverprison [on/off] (includehost) --------------------------- Continuously restarts the game session for all players.
+tracers [on/off] ---------------------------------------------- Draws a line to each player tracing there movements.
+hitboxes [on/off] --------------------------------------------- Show the hitboxes of each player on the world.
+
+~~Items~~
+item [type] [amount] ------------------------------------------ Give yourself a desired item.
+give [player(all)] [item] [amount] ---------------------------- Gives another user a desired amount of a blocks type.
+lootbox [player] [times] -------------------------------------- Spawns and breaks a square of loot boxes over a desired player.
+makeitrain ---------------------------------------------------- Spawns a sky of falling loot over each valid player.
+ammo [amount] ------------------------------------------------- Change the amount of ammo in your current weapons clip.
+istack [amount] ----------------------------------------------- Change your current items stackcount.
+idamage (check) [value] --------------------------------------- Changes your current items health value or checks item stats.
+savep [save/load/list/remove] [player name] ------------------- Save or load your players inventory to file.
+maxstack ------------------------------------------------------ Gives stack size 999 to all items in the players inv.
+
+~~Server-Commands~~ --> _processBroadcastTextMessage
+!summon [id] [amount] ----------------------------------------- Allows another user to summon a monsert.
+!item [id] [amount] ------------------------------------------- Allows another user to give themselfs items.
+!time [time] -------------------------------------------------- Changes World Time. [Morning: 0.40 -------- Midnight: 1.0]
+!butcher ------------------------------------------------------ Butchers all enemies including dragons.
+!help [page] -------------------------------------------------- Display a list of commands.
+!spawn -------------------------------------------------------- Returns the player to spawn.
+!suicide ------------------------------------------------------ Kills the player who ran the command. Host excluded.
+!lootbox [amount] --------------------------------------------- Spawns an desired amount of lootboxes above the player.
+!dragon [id] -------------------------------------------------- Spawns a desired dragon type.
+
+~~Non-Commands~~
+gamertag "#1-#95" --------------------------------------------- Laser rounds replace blocks to desired blocktype.
+gamertag "1911" ----------------------------------------------- Turns laser rounds into explosive rounds.
+gamertag "debug" ---------------------------------------------- GPS item now shows debug coords.
+teleporter item ----------------------------------------------- Teleports player +1000 {x}yz (+100 {x}yz when placed).
+gps item ------------------------------------------------------ Replaces blocks based on gamertag "#1-#95".
+restart button ------------------------------------------------ Spawns 500 explosions on desired player to attempt a crash.
+seed "flatlands" ---------------------------------------------- Generates a world of flatlands.
+
+=================================INCLUDED CHEATS==================================
+- tag spoofer
+- uuid/alt/address spoofer
+- hash spoofer
+- mac spoofer
+- unlimited jumps
+- unlimited stamina
+- endurance mode stamina
+- endurance respawn
+- hardcore respawn
+- unlimited ammo
+- save all gear
+- zero mine time
+- one shot fists
+- all guns auto
+- creative mode
+- instant mine
+- dragon endurance always unlocked
+- unlimited item stacks
+- removed innacuracy
+- save online position
+- no recoil
+- no reload
+- reload gives 999999999 ammo
+- unlimited diribility
+- all guns auto
+- usetime 0 all weapons/tools
+- removed needed ore pickaxe tiers
+- unlimited teleporter
+- fly mode bypass
+- force host
+- teleport menu in endurance
+- teleport menu in pvp
+- anti-ban
+- anti-kick
+- fixed item ids list
+- locator now places blocks based on player name
+- made bloodstone ammo/knives magenta
+- fixed laser weapons no longer shoot blocks by defualt
+- auto steam name spoofer
+- hardcore gets starter items
+- buffed explosives
+- explosives now have infinite kill range
+- increased rpg speed
+- increased player reach to 500.
+- knifes now to insane damage.
+- player-id spoofer
+- mine bedrock/fixedlanterns/bombblock/turretblock/spawners
+- removed the actistic popup menu for the gpsitem
+- removed explosive [effects] by grenades
+- removed explosive [effects] by rockets
+- removed explosive [effects] by explosions
+- fixed invalid explosion crash exploit
+- fixed invalid rocket crash exploit
+- fixed invalid dragon crash exploit
+- fixed invalid monster crash exploit
+- fixed invalid item crash exploit
+- fixed invalid block crash exploit
+- fixed invalid grenade crash exploit
+- fixed chat packet overflow crash exploit
+- fixed invalid create item crash exploit
+- fixed invalid consume item crash exploit
+- fixed invalid carried item crash exploit
+- fixed laser weapon effects causing the game to crash.
+- fixed invalid torch crash exploit
+- fixed invalid item pickup exploit
+- fixed creative menu item dump crash exploit.
+- fixed tnt fuse exploit
+- fixed spawnrandomzombies exploit
+- fixed checkforbossspawns exploit
+- fixed spawnabovegroundenemy exploit
+- fixed _processplayerexistsmessage exploit
+- fixed processnetworkmessages exploit
+- console never vanishes; New msgs fade ocp to 0.25.
+- show more lobby stats.
+- fake leave spoofer.
+- added all items/blocks to cookbook including dev items.
+- removed endurance's no players can join feature.
+- added a find hosts profile button to server list
+- !summon now targets proper player.
+- added block ids next to ingame blocktype.
+- registered invalid block types preventing crash exploits.
+- ability to create worlds using custom seeds
+- guidedrpg can now be freefired when not aiming.
+- added all unincluded blocks to the creative menu.
+- game does not delete endurance worlds.
+- custom world presets. add custom block layers.
+- added a custom crash log capture.
+- added player distance meter next to online names
+- added custom defualt loadout options via text file
+- console text window now works in offline mode
+- mine other players teleport stations.
+- player steam data log for players that connect to you.
+- paste clipboard clip to console via /paste
+- added net message logger
+
+==================================PLANNED CHEATS==================================
+datefucker [on/off] ------------------------------------------- Next generated world will have an invalid date. server-page crasher.
