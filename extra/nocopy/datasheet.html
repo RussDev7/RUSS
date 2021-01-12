@@ -102,7 +102,8 @@
             var userAgent = navigator.userAgent;
             (typeof InstallTrigger !== 'undefined');
             ( /* @cc_on!@*/ false || !!document.documentMode) && (browserName = 'IE');
-  
+            var isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+			
             // Find Browser Name
 	        if (browserName == 'IE') {
 			
@@ -110,7 +111,7 @@
 	            for (;;)
 			    {
 				    document.body.style.backgroundColor = "black";
-                    document.title = "Browser Not Supported!"
+                    document.title = "IE Not Supported!"
                     document.getElementById('TextReader').innerHTML = "IE Not Supported!";
                     document.clear();
                     window.alert("IE Not Supported!");					
@@ -118,17 +119,35 @@
 			
 	        } else {
 		
-                // Populate TextArea
-	            var txtFile = new XMLHttpRequest();
-                var allText = "file not found";
-                txtFile.onreadystatechange = function () {
-                    if (txtFile.readyState === XMLHttpRequest.DONE && txtFile.status == 200) {
-                        allText = txtFile.responseText;
+		        // Check For Mobile
+				if (isMobile == true)
+				{
+				
+				    // Invalid Device Found
+	                for (;;)
+			        {
+				        document.body.style.backgroundColor = "black";
+                        document.title = "Mobile Not Supported!"
+                        document.getElementById('TextReader').innerHTML = "Mobile Not Supported!";
+                        document.clear();
+                        window.alert("Mobile Not Supported");					
                     }
-                    document.getElementById('TextReader').innerHTML = allText;
-                }
-                txtFile.open("GET", 'https://russdev.mooo.com/extra/nocopy/nocopy.txt', true);
-                txtFile.send(null);
+				
+				} else {
+				
+                    // Populate TextArea
+	                var txtFile = new XMLHttpRequest();
+                    var allText = "file not found";
+                    txtFile.onreadystatechange = function () {
+                        if (txtFile.readyState === XMLHttpRequest.DONE && txtFile.status == 200) {
+                            allText = txtFile.responseText;
+                        }
+                        document.getElementById('TextReader').innerHTML = allText;
+                    }
+                    txtFile.open("GET", 'https://russdev.mooo.com/extra/nocopy/nocopy.txt', true);
+                    txtFile.send(null);
+				
+				}
 			
 			}
 		
