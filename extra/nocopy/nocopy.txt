@@ -69,7 +69,7 @@ butcher ------------------------------------------------------- Kills all enemie
 peacemode [on/off] -------------------------------------------- Continuously butcher all mobs on the map until stoped.
 day [day] ----------------------------------------------------- Will change the days survived. (Host Only)
 announce [message] -------------------------------------------- Display an anonymous message to the lobby.
-p [player] [message] ------------------------------------------ Private msg another user.
+p [player] [message] (sendraw[/raw]) -------------------------- Private msg another user.
 cmds [on/off] ------------------------------------------------- Enable or disable server commands.
 nadespam [fuse_amount] ([on/off]) ----------------------------- Spawns a grenade with a desired fuse via middle mouse button.
 autodragon [on/off] (clock tick) ------------------------------ Spawns a random dragon type every x miliseconds.
