@@ -129,6 +129,7 @@ trail [on/off] [player] --------------------------------------- Creates a trail 
 cc ------------------------------------------------------------ Clears the server chat.
 msgupload ----------------------------------------------------- Loads the server message from a rich detailed text file.
 fastplace [on/off] (speed) (multiplier) ----------------------- Auto place blocks at a desired speed.
+blockgrabber [on/off] ----------------------------------------- Turns on or off the block grabbing feature.
 
 ~~Attack/Defence~~
 corrupt ------------------------------------------------------- Creates hole at spawn from sky to hell. Restarts level.
@@ -306,6 +307,7 @@ seed "flatlands" ---------------------------------------------- Generates a worl
 - player steam data log for players that connect to you.
 - paste clipboard clip to console via /paste
 - added net message logger
+- middlemouse now changes the held block to viewed block.
 
 ==================================PLANNED CHEATS==================================
 datefucker [on/off] ------------------------------------------- Next generated world will have an invalid date. server-page crasher.
