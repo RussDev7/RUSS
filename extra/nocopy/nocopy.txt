@@ -44,6 +44,7 @@ dropblock [block type] ---------------------------------------- Spawns a desired
 cnuker [on/off] [radius] (delay) ------------------------------ Nukes a desired area size around the player.
 regionstack [amount] (up/down) -------------------------------- Stacks a desired region to a desired lengh X(Y)Z.
 allbut [ex block(,array)] (block) ----------------------------- Removes all but desired block types.
+cutlayer [depth(me)] [size] (r block(,array)) ----------------- Cuts away a desired layer of the ground.
 
 ~~Generic~~
 showcmds [on/off] --------------------------------------------- Makes all cmds shown to the server.
@@ -129,7 +130,7 @@ trail [on/off] [player] --------------------------------------- Creates a trail 
 cc ------------------------------------------------------------ Clears the server chat.
 msgupload ----------------------------------------------------- Loads the server message from a rich detailed text file.
 fastplace [on/off] (speed) (multiplier) ----------------------- Auto place blocks at a desired speed.
-blockgrabber [on/off] ----------------------------------------- Turns on or off the block grabbing feature.
+bgrab [on/off] ------------------------------------------------ Turns on or off the block grabbing feature.
 
 ~~Attack/Defence~~
 corrupt ------------------------------------------------------- Creates hole at spawn from sky to hell. Restarts level.
