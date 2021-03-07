@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<!-- saved from url=(0014)about:internet -->
+<html>
+    <head>
+	    <style>
+            .all-browsers {
+              margin: 0;
+              padding: 5px;
+              background-color: lightgray;
+            }
+
+            .all-browsers > h1, .browser {
+              margin: 10px;
+              padding: 5px;
+            }
+
+            .browser {
+              background: white;
+            }
+
+            .browser > h2, p {
+              margin: 4px;
+              font-size: 90%;
+            }
+
+            .footer {
+              position: fixed;
+              left: 0;
+              bottom: 0;
+              width: 100%;
+              background-color: red;
+              color: white;
+              text-align: center;
+            }
+        </style>
+    </head>
+    <title>Clash Of Clans Advanced EXP Calculator</title>
+    <link rel="shortcut icon" href="favicon.ico" type="/image/x-icon">
+
+    <body style="background-image: url('images/tile.png');">
+        <center>
+
+            <div class="background"> <!-- The Black Start -->
+                <p>&nbsp;</p>
+                <div id="box">
+                    <b><p id="CalculateEXPText">Experience needed to reach the next level</p></b>
+                    <input type="text" placeholder="Type a number..." type="text" id="CalculateEXP" value=""></input>
+                    <button onclick="CalculateEXP()">Calculate</button>
+			
+			        <p>&nbsp;</p>
+					
+                    <b><p id="CalculateTotalEXPText">Total Experience needed to reach the level</p></b>
+                    <input type="text" placeholder="Type a number..." type="text" id="CalculateTotalEXP" value=""></input>
+                    <button onclick="CalculateTotalEXP()">Calculate</button>
+                </div>
+				
+				<p>&nbsp;</p>
+                <div id="box">
+                    <b><p id="CalculateFromEXPToText">Get experience needed to reach (x) level from (x) level</p></b>
+                    <input type="text" placeholder="Starting level..." type="text" id="CalculateFromEXPTo1" value=""></input>
+					<input type="text" placeholder="To level..." type="text" id="CalculateFromEXPTo2" value=""></input>
+                    <button onclick="CalculateFromEXPTo()">Calculate</button>
+                </div>
+	
+            </div>
+
+        </center>
+    </body>
+
+	<div class="footer">
+        <b>Released: 07Mar21 | Created By: <a href="https://discordapp.com/users/364835156587970580/">D.RUSS#2430</a> | All rights reserved.</b>
+    </div>
+	
+	<script>
+		function CalculateEXP() { // Grab EXP Next
+			var a = document.getElementById("CalculateEXP").value;
+			if (a == 0)
+  			{
+			    document.getElementById("CalculateEXPText").innerHTML = "Experience needed to reach the next level";
+			}
+  			else if (a <= 200)
+  			{
+ 		  	    var math = (a - 1) * 50;
+ 		  	    document.getElementById("CalculateEXPText").innerHTML = "Experience needed to reach from level " + (a - 1) + " to " + a + " is: " + math;
+			}
+  			else if (a >= 201 && a <= 299)
+  			{
+  				var math = (a - 200) * 500 + 9500;
+  				document.getElementById("CalculateEXPText").innerHTML = "Experience needed to reach from level " + (a - 1) + " to " + a + " is: " + math;
+  			}
+  			else if (a >= 300)
+  			{
+  				var math = (a - 300) * 1000 + 60000;
+  				document.getElementById("CalculateEXPText").innerHTML = "Experience needed to reach from level " + (a - 1) + " to " + a + " is: " + math;
+  			}
+			else
+			{
+			    document.getElementById("CalculateEXPText").innerHTML = "Experience needed to reach the next level";
+			}
+        }
+		
+		function CalculateTotalEXP() { // Grab EXP Total
+			var a = document.getElementById("CalculateTotalEXP").value;
+			if (a == 0)
+  			{
+			    document.getElementById("CalculateTotalEXPText").innerHTML = "Total Experience needed to reach the level";
+			}
+  			else if (a <= 201)
+  			{
+ 		  	    var math = (a - 1) * (a - 2) * 25 + 30;
+ 		  	    document.getElementById("CalculateTotalEXPText").innerHTML = "Total Experience needed to reach level " + a + " is: " + math;
+			}
+  			else if (a >= 202 && a <= 299)
+  			{
+  				var math = 250 * (a - 200) ** 2 + 9250 * (a - 200) + 985530;
+  				document.getElementById("CalculateTotalEXPText").innerHTML = "Total Experience needed to reach the level " + a + " is: " + math;
+  			}
+  			else if (a >= 299)
+  			{
+  				var math = 500 * (a - 300) ** 2 + 59500 * (a - 300) + 4410530;
+  				document.getElementById("CalculateTotalEXPText").innerHTML = "Total Experience needed to reach the level " + a + " is: " + math;
+  			}
+			else
+			{
+			    document.getElementById("CalculateTotalEXPText").innerHTML = "Total Experience needed to reach the level";
+			}
+        }
+		
+		function CalculateFromEXPTo() { // Grab EXP Total To Reach (x) Level From (x)
+			var a = document.getElementById("CalculateFromEXPTo1").value;
+			var b = document.getElementById("CalculateFromEXPTo2").value;
+			var matha = 0;
+			var mathb = 0;
+			if (a == 0)
+  			{
+			    matha = 0;
+			}
+  			else if (a <= 201)
+  			{
+ 		  	    matha = (a - 1) * (a - 2) * 25 + 30;
+			}
+  			else if (a >= 202 && a <= 299)
+  			{
+  				matha = 250 * (a - 200) ** 2 + 9250 * (a - 200) + 985530;
+  			}
+  			else if (a >= 299)
+  			{
+  				matha = 500 * (a - 300) ** 2 + 59500 * (a - 300) + 4410530;
+  			}
+			else
+			{
+			  matha = 0;
+			}
+			
+			if (b == 0)
+  			{
+			    mathb = 0;
+			}
+  			else if (b <= 201)
+  			{
+ 		  	    mathb = (b - 1) * (b - 2) * 25 + 30;
+			}
+  			else if (b >= 202 && b <= 299)
+  			{
+  				mathb = 250 * (b - 200) ** 2 + 9250 * (b - 200) + 985530;
+  			}
+  			else if (b >= 299)
+  			{
+  				mathb = 500 * (b - 300) ** 2 + 59500 * (b - 300) + 4410530;
+  			}
+			else
+			{
+			    mathb = 0;
+			}
+			document.getElementById("CalculateFromEXPToText").innerHTML = "The experience needed to reach (" + b + ") level from (" + a + ") level is: " + (mathb - matha);
+        }
+	</script>
+</html>
