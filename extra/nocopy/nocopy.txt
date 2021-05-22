@@ -135,6 +135,7 @@ msgupload ----------------------------------------------------- Loads the server
 fastplace [on/off] (speed) (multiplier) ----------------------- Auto place blocks at a desired speed.
 bgrab [on/off] ------------------------------------------------ Turns on or off the block grabbing feature.
 nomenuname [on/off] ------------------------------------------- Turns on or off the main menu name.
+discord [on/off] (clock tick) --------------------------------- Changes the time to a random value.
 
 ~~Attack/Defence~~
 corrupt ------------------------------------------------------- Creates hole at spawn from sky to hell. Restarts level.
