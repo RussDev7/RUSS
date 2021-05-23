@@ -173,6 +173,7 @@ burrow [on/off] (player) -------------------------------------- Continuously dig
 limitents [on/off] -------------------------------------------- Limit the total amount of fired entities from weapons.
 ents [on/off] ------------------------------------------------- Disable weapon projectile entities such as rockets from rendering.
 logger (check) [on/off] --------------------------------------- Logs all incoming net massges from players including all datacalls.
+hellrain [size] (fuse_amount) --------------------------------- Rains grenades above all valid players.
 
 ~~PvP~~
 aimbot [on/off] (speed) (visiblepathtracer) ------------------- Middle-mouse will rapidfire lock-on nearest visible player.
