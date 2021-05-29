@@ -136,7 +136,7 @@ fastplace [on/off] (speed) (multiplier) ----------------------- Auto place block
 bgrab [on/off] ------------------------------------------------ Turns on or off the block grabbing feature.
 nomenuname [on/off] ------------------------------------------- Turns on or off the main menu name.
 discord [on/off] (clock tick) --------------------------------- Changes the time to a random value.
-gammo [on/off] ------------------------------------------------ Allows for grenade rounds.
+gammo [on/off] (everyone) ------------------------------------- Allows for global grenade rounds.
 
 ~~Attack/Defence~~
 corrupt ------------------------------------------------------- Creates hole at spawn from sky to hell. Restarts level.
@@ -219,6 +219,7 @@ teleporter item ----------------------------------------------- Teleports player
 gps item ------------------------------------------------------ Replaces blocks based on gamertag "#1-#95".
 restart button ------------------------------------------------ Spawns 500 explosions on desired player to attempt a crash.
 seed "flatlands" ---------------------------------------------- Generates a world of flatlands.
+seed "custom" ------------------------------------------------- Generates a world based on a custom preset.
 
 =================================INCLUDED CHEATS==================================
 - tag spoofer
