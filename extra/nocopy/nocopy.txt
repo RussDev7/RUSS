@@ -142,6 +142,7 @@ erange [value(defualt)] --------------------------------------- Changes the expl
 harvest [on/off] ---------------------------------------------- Changes all laser weapons to harvest weapons.
 lrange [on/off] ----------------------------------------------- Changes all laser weapons to have infinite range.
 listplayers --------------------------------------------------- Lists all net players currently in the server.
+autism -------------------------------------------------------- Causes complete random events to happen to your player modle online.
 
 ~~Attack/Defence~~
 corrupt ------------------------------------------------------- Creates hole at spawn from sky to hell. Restarts level.
