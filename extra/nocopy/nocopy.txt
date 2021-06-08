@@ -57,7 +57,7 @@ playertp [player] --------------------------------------------- Teleports you to
 restart ------------------------------------------------------- Attampts to restart the level.
 summon [mob] [amount] ----------------------------------------- Summons a desired monster type.
 dragon [type] [hp] (amount) ----------------------------------- Summons a desired dragon type.
-time [time] --------------------------------------------------- Changes World Time. [Morning: 0.4134239 -------- Midnight: 1.0]
+time [time] --------------------------------------------------- Changes World Time. [Morning: 0.4134239 -- Midnight: 1.0]
 creative [on/off] --------------------------------------------- Turns on/off infinite recourses.
 seed ---------------------------------------------------------- Grabs the world seed number.
 noclip [on/off] ----------------------------------------------- Phase through walls.
@@ -140,6 +140,8 @@ gammo [on/off] (everyone) ------------------------------------- Allows for globa
 blastdeath [on/off] ------------------------------------------- Changes the defualt blast range to infinite.
 erange [value(defualt)] --------------------------------------- Changes the explosion radius.
 harvest [on/off] ---------------------------------------------- Changes all laser weapons to harvest weapons.
+lrange [on/off] ----------------------------------------------- Changes all laser weapons to have infinite range.
+listplayers --------------------------------------------------- Lists all net players currently in the server.
 
 ~~Attack/Defence~~
 corrupt ------------------------------------------------------- Creates hole at spawn from sky to hell. Restarts level.
@@ -206,7 +208,7 @@ maxstack ------------------------------------------------------ Gives stack size
 ~~Server-Commands~~ --> _processBroadcastTextMessage
 !summon [id] [amount] ----------------------------------------- Allows another user to summon a monsert.
 !item [id] [amount] ------------------------------------------- Allows another user to give themselfs items.
-!time [time] -------------------------------------------------- Changes World Time. [Morning: 0.40 -------- Midnight: 1.0]
+!time [time] -------------------------------------------------- Changes World Time. [Morning: 0.40 -- Midnight: 1.0]
 !butcher ------------------------------------------------------ Butchers all enemies including dragons.
 !help [page] -------------------------------------------------- Display a list of commands.
 !spawn -------------------------------------------------------- Returns the player to spawn.
