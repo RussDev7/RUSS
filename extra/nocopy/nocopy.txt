@@ -138,7 +138,7 @@ nomenuname [on/off] ------------------------------------------- Turns on or off 
 discord [on/off] (clock tick) --------------------------------- Changes the time to a random value.
 gammo [on/off] (everyone) ------------------------------------- Allows for global grenade rounds.
 blastdeath [on/off] ------------------------------------------- Changes the defualt blast range to infinite.
-erange [value(defualt)] --------------------------------------- Changes the explosion radius.
+erange [value(defualt)] (laser explosions) -------------------- Changes the explosion radius. Enable/disable explosive laser rounds.
 harvest [on/off] ---------------------------------------------- Changes all laser weapons to harvest weapons.
 lrange [on/off] ----------------------------------------------- Changes all laser weapons to have infinite range.
 listplayers --------------------------------------------------- Lists all net players currently in the server.
@@ -181,6 +181,7 @@ limitents [on/off] -------------------------------------------- Limit the total 
 ents [on/off] ------------------------------------------------- Disable weapon projectile entities such as rockets from rendering.
 logger (check) [on/off] --------------------------------------- Logs all incoming net massges from players including all datacalls.
 hellrain [size] (fuse_amount) --------------------------------- Rains grenades above all valid players.
+doexplosions [on/off] ----------------------------------------- Turns all explosions on/off.
 
 ~~PvP~~
 aimbot [on/off] (speed) (visiblepathtracer) ------------------- Middle-mouse will rapidfire lock-on nearest visible player.
@@ -324,5 +325,6 @@ seed "custom" ------------------------------------------------- Generates a worl
 - paste clipboard clip to console via /paste
 - added net message logger
 - middlemouse now changes the held block to viewed block.
+- fixed steamuuid save folder confict.
 
 ==================================PLANNED CHEATS==================================
