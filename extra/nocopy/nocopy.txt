@@ -48,6 +48,7 @@ cutlayer [depth(me)] [size] (r block(,array)) ----------------- Cuts away a desi
 stairs [r block(,array)] [up/down] [lengh] [height] [width] --- Makes stairs based on the users desired features.
 scan [block] [radius] ----------------------------------------- Scans a desired area for a type of block.
 uspawner [radius] --------------------------------------------- Activates all spawners within an area.
+hbox [r block(,array)] ---------------------------------------- Spawns a hollow box from point1 to point2.
 
 ~~Generic~~
 showcmds [on/off] --------------------------------------------- Makes all cmds shown to the server.
