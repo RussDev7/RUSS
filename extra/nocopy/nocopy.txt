@@ -183,6 +183,7 @@ ents [on/off] ------------------------------------------------- Disable weapon p
 logger (check) [on/off] --------------------------------------- Logs all incoming net massges from players including all datacalls.
 hellrain [size] (fuse_amount) --------------------------------- Rains grenades above all valid players.
 doexplosions [on/off] ----------------------------------------- Turns all explosions on/off.
+troll [on/off] [player] --------------------------------------- Corrupts the world for a specific player.
 
 ~~PvP~~
 aimbot [on/off] (speed) (visiblepathtracer) ------------------- Middle-mouse will rapidfire lock-on nearest visible player.
@@ -190,7 +191,7 @@ npcaimbot [on/off] (speed) (visiblepathtracer) ---------------- Middle-mouse wil
 forcekill [on/off] -------------------------------------------- Aimbot add-on that forcekills targets when PvP is diabled.
 kill [player] ------------------------------------------------- Sends a kill packet to another online user.
 killall (all) [on/off] ---------------------------------------- Kill all valid gamers until stoped.
-banish [player] [on/off] -------------------------------------- Kill desired valid gamer until stoped.
+banish [on/off] [player] -------------------------------------- Kill desired valid gamer until stoped.
 aura [on/off] (range) ----------------------------------------- Melee a player within a desired range of the player.
 sack [on/off] [player] ---------------------------------------- Continuously sends kill and restart packets to a desired player.
 serverprison [on/off] (includehost) --------------------------- Continuously restarts the game session for all players.
