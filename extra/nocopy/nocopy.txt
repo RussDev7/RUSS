@@ -184,6 +184,7 @@ logger (check) [on/off] --------------------------------------- Logs all incomin
 hellrain [size] (fuse_amount) --------------------------------- Rains grenades above all valid players.
 doexplosions [on/off] ----------------------------------------- Turns all explosions on/off.
 troll [on/off] [player] --------------------------------------- Corrupts the world for a specific player.
+statupdate [on/off] ------------------------------------------- Enables or disables public player stat announcements.
 
 ~~PvP~~
 aimbot [on/off] (speed) (visiblepathtracer) ------------------- Middle-mouse will rapidfire lock-on nearest visible player.
