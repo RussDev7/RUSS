@@ -49,6 +49,7 @@ stairs [r block(,array)] [up/down] [lengh] [height] [width] --- Makes stairs bas
 scan [block] [radius] ----------------------------------------- Scans a desired area for a type of block.
 uspawner [radius] --------------------------------------------- Activates all spawners within an area.
 hbox [r block(,array)] ---------------------------------------- Spawns a hollow box from point1 to point2.
+tomnook [radius] [block(,array)] ------------------------------ Spawns a sky of swastyka's using a desired block type.
 
 ~~Generic~~
 showcmds [on/off] --------------------------------------------- Makes all cmds shown to the server.
