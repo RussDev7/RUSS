@@ -277,8 +277,8 @@ seed "custom" ------------------------------------------------- Generates a worl
 - buffed explosives
 - explosives now have infinite kill range
 - increased rpg speed
-- increased player reach to 500.
-- knifes now to insane damage.
+- increased player reach to 500
+- knifes now to insane damage
 - player-id spoofer
 - mine bedrock/fixedlanterns/bombblock/turretblock/spawners
 - removed the actistic popup menu for the gpsitem
@@ -296,7 +296,7 @@ seed "custom" ------------------------------------------------- Generates a worl
 - fixed invalid create item crash exploit
 - fixed invalid consume item crash exploit
 - fixed invalid carried item crash exploit
-- fixed laser weapon effects causing the game to crash.
+- fixed laser weapon effects causing the game to crash
 - fixed invalid torch crash exploit
 - fixed invalid item pickup exploit
 - fixed creative menu item dump crash exploit
@@ -307,7 +307,7 @@ seed "custom" ------------------------------------------------- Generates a worl
 - fixed _processplayerexistsmessage exploit
 - fixed processnetworkmessages exploit
 - fixed sendnetworkupdates exploit
-- fixed spritebatch call end before begon crash exploit
+- fixed spritebatch call-end before begin crash exploit
 - console never vanishes; New msgs fade ocp to 0.25
 - show more lobby stats
 - fake leave spoofer
