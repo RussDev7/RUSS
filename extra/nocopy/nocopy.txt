@@ -332,5 +332,6 @@ seed "custom" ------------------------------------------------- Generates a worl
 - added net message logger
 - middlemouse now changes the held block to viewed block
 - fixed steamuuid save folder confict
+- #NoNumber top of wordlist disables end-of-name numbers
 
 ==================================PLANNED CHEATS==================================
