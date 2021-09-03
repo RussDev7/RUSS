@@ -186,6 +186,7 @@ hellrain [size] (fuse_amount) --------------------------------- Rains grenades a
 doexplosions [on/off] ----------------------------------------- Turns all explosions on/off.
 troll [on/off] [player] --------------------------------------- Corrupts the world for a specific player.
 statupdate [on/off] ------------------------------------------- Enables or disables public player stat announcements.
+exploitlogger (check) [on/off] -------------------------------- Enables or disables the announcements of triggered exploits.
 
 ~~PvP~~
 aimbot [on/off] (speed) (visiblepathtracer) ------------------- Middle-mouse will rapidfire lock-on nearest visible player.
@@ -298,7 +299,7 @@ seed "custom" ------------------------------------------------- Generates a worl
 - fixed laser weapon effects causing the game to crash.
 - fixed invalid torch crash exploit
 - fixed invalid item pickup exploit
-- fixed creative menu item dump crash exploit.
+- fixed creative menu item dump crash exploit
 - fixed tnt fuse exploit
 - fixed spawnrandomzombies exploit
 - fixed checkforbossspawns exploit
@@ -306,29 +307,30 @@ seed "custom" ------------------------------------------------- Generates a worl
 - fixed _processplayerexistsmessage exploit
 - fixed processnetworkmessages exploit
 - fixed sendnetworkupdates exploit
-- console never vanishes; New msgs fade ocp to 0.25.
-- show more lobby stats.
-- fake leave spoofer.
-- added all items/blocks to cookbook including dev items.
-- removed endurance's no players can join feature.
+- fixed spritebatch call end before begon crash exploit
+- console never vanishes; New msgs fade ocp to 0.25
+- show more lobby stats
+- fake leave spoofer
+- added all items/blocks to cookbook including dev items
+- removed endurance's no players can join feature
 - added a find hosts profile button to server list
-- !summon now targets proper player.
-- added block ids next to ingame blocktype.
-- registered invalid block types preventing crash exploits.
+- !summon now targets proper player
+- added block ids next to ingame blocktype
+- registered invalid block types preventing crash exploits
 - ability to create worlds using custom seeds
-- guidedrpg can now be freefired when not aiming.
-- added all unincluded blocks to the creative menu.
-- game does not delete endurance worlds.
-- custom world presets. add custom block layers.
-- added a custom crash log capture.
+- guidedrpg can now be freefired when not aiming
+- added all unincluded blocks to the creative menu
+- game does not delete endurance worlds
+- custom world presets; add custom block layers
+- added a custom crash log capture
 - added player distance meter next to online names
 - added custom defualt loadout options via text file
 - console text window now works in offline mode
-- mine other players teleport stations.
-- player steam data log for players that connect to you.
+- mine other players teleport stations
+- player steam data log for players that connect to you
 - paste clipboard clip to console via /paste
 - added net message logger
-- middlemouse now changes the held block to viewed block.
-- fixed steamuuid save folder confict.
+- middlemouse now changes the held block to viewed block
+- fixed steamuuid save folder confict
 
 ==================================PLANNED CHEATS==================================
