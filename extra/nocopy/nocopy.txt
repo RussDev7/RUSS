@@ -145,6 +145,7 @@ harvest [on/off] ---------------------------------------------- Changes all lase
 lrange [on/off] ----------------------------------------------- Changes all laser weapons to have infinite range.
 listplayers --------------------------------------------------- Lists all net players currently in the server.
 autism -------------------------------------------------------- Causes complete random events to happen to your player modle online.
+unlockall ----------------------------------------------------- Unlocks all achievements.
 
 ~~Attack/Defence~~
 corrupt ------------------------------------------------------- Creates hole at spawn from sky to hell. Restarts level.
@@ -187,6 +188,8 @@ doexplosions [on/off] ----------------------------------------- Turns all explos
 troll [on/off] [player] --------------------------------------- Corrupts the world for a specific player.
 statupdate [on/off] ------------------------------------------- Enables or disables public player stat announcements.
 exploitlogger (check) [on/off] -------------------------------- Enables or disables the announcements of triggered exploits.
+repair -------------------------------------------------------- Repairs corrupted worlds.
+anticorrupt [on/off] ------------------------------------------ Prevents world corruption when activated.
 
 ~~PvP~~
 aimbot [on/off] (speed) (visiblepathtracer) ------------------- Middle-mouse will rapidfire lock-on nearest visible player.
