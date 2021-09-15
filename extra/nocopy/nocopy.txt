@@ -50,6 +50,7 @@ scan [block] [radius] ----------------------------------------- Scans a desired 
 uspawner [radius] --------------------------------------------- Activates all spawners within an area.
 hbox [r block(,array)] ---------------------------------------- Spawns a hollow box from point1 to point2.
 tomnook [radius] [block(,array)] ------------------------------ Spawns a sky of swastyka's using a desired block type.
+brushsnow [on/off] [size] [block] (stack) --------------------- Snows a desired block within a desired range.
 
 ~~Generic~~
 showcmds [on/off] --------------------------------------------- Makes all cmds shown to the server.
@@ -117,7 +118,7 @@ yeet [on/off] (fuse) (autothrow) ------------------------------ Yeets an grenade
 mute [player] [on/off] ---------------------------------------- Attempts to mute a player as non-host via chat flooding.
 health (check) [health] --------------------------------------- Change your players health. Above 100% is an advanced fullbright.
 rainbow [on/off] (true-randomized) ---------------------------- Changes all weapons laser colors to multicolors.
-enderpearl ---------------------------------------------------- Teleports the player to the block your looking at.
+enderpearl ---------------------------------------------------- Teleports the player to the block your looking at using middlemouse.
 dropall ------------------------------------------------------- Drops all inventory items.
 entkill ------------------------------------------------------- Kills all items on the ground. Client Only.
 shy (on/off) -------------------------------------------------- Makes your chat have no name.
@@ -144,7 +145,7 @@ erange [value(defualt)] (laser explosions) -------------------- Changes the expl
 harvest [on/off] ---------------------------------------------- Changes all laser weapons to harvest weapons.
 lrange [on/off] ----------------------------------------------- Changes all laser weapons to have infinite range.
 listplayers --------------------------------------------------- Lists all net players currently in the server.
-autism -------------------------------------------------------- Causes complete random events to happen to your player modle online.
+autism [on/off] ----------------------------------------------- Causes complete random events to happen to your player modle online.
 unlockall ----------------------------------------------------- Unlocks all achievements.
 
 ~~Attack/Defence~~
@@ -319,6 +320,7 @@ seed "custom" ------------------------------------------------- Generates a worl
 - added a find hosts profile button to server list
 - !summon now targets proper player
 - added block ids next to ingame blocktype
+- added weapon ids next to ingame weaponname
 - registered invalid block types preventing crash exploits
 - ability to create worlds using custom seeds
 - guidedrpg can now be freefired when not aiming
