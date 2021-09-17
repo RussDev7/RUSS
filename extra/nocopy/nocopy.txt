@@ -147,6 +147,7 @@ lrange [on/off] ----------------------------------------------- Changes all lase
 listplayers --------------------------------------------------- Lists all net players currently in the server.
 autism [on/off] ----------------------------------------------- Causes complete random events to happen to your player modle online.
 unlockall ----------------------------------------------------- Unlocks all achievements.
+shower [on/off] [player(all)] [item] -------------------------- Showers a desired item over a selected player.
 
 ~~Attack/Defence~~
 corrupt ------------------------------------------------------- Creates hole at spawn from sky to hell. Restarts level.
@@ -340,3 +341,5 @@ seed "custom" ------------------------------------------------- Generates a worl
 - #NoNumber top of wordlist disables end-of-name numbers
 
 ==================================PLANNED CHEATS==================================
+chunk reverse mod
+shower - rain items
