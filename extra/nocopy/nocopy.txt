@@ -51,6 +51,7 @@ uspawner [radius] --------------------------------------------- Activates all sp
 hbox [r block(,array)] ---------------------------------------- Spawns a hollow box from point1 to point2.
 tomnook [radius] [block(,array)] ------------------------------ Spawns a sky of swastyka's using a desired block type.
 brushsnow [on/off] [size] [block] (stack) --------------------- Snows a desired block within a desired range.
+chunkgrid [radius] -------------------------------------------- Outlines the chunks within a desired x amount range.
 
 ~~Generic~~
 showcmds [on/off] --------------------------------------------- Makes all cmds shown to the server.
@@ -148,6 +149,8 @@ listplayers --------------------------------------------------- Lists all net pl
 autism [on/off] ----------------------------------------------- Causes complete random events to happen to your player modle online.
 unlockall ----------------------------------------------------- Unlocks all achievements.
 shower [on/off] [player(all)] (item) (speed) ------------------ Showers a desired item over a selected player.
+getchunk ------------------------------------------------------ Displays current chunk info.
+song [track(all/stop)] ---------------------------------------- Force-plays a desired game music track.
 
 ~~Attack/Defence~~
 corrupt ------------------------------------------------------- Creates hole at spawn from sky to hell. Restarts level.
@@ -342,4 +345,3 @@ seed "custom" ------------------------------------------------- Generates a worl
 
 ==================================PLANNED CHEATS==================================
 chunk reverse mod
-get personal teleports working
