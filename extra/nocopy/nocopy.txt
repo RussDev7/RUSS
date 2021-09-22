@@ -195,6 +195,7 @@ statupdate [on/off] ------------------------------------------- Enables or disab
 exploitlogger (check) [on/off] -------------------------------- Enables or disables the announcements of triggered exploits.
 repair -------------------------------------------------------- Repairs corrupted worlds.
 anticorrupt [on/off] ------------------------------------------ Prevents world corruption when activated.
+joincrasher [on/off] ------------------------------------------ Sends a null packet when loading into the word.
 
 ~~PvP~~
 aimbot [on/off] (speed) (visiblepathtracer) ------------------- Middle-mouse will rapidfire lock-on nearest visible player.
