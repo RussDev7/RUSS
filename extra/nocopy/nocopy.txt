@@ -151,6 +151,7 @@ unlockall ----------------------------------------------------- Unlocks all achi
 shower [on/off] [player(all)] (item) (speed) ------------------ Showers a desired item over a selected player.
 getchunk ------------------------------------------------------ Displays current chunk info.
 song [track(all/stop)] ---------------------------------------- Force-plays a desired game music track.
+rammo [on/off] (everyone) ------------------------------------- Allows for global rocket rounds.
 
 ~~Attack/Defence~~
 corrupt ------------------------------------------------------- Creates hole at spawn from sky to hell. Restarts level.
