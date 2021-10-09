@@ -61,6 +61,15 @@
 					<input type="text" placeholder="To level..." type="text" id="CalculateFromEXPTo2" value=""></input>
                     <button onclick="CalculateFromEXPTo()">Calculate</button>
                 </div>
+				
+				<p>&nbsp;</p>
+                <div id="box">
+                    <b><p id="CalculateBuildingEXPText">Get building experience from upgrade time</p></b>
+                    <input type="text" placeholder="Days..." type="text" id="CalculateBuildingEXP1" value=""></input>
+					<input type="text" placeholder="Hours..." type="text" id="CalculateBuildingEXP2" value=""></input>
+					<input type="text" placeholder="Minuites..." type="text" id="CalculateBuildingEXP3" value=""></input>
+                    <button onclick="CalculateBuildingEXP()">Calculate</button>
+                </div>
 	
             </div>
 
@@ -151,7 +160,6 @@
 			{
 			  matha = 0;
 			}
-			
 			if (b == 0)
   			{
 			    mathb = 0;
@@ -173,6 +181,15 @@
 			    mathb = 0;
 			}
 			document.getElementById("CalculateFromEXPToText").innerHTML = "The experience needed to reach (" + b + ") level from (" + a + ") level is: " + (mathb - matha);
+        }
+		
+		function CalculateBuildingEXP() { // Grab building experience from upgrade time
+			var a = document.getElementById("CalculateBuildingEXP1").value;
+			var b = document.getElementById("CalculateBuildingEXP2").value;
+			var c = document.getElementById("CalculateBuildingEXP3").value;
+			var d = (a * 86400) + (b * 3600) + (c * 60);
+			var e = Math.floor(Math.sqrt(d));
+			document.getElementById("CalculateBuildingEXPText").innerHTML = "The building experience from (" + d.toString() + "s) is: " + e;
         }
 	</script>
 </html>
