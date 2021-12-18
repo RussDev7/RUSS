@@ -154,6 +154,7 @@ song [track(all/stop)] ---------------------------------------- Force-plays a de
 rammo [on/off] (everyone) ------------------------------------- Allows for global rocket rounds.
 hands [on/off] [player(all)] (speed) -------------------------- Fills a players inventory with nothing but bare hands.
 bow [on/off] -------------------------------------------------- Allows for arrow rounds.
+rspeed [value(defualt)] --------------------------------------- Changes the speed of rockets.
 
 ~~Attack/Defence~~
 corrupt ------------------------------------------------------- Creates hole at spawn from sky to hell. Restarts level.
