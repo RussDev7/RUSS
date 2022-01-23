@@ -20,7 +20,7 @@ hitler -------------------------------------------------------- Draws a swastyka
 tree (max_height) --------------------------------------------- Spawns an on surface level tree at players location.
 forest [area_size] [density] (max_height) --------------------- Spawn a forest area at players location with parameters. [180 Max Area]
 paint [on/off] [block] (brush size) (replace mode) ------------ Draws using the desired block and region size.
-spell [word] (!linebreak) (,block) ---------------------------- Draws the desired text out of blocks relitive to the players location.
+spell [word] (/paste) (!linebreak) (,block) ------------------- Draws the desired text out of blocks relitive to the players location.
 snow [radius] [block(,array)] --------------------------------- Places a desired block type on the upper most layer of blocks.
 dig [radius] -------------------------------------------------- Replaces all blocks above the players feet to air.
 stack [block type(all)] [amount] ------------------------------ Stacks a desired blocktype to a desired lengh XZ.
@@ -351,3 +351,4 @@ seed "custom" ------------------------------------------------- Generates a worl
 ==================================PLANNED CHEATS==================================
 chunk reverse mod
 hell roof in sky command
+/joinshells ---- run a list of shells when joining a server
