@@ -52,6 +52,7 @@ hbox [r block(,array)] ---------------------------------------- Spawns a hollow 
 tomnook [radius] [block(,array)] ------------------------------ Spawns a sky of swastyka's using a desired block type.
 brushsnow [on/off] [size] [block] (stack) --------------------- Snows a desired block within a desired range.
 chunkgrid [radius] -------------------------------------------- Outlines the chunks within a desired x amount range.
+temple [height] [block(,array)] ------------------------------- Generate a pyramid based on a desired height and block type.
 
 ~~Generic~~
 showcmds [on/off] --------------------------------------------- Makes all cmds shown to the server.
