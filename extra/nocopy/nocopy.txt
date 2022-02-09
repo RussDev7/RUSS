@@ -201,6 +201,7 @@ exploitlogger (check) [on/off] -------------------------------- Enables or disab
 repair -------------------------------------------------------- Repairs corrupted worlds.
 anticorrupt [on/off] ------------------------------------------ Prevents world corruption when activated.
 joincrasher [on/off] ------------------------------------------ Sends a null packet when loading into the word.
+beaconwipe ---------------------------------------------------- Searches for a beacon within 300 blocks and generates a hole attack.
 
 ~~PvP~~
 aimbot [on/off] (speed) (visiblepathtracer) ------------------- Middle-mouse will rapidfire lock-on nearest visible player.
