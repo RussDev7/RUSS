@@ -39,7 +39,7 @@ hole ---------------------------------------------------------- Digs a hole from
 fill [source] [block] ----------------------------------------- Fills the inside of a region within desired blocks per row.
 lite ---------------------------------------------------------- Spawns an empty tnt fuse effect under the player.
 loot (loot all blocks true/false) ----------------------------- Breaks and loots all lucky loot blocks within a desired area.
-sphere [radius] [height] [hallow] [r block(,array)] (sphere) -- Create a 3d sphere out of a desired block.
+sphere [radius] [height] [hollow] [r block(,array)] (sphere) -- Create a 3d sphere out of a desired block.
 dropblock [block type] ---------------------------------------- Spawns a desired type of item in the selected region blocks.
 cnuker [on/off] [radius] (delay) ------------------------------ Nukes a desired area size around the player.
 regionstack [amount] (up/down) -------------------------------- Stacks a desired region to a desired lengh X(Y)Z.
@@ -52,7 +52,7 @@ hbox [r block(,array)] ---------------------------------------- Spawns a hollow 
 tomnook [radius] [block(,array)] ------------------------------ Spawns a sky of swastyka's using a desired block type.
 brushsnow [on/off] [size] [block] (stack) --------------------- Snows a desired block within a desired range.
 chunkgrid [radius] -------------------------------------------- Outlines the chunks within a desired x amount range.
-temple [height] [block(,array)] ------------------------------- Generate a pyramid based on a desired height and block type.
+temple [height] [block(,array)] (hollow) ---------------------- Generate a pyramid based on a desired height and block type.
 
 ~~Generic~~
 showcmds [on/off] --------------------------------------------- Makes all cmds shown to the server.
