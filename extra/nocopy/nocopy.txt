@@ -53,6 +53,7 @@ tomnook [radius] [block(,array)] ------------------------------ Spawns a sky of 
 brushsnow [on/off] [size] [block] (stack) --------------------- Snows a desired block within a desired range.
 chunkgrid [radius] -------------------------------------------- Outlines the chunks within a desired x amount range.
 temple [height] [block(,array)] (hollow) ---------------------- Generate a pyramid based on a desired height and block type.
+regionsnow [block(,array)] ------------------------------------ Places desired blocks on the upper most layer within a region.
 
 ~~Generic~~
 showcmds [on/off] --------------------------------------------- Makes all cmds shown to the server.
@@ -202,6 +203,7 @@ repair -------------------------------------------------------- Repairs corrupte
 anticorrupt [on/off] ------------------------------------------ Prevents world corruption when activated.
 joincrasher [on/off] ------------------------------------------ Sends a null packet when loading into the word.
 beaconwipe ---------------------------------------------------- Searches for a beacon within 300 blocks and generates a hole attack.
+hostammo [on/off] --------------------------------------------- Turns your ammo into host socketed ammo.
 
 ~~PvP~~
 aimbot [on/off] (speed) (visiblepathtracer) ------------------- Middle-mouse will rapidfire lock-on nearest visible player.
