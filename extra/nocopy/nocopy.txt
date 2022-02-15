@@ -54,6 +54,8 @@ brushsnow [on/off] [size] [block] (stack) --------------------- Snows a desired 
 chunkgrid [radius] -------------------------------------------- Outlines the chunks within a desired x amount range.
 temple [height] [block(,array)] (hollow) ---------------------- Generate a pyramid based on a desired height and block type.
 regionsnow [block(,array)] ------------------------------------ Places desired blocks on the upper most layer within a region.
+camerasky ----------------------------------------------------- Spawns a single block of glass at the top of the map and tp's you.
+down [amount] ------------------------------------------------- Places a block at a desired height and teleports the player.
 
 ~~Generic~~
 showcmds [on/off] --------------------------------------------- Makes all cmds shown to the server.
