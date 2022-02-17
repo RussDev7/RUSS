@@ -206,6 +206,7 @@ anticorrupt [on/off] ------------------------------------------ Prevents world c
 joincrasher [on/off] ------------------------------------------ Sends a null packet when loading into the word.
 beaconwipe ---------------------------------------------------- Searches for a beacon within 300 blocks and generates a hole attack.
 hostammo [on/off] --------------------------------------------- Turns your ammo into host socketed ammo.
+playerposition [on/off] --------------------------------------- Enable or disable the positional updates of your player.
 
 ~~PvP~~
 aimbot [on/off] (speed) (visiblepathtracer) ------------------- Middle-mouse will rapidfire lock-on nearest visible player.
