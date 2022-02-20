@@ -220,6 +220,7 @@ sack [on/off] [player] ---------------------------------------- Continuously sen
 serverprison [on/off] (includehost) --------------------------- Continuously restarts the game session for all players.
 tracers [on/off] ---------------------------------------------- Draws a line to each player tracing there movements.
 hitboxes [on/off] --------------------------------------------- Show the hitboxes of each player on the world.
+thorns [on/off] (instakill) ----------------------------------- Damage from other players reflects back. PvP only.
 
 ~~Items~~
 item [type] [amount] ------------------------------------------ Give yourself a desired item.
