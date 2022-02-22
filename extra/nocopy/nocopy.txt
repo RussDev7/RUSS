@@ -159,6 +159,9 @@ rammo [on/off] (everyone) ------------------------------------- Allows for globa
 hands [on/off] [player(all)] (speed) -------------------------- Fills a players inventory with nothing but bare hands.
 bow [on/off] -------------------------------------------------- Allows for arrow rounds.
 rspeed [value(defualt)] --------------------------------------- Changes the speed of rockets.
+lava [on/off] ------------------------------------------------- Turns off the effects & damages from lava.
+entityscale [value(default)] ---------------------------------- Changes the defualt entity size.
+orebomb [on/off] ---------------------------------------------- Mined ores explode.
 
 ~~Attack/Defence~~
 corrupt ------------------------------------------------------- Creates hole at spawn from sky to hell. Restarts level.
