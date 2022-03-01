@@ -197,7 +197,7 @@ leavespoof [on/off] ------------------------------------------- Spoofs leaving t
 forcespawn [on/off] (player) ---------------------------------- Continuously restarts the game session until stoped.
 burrow [on/off] (player) -------------------------------------- Continuously digs a hole under a player to the hell floor.
 limitents [on/off] -------------------------------------------- Limit the total amount of fired entities from weapons.
-ents [on/off] ------------------------------------------------- Disable weapon projectile entities such as rockets from rendering.
+ents [on/off] ------------------------------------------------- Disable projectile entities such as rockets & torches from rendering.
 logger (check) [on/off] --------------------------------------- Logs all incoming net massges from players including all datacalls.
 hellrain [size] (fuse_amount) --------------------------------- Rains grenades above all valid players.
 doexplosions [on/off] ----------------------------------------- Turns all explosions on/off.
@@ -207,7 +207,7 @@ exploitlogger (check) [on/off] -------------------------------- Enables or disab
 repair -------------------------------------------------------- Repairs corrupted worlds.
 anticorrupt [on/off] ------------------------------------------ Prevents world corruption when activated.
 joincrasher [on/off] ------------------------------------------ Sends a null packet when loading into the word.
-beaconwipe ---------------------------------------------------- Searches for a beacon within 300 blocks and generates a hole attack.
+beaconwipe (corrupt) ------------------------------------------ Searches for a beacon within 300 blocks and generates a hole attack.
 hostammo [on/off] --------------------------------------------- Turns your ammo into host socketed ammo.
 playerposition [on/off] --------------------------------------- Enable or disable the positional updates of your player.
 
@@ -358,6 +358,7 @@ seed "custom" ------------------------------------------------- Generates a worl
 - middlemouse now changes the held block to viewed block
 - fixed steamuuid save folder confict
 - #NoNumber top of wordlist disables end-of-name numbers
+- infinite spawner range
 
 ==================================PLANNED CHEATS==================================
 chunk reverse mod
