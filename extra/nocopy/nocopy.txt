@@ -162,6 +162,7 @@ rspeed [value(defualt)] --------------------------------------- Changes the spee
 lava [on/off] ------------------------------------------------- Turns off the effects & damages from lava.
 entityscale [value(default)] ---------------------------------- Changes the defualt entity size.
 orebomb [on/off] ---------------------------------------------- Mined ores explode.
+resetspawner [on/off] ----------------------------------------- Disable the reset trigger of spawners.
 
 ~~Attack/Defence~~
 corrupt ------------------------------------------------------- Creates hole at spawn from sky to hell. Restarts level.
