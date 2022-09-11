@@ -56,6 +56,7 @@ temple [height] [block(,array)] (hollow) ---------------------- Generate a pyram
 regionsnow [block(,array)] ------------------------------------ Places desired blocks on the upper most layer within a region.
 camerasky ----------------------------------------------------- Spawns a single block of glass at the top of the map and tp's you.
 down [amount] ------------------------------------------------- Places a block at a desired height and teleports the player.
+matrix [schem] [radius] [spacing] (defualt(,array)) ----------- Spawns a schematic spaced out at an desired range.
 
 ~~Generic~~
 showcmds [on/off] --------------------------------------------- Makes all cmds shown to the server.
@@ -132,7 +133,7 @@ maxplayers (check) [value] ------------------------------------ Changes the max 
 eammo [on/off] (everyone) ------------------------------------- Allows for global laser explosive rounds.
 freezelasers [on/off] ----------------------------------------- Disable laser rounds from updating. Client only.
 clear --------------------------------------------------------- Deletes all inventory items.
-hat [on/off] [block] (boots) ---------------------------------- Wear a desired block on your head or feet.
+hat [on/off] [block] (boots) (loot) --------------------------- Wear a desired block on your head or feet.
 trialmode [on/off] -------------------------------------------- Enable or disable trial mode.
 craftall [on/off] --------------------------------------------- Disable or enable craftall mode. Added recipes are always free.
 infistack [on/off] -------------------------------------------- Enable or disable infinite item stacks.
@@ -211,7 +212,7 @@ joincrasher [on/off] ------------------------------------------ Sends a null pac
 beaconwipe (corrupt) ------------------------------------------ Searches for a beacon within 300 blocks and generates a hole attack.
 hostammo [on/off] --------------------------------------------- Turns your ammo into host socketed ammo.
 playerposition [on/off] --------------------------------------- Enable or disable the positional updates of your player.
-shootblock [on/off] [block] (everyone) ------------------------ Bullet trails turn into blocks.
+shootblock [on/off] [block(random)] (everyone) ---------------- Bullet trails turn into blocks.
 detonate [range] (fuse) --------------------------------------- Lights all eplosives within a desired range.
 
 ~~PvP~~
