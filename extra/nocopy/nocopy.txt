@@ -56,7 +56,7 @@ temple [height] [block(,array)] (hollow) ---------------------- Generate a pyram
 regionsnow [block(,array)] ------------------------------------ Places desired blocks on the upper most layer within a region.
 camerasky ----------------------------------------------------- Spawns a single block of glass at the top of the map and tp's you.
 down [amount] ------------------------------------------------- Places a block at a desired height and teleports the player.
-matrix [schem] [radius] [spacing] (defualt(,array)) ----------- Spawns a schematic spaced out at an desired range.
+matrix [schem] [radius] [spacing] (snow) (defualt(,array)) ---- Spawns a schematic spaced out at an desired range.
 
 ~~Generic~~
 showcmds [on/off] --------------------------------------------- Makes all cmds shown to the server.
@@ -64,7 +64,7 @@ help [page] --------------------------------------------------- Display all avai
 tp [x] [y] [z] ------------------------------------------------ Teleports the player.
 playertp [player] --------------------------------------------- Teleports you to another player.
 restart ------------------------------------------------------- Attampts to restart the level.
-summon [mob] [amount] ----------------------------------------- Summons a desired monster type.
+summon [mob] [amount] (target) -------------------------------- Summons a desired monster type.
 dragon [type] [hp] (amount) ----------------------------------- Summons a desired dragon type.
 time [time] --------------------------------------------------- Changes World Time. [Morning: 0.4134239 -- Midnight: 1.0]
 creative [on/off] --------------------------------------------- Turns on/off infinite recourses.
