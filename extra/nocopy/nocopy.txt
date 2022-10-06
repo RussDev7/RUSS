@@ -215,6 +215,7 @@ hostammo [on/off] --------------------------------------------- Turns your ammo 
 playerposition [on/off] --------------------------------------- Enable or disable the positional updates of your player.
 shootblock [on/off] [block(random)] (everyone) ---------------- Bullet trails turn into blocks.
 detonate [range] (fuse) --------------------------------------- Lights all eplosives within a desired range.
+host [newhost(check)] ----------------------------------------- Changes the host to a desired player.
 
 ~~PvP~~
 aimbot [on/off] (speed) (visiblepathtracer) ------------------- Middle-mouse will rapidfire lock-on nearest visible player.
@@ -369,4 +370,3 @@ seed "custom" ------------------------------------------------- Generates a worl
 chunk reverse mod
 hell roof in sky command
 /joinshells ---- run a list of shells when joining a server
-host
