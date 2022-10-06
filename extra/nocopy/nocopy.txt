@@ -164,6 +164,7 @@ lava [on/off] ------------------------------------------------- Turns off the ef
 entityscale [value(default)] ---------------------------------- Changes the defualt entity size.
 orebomb [on/off] ---------------------------------------------- Mined ores explode.
 resetspawner [on/off] ----------------------------------------- Disable the reset trigger of spawners.
+dragoncount [on/off] ------------------------------------------ Display the worlds current defeated dragon count.
 
 ~~Attack/Defence~~
 corrupt ------------------------------------------------------- Creates hole at spawn from sky to hell. Restarts level.
@@ -368,3 +369,4 @@ seed "custom" ------------------------------------------------- Generates a worl
 chunk reverse mod
 hell roof in sky command
 /joinshells ---- run a list of shells when joining a server
+host
