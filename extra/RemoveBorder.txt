@@ -1,0 +1,11 @@
+.NET hide titlebar but keep border
+.NET keep titlebar but remove border
+
+1) https://stackoverflow.com/a/28390575
+2) https://stackoverflow.com/a/9400099
+3) https://stackoverflow.com/a/2575452
+4) https://stackoverflow.com/a/6019753 - Add "x" button anywhere.
+5) https://stackoverflow.com/a/3409864 - Move form on control drag.
+6) https://stackoverflow.com/a/73638624 - form border color.
+7) https://stackoverflow.com/questions/32112729/c-sharp-winforms-form-border-thickness - maybe border size?
+8) https://github.com/adierebel/Dropshadow-Borderless-WinForm/blob/master/C%23/FormShadow.cs
