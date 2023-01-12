@@ -1,5 +1,5 @@
 .NET hide titlebar but keep border
 .NET keep titlebar but remove border
 
-1) https://stackoverflow.com/a/38868580
-2) https://stackoverflow.com/a/1592899
+1) https://stackoverflow.com/a/38868580                                                        - Add title to borderless.
+2) https://stackoverflow.com/questions/1592876/make-a-borderless-form-movable/1592899#15928999 - Dragable borderless.
