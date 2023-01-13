@@ -80,6 +80,8 @@ public class Program
 2D CIRCLE VBA EXCEL
 ==========================================================================================================================
 Sub EnterValue()
+    Cells.Clear
+
     Dim r As Integer
     r = 6
     Dim x As Integer
