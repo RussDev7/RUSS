@@ -3,3 +3,76 @@
 
 1) https://stackoverflow.com/a/38868580                                                        - Add title to borderless.
 2) https://stackoverflow.com/questions/1592876/make-a-borderless-form-movable/1592899#15928999 - Dragable borderless.
+
+
+
+
+
+
+3D CIRCLE
+==========================================================================================================================
+using System;
+using System.Numerics;
+
+public class Program
+{
+	public static void Main()
+	{
+		int x = 0;
+		int y = 0;
+		int z = 0;
+		int h = 0;
+		int r = 5;
+		
+		bool hollow = false;
+		bool sphere = true;
+		int plus_y = 0;
+		
+		for (int i = x - r; i <= x + r; i++)
+		{
+			for (int j = z - r; j <= z + r; j++)
+			{
+				for (int k = (sphere ? (y - r) : y); k < (sphere ? (y + r) : (y + h)); k++)
+				{
+					double num = (double)((x - i) * (x - i) + (z - j) * (z - j) + (sphere ? ((y - k) * (y - k)) : 0));
+					if (num < (double)(r * r) && (!hollow || num >= (double)((r - 1) * (r - 1))))
+					{
+						Console.WriteLine(new Vector3(i, k + plus_y, j).ToString());
+					}
+				}
+			}
+		}
+	}
+}
+
+2D CIRCLE
+==========================================================================================================================
+using System;
+using System.Numerics;
+
+public class Program
+{
+	public static void Main()
+	{
+		int x = 0;
+		int y = 0;
+		int z = 0;
+		int r = 6;
+		
+		bool hollow = false;
+		bool sphere = true;
+		
+		for (int i = x - r; i <= x + r; i++)
+		{
+			for (int j = z - r; j <= z + r; j++)
+			{
+				double num = (double)((x - i) * (x - i) + (z - j) * (z - j) + (sphere ? ((y) * (y)) : 0));
+				if (num < (double)(r * r) && (!hollow || num >= (double)((r - 1) * (r - 1))))
+				{
+					Console.WriteLine(new Vector3(i, 0, j).ToString());
+				}
+			}
+		}
+		
+	}
+}
