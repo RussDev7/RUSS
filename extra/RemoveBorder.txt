@@ -83,22 +83,27 @@ Sub EnterValue()
     Cells.Clear
 
     Dim r As Integer
-    r = 6
+    r = 50
     Dim x As Integer
-    x = r * 2
+    x = r + 1
     Dim y As Integer
-    y = r * 2
+    y = r + 1
     
     Dim hollow As Boolean
     hollow = False
+    
+    ' RGB(WorksheetFunction.RandBetween(0, 255), WorksheetFunction.RandBetween(0, 255), WorksheetFunction.RandBetween(0, 255))
+    ' RGB(255, 0, 0)
     
     For i = x - r To x + r
         For j = y - r To y + r
             Dim num As Double
             num = (x - i) * (x - i) + (y - j) * (y - j)
             If num < r * r Then
-                If hollow And num >= ((r - 1) * (r - 1)) Then
-                    Worksheets("Sheet1").Cells(j, i).Interior.Color = RGB(255, 0, 0)
+                If hollow Then
+                    If num >= ((r - 1) * (r - 1)) Then
+                        Worksheets("Sheet1").Cells(j, i).Interior.Color = RGB(255, 0, 0)
+                    End If
                 Else
                     Worksheets("Sheet1").Cells(j, i).Interior.Color = RGB(255, 0, 0)
                 End If
