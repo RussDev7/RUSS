@@ -76,3 +76,31 @@ public class Program
 		
 	}
 }
+
+2D CIRCLE VBA EXCEL
+==========================================================================================================================
+Sub EnterValue()
+	Dim x As Integer
+	x = 20
+	Dim y As Integer
+	y = 20
+	Dim r As Integer
+	r = 6
+	
+	Dim hollow As Boolean
+	hollow = False
+	
+	For i = x - r To x + r
+		For j = y - r To y + r
+			Dim num As Double
+			num =(x - i) * (x - i) + (y - j) * (y - j)
+			If num < r * r Then
+				If hollow And num >= ((r - 1) * (r - 1)) Then
+					Worksheets("Sheet1").Cells(j, i).Interior.Color = RGB(255, 0, 0)
+				Else
+					Worksheets("Sheet1").Cells(j, i).Interior.Color = RGB(255, 0, 0)
+				End If
+			End If
+		Next
+	Next
+End Sub
