@@ -113,8 +113,8 @@
             <button onclick="calculate()">Calculate</button>
             <button id="resetButton">Reset</button>
             <button id="updateDataButton">Get Current Data</button>
-            <label for="use10BlockAverage" class="checkbox-label">
-                <input type="checkbox" id="use10BlockAverage"> Use 10 Block Average
+            <label for="useBlockAverage" class="checkbox-label">
+                <input type="checkbox" id="useBlockAverage"> Use 60 Block Average (~1h)
             </label>
         </div>
         
@@ -197,7 +197,7 @@
         const targetMonthsInput = document.getElementById('targetMonths');
         const monthlyDifficultyIncrease = document.getElementById('monthlyDifficultyIncrease');
         const updateDataButton = document.getElementById('updateDataButton');
-        const use10BlockAverageCheckbox = document.getElementById('use10BlockAverage');
+        const useBlockAverageCheckbox = document.getElementById('useBlockAverage');
         
         // Event listener for the reset button
         resetButton.addEventListener('click', () => {
@@ -507,17 +507,21 @@
         }
     
         updateDataButton.addEventListener('click', async () => {
+        
+            // Disable the button to prevent further clicks
+            updateDataButton.disabled = true;
+    
             try {
-                const use10BlockAverage = use10BlockAverageCheckbox.checked;
+                const useBlockAverage = useBlockAverageCheckbox.checked;
         
                 // Fetch the latest DOGE blocks
-                const response = await fetch('https://api.blockchair.com/dogecoin/blocks?limit=10');
+                const response = await fetch('https://api.blockchair.com/dogecoin/blocks?limit=60');
                 const data = await response.json();
                 const dogePrice = data.context.market_price_usd;
         
                 // Determine which blocks to use based on the checkbox
                 let totalDifficulty = 0;
-                let blockCount = use10BlockAverage ? data.data.length : 1; // Use all blocks or just the most recent block
+                let blockCount = useBlockAverage ? data.data.length : 1; // Use all blocks or just the most recent block
         
                 // Calculate the total difficulty based on the selected blocks
                 for (let i = 0; i < blockCount; i++) {
@@ -540,6 +544,9 @@
                 calculate();
             } catch (error) {
                 console.error('Error fetching DOGE data. Might have attempted to fetch too many too quickly! Error:', error);
+            } finally {
+                // Re-enable the button after the task is completed
+                updateDataButton.disabled = false;
             }
         });
     </script>
