@@ -73,7 +73,7 @@
             </div>
             <div class="input-group">
                 <label for="hashRate">Hash Rate (GH/s):</label>
-                <input type="number" id="hashRate" placeholder="17.60" step="0.01" value="17.60" min="0">
+                <input type="number" id="hashRate" placeholder="16.60" step="0.01" value="16.60" min="0">
             </div>
             <div class="input-group">
                 <label for="power">Power (W):</label>
@@ -221,7 +221,7 @@
         });
 
         // Variables to store the last user input values
-        let lastHashRate = parseFloat(hashRateInput.value) || 17.6; // Default to 17.6 if empty
+        let lastHashRate = parseFloat(hashRateInput.value) || 16.6; // Default to 16.6 if empty
         let lastPower = parseFloat(powerInput.value) || 3260.0; // Default to 3260 if empty
 
         // Update hashRate and power based on multiplier value
@@ -237,7 +237,7 @@
 
         // Recalculate when hashRate or power changes
         hashRateInput.addEventListener('input', () => {
-            lastHashRate = parseFloat(hashRateInput.value) || 17.6; // Store the new hashRate value
+            lastHashRate = parseFloat(hashRateInput.value) || 16.6; // Store the new hashRate value
             multiplierInput.value = 1; // Reset multiplier to 1
             calculate();
         });
@@ -485,8 +485,9 @@
         
         // Helper function to calculate rewards per month
         function calculateRevenuePerMonth(difficulty) {
-            const power = parseFloat(powerInput.value);
-            const hashRate = parseFloat(hashRateInput.value) / 1000; // Convert GH/s to TH/s
+		    const multiplierInput = document.getElementById('multiplier'); // Divide by multiplier to always represent one unit
+            const power = parseFloat(powerInput.value / multiplierInput.value);
+            const hashRate = parseFloat(hashRateInput.value / multiplierInput.value) / 1000; // Convert GH/s to TH/s
             const blockReward = parseFloat(document.getElementById('blockReward').value);
             const fees = parseFloat(document.getElementById('fees').value) / 100;
             const dogeValue = parseFloat(document.getElementById('dogeValue').value);
