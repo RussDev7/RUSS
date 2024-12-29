@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DOGE Crypto Mining Calculator</title>
+    <title>KADENA Crypto Mining Calculator</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -65,19 +65,19 @@
 </head>
 <body>
     <div class="container">
-        <h1>DOGE Crypto Mining Calculator</h1>
+        <h1>KADENA Crypto Mining Calculator</h1>
         <div class="input-row">
             <div class="input-group">
                 <label for="multiplier">Unit(s) Multiplier:</label>
                 <input type="number" id="multiplier" placeholder="1" step="1" value="1" min="1">
             </div>
             <div class="input-group">
-                <label for="hashRate">Hash Rate (GH/s):</label>
-                <input type="number" id="hashRate" placeholder="16.60" step="0.01" value="16.60" min="0">
+                <label for="hashRate">Hash Rate (TH/s):</label>
+                <input type="number" id="hashRate" placeholder="166.00" step="0.01" value="166.00" min="0">
             </div>
             <div class="input-group">
                 <label for="power">Power (W):</label>
-                <input type="number" id="power" placeholder="3260.00" step="0.01" value="3260.00" min="0">
+                <input type="number" id="power" placeholder="3154.00" step="0.01" value="3154.00" min="0">
             </div>
         </div>
         <div class="input-row">
@@ -86,8 +86,8 @@
                 <input type="number" id="cost" placeholder="0.1" step="0.01" value="0.1" min="0">
             </div>
             <div class="input-group">
-                <label for="blockReward">Block Reward (DOGE):</label>
-                <input type="number" id="blockReward" placeholder="10000" step="0.01" value="10000" min="0">
+                <label for="blockReward">Block Reward (KADENA):</label>
+                <input type="number" id="blockReward" placeholder="0.96" step="0.01" value="0.96" min="0">
             </div>
             <div class="input-group">
                 <label for="fees">Fees (%):</label>
@@ -97,25 +97,25 @@
         <div class="input-row">
             <div class="input-group">
                 <label for="blockTime">Block Time (seconds):</label>
-                <input type="number" id="blockTime" placeholder="1.3" step="0.01" value="1.3" min="0" disabled>
+                <input type="number" id="blockTime" placeholder="1.51" step="0.01" value="1.51" min="0" disabled>
             </div>
             <div class="input-group">
                 <label for="difficulty">Difficulty:</label>
-                <input type="number" id="difficulty" placeholder="26205442.669" step="0.01" value="26205442.669" min="0">
+                <input type="number" id="difficulty" placeholder="1116634709586229824.000" step="0.01" value="1116634709586229824.000" min="0">
             </div>
             <div class="input-group">
-                <label for="dogeValue">DOGE Value:</label>
-                <input type="number" id="dogeValue" placeholder="0.342849" step="0.01" value="0.342849" min="0">
+                <label for="kadenaValue">KADENA Value:</label>
+                <input type="number" id="kadenaValue" placeholder="1.00" step="0.10" value="1.00" min="0">
             </div>
         </div>
         
         <div class="input-row">
             <button onclick="calculate()">Calculate</button>
             <button id="resetButton">Reset</button>
-            <button id="updateDataButton">Get Current Data</button>
-            <label for="useBlockAverage" class="checkbox-label">
-                <input type="checkbox" id="useBlockAverage"> Use 60 Block Average (~1h)
-            </label>
+            <!-- <button id="updateDataButton">Get Current Data</button> -->
+            <!-- <label for="useBlockAverage" class="checkbox-label"> -->
+            <!--     <input type="checkbox" id="useBlockAverage"> Use 60 Block Average (~1h) -->
+            <!-- </label> -->
         </div>
         
         <table>
@@ -141,7 +141,7 @@
         <div class="input-row">
             <div class="input-group">
                 <label for="minerCost">Miner Cost ($):</label>
-                <input type="number" id="minerCost" placeholder="11199.00" step="1000.00" value="11199.00" min="0">
+                <input type="number" id="minerCost" placeholder="2499.00" step="1000.00" value="2499.00" min="0">
             </div>
             <div class="input-group">
                 <label for="additionalFunds">Additional Funds ($):</label>
@@ -149,13 +149,13 @@
             </div>
             <div class="input-group">
                 <label for="targetMonths">Target Months:</label>
-                <input type="number" id="targetMonths" placeholder="25" step="1" value="25" min="1">
+                <input type="number" id="targetMonths" placeholder="50" step="1" value="50" min="1">
             </div>
         </div>
         <div class="input-row">
             <div class="input-group">
                 <label for="monthlyDifficultyIncrease">Monthly Addition In Difficulty:</label>
-                <input type="number" id="monthlyDifficultyIncrease" placeholder="250000" step="250000" value="250000" min="0">
+                <input type="number" id="monthlyDifficultyIncrease" placeholder="-1000000000000000" step="-1000000000000000" value="-1000000000000000" min="0">
             </div>
         </div>
         
@@ -190,7 +190,7 @@
         const feesInput = document.getElementById('fees');
         const blockTimeInput = document.getElementById('blockTime');
         const difficultyInput = document.getElementById('difficulty');
-        const dogeValueInput = document.getElementById('dogeValue');
+        const kadenaValueInput = document.getElementById('kadenaValue');
         const resetButton = document.getElementById('resetButton');
         const minerCostInput = document.getElementById('minerCost');
         const additionalFundsInput = document.getElementById('additionalFunds');
@@ -210,7 +210,7 @@
             document.getElementById('fees').value = document.getElementById('fees').placeholder;
             document.getElementById('blockTime').value = document.getElementById('blockTime').placeholder;
             document.getElementById('difficulty').value = document.getElementById('difficulty').placeholder;
-            document.getElementById('dogeValue').value = document.getElementById('dogeValue').placeholder;
+            document.getElementById('kadenaValue').value = document.getElementById('kadenaValue').placeholder;
             document.getElementById('minerCost').value = document.getElementById('minerCost').placeholder;
             document.getElementById('additionalFunds').value = document.getElementById('additionalFunds').placeholder;
             document.getElementById('targetMonths').value = document.getElementById('targetMonths').placeholder;
@@ -221,8 +221,8 @@
         });
 
         // Variables to store the last user input values
-        let lastHashRate = parseFloat(hashRateInput.value) || 16.6; // Default to 16.6 if empty
-        let lastPower = parseFloat(powerInput.value) || 3260.0; // Default to 3260 if empty
+        let lastHashRate = parseFloat(hashRateInput.value) || 166.00; // Default to 16.6 if empty
+        let lastPower = parseFloat(powerInput.value) || 3154.00; // Default to 3260 if empty
 
         // Update hashRate and power based on multiplier value
         function updateHashAndPower() {
@@ -237,13 +237,13 @@
 
         // Recalculate when hashRate or power changes
         hashRateInput.addEventListener('input', () => {
-            lastHashRate = parseFloat(hashRateInput.value) || 16.6; // Store the new hashRate value
+            lastHashRate = parseFloat(hashRateInput.value) || 166.00; // Store the new hashRate value
             multiplierInput.value = 1; // Reset multiplier to 1
             calculate();
         });
 
         powerInput.addEventListener('input', () => {
-            lastPower = parseFloat(powerInput.value) || 3260.0; // Store the new power value
+            lastPower = parseFloat(powerInput.value) || 3154.00; // Store the new power value
             multiplierInput.value = 1; // Reset multiplier to 1
             calculate();
         });
@@ -254,7 +254,7 @@
         feesInput.addEventListener('input', updateHashAndPower);
         blockTimeInput.addEventListener('input', updateHashAndPower);
         difficultyInput.addEventListener('input', updateHashAndPower);
-        dogeValueInput.addEventListener('input', updateHashAndPower);
+        kadenaValueInput.addEventListener('input', updateHashAndPower);
         minerCost.addEventListener('input', updateHashAndPower);
         additionalFunds.addEventListener('input', updateHashAndPower);
         targetMonths.addEventListener('input', updateHashAndPower);
@@ -262,21 +262,20 @@
         
         function calculate() {
             // Get user inputs
-            const hashRate = parseFloat(hashRateInput.value) / 1000; // Convert GH/s to TH/s
+            const hashRate = parseFloat(hashRateInput.value) * Math.pow(10, 12); // Convert TH/s to H/s
             const blockReward = parseFloat(document.getElementById('blockReward').value);
             const difficulty = parseFloat(document.getElementById('difficulty').value);
             const power = parseFloat(powerInput.value);
             const fees = parseFloat(document.getElementById('fees').value) / 100;
-            const dogeValue = parseFloat(document.getElementById('dogeValue').value);
+            const kadenaValue = parseFloat(document.getElementById('kadenaValue').value);
             const cost = parseFloat(document.getElementById('cost').value);
             const blockTime = parseFloat(document.getElementById('blockTime').value);
             
             // Calculate metrics
             const blockRewardHours = blockReward * 3600;
-            const rewardsPerHourDOGE = (hashRate * blockRewardHours) / (difficulty * Math.pow(2, 32));
-            const scaledRewardsPerHourDOGE = rewardsPerHourDOGE * Math.pow(10, 12); // Scale by 10^12
-            const rewardsPerHourUSD = scaledRewardsPerHourDOGE * dogeValue;
-        
+            const rewardsPerHourKADENA = (hashRate * blockRewardHours) / difficulty;
+            const rewardsPerHourUSD = rewardsPerHourKADENA * kadenaValue;
+            
             const electricityCostPerHour = (power / 1000) * cost;
             const feesCostUSD = rewardsPerHourUSD * fees;
             const profitPerHourUSD = rewardsPerHourUSD - electricityCostPerHour - feesCostUSD;
@@ -289,7 +288,7 @@
                 `<tr>
                     <td>${period}</td>
                     <td>$${Number((feesCostUSD * multiplier).toFixed(2)).toLocaleString()}</td>
-                    <td>${Number((scaledRewardsPerHourDOGE * multiplier).toFixed(2)).toLocaleString()} DOGE</td>
+                    <td>${Number((rewardsPerHourKADENA * multiplier).toFixed(2)).toLocaleString()} KADENA</td>
                     <td>$${Number((rewardsPerHourUSD * multiplier).toFixed(2)).toLocaleString()}</td>
                     <td>$${Number((electricityCostPerHour * multiplier).toFixed(2)).toLocaleString()}</td>
                     <td>$${Number((profitPerHourUSD * multiplier).toFixed(2)).toLocaleString()}</td>
@@ -487,17 +486,16 @@
         function calculateRevenuePerMonth(difficulty) {
             const multiplierInput = document.getElementById('multiplier'); // Divide by multiplier to always represent one unit
             const power = parseFloat(powerInput.value / multiplierInput.value);
-            const hashRate = parseFloat(hashRateInput.value / multiplierInput.value) / 1000; // Convert GH/s to TH/s
+            const hashRate = parseFloat(hashRateInput.value) * Math.pow(10, 12); // Convert TH/s to H/s
             const blockReward = parseFloat(document.getElementById('blockReward').value);
             const fees = parseFloat(document.getElementById('fees').value) / 100;
-            const dogeValue = parseFloat(document.getElementById('dogeValue').value);
+            const kadenaValue = parseFloat(document.getElementById('kadenaValue').value);
             const cost = parseFloat(document.getElementById('cost').value);
         
             // Calculate rewards per month based on total miners, difficulty, and block reward
             const blockRewardHours = blockReward * 3600;
-            const rewardsPerHourDOGE = (hashRate * blockRewardHours) / (difficulty * Math.pow(2, 32));
-            const scaledRewardsPerHourDOGE = rewardsPerHourDOGE * Math.pow(10, 12); // Scale by 10^12
-            const rewardsPerHourUSD = scaledRewardsPerHourDOGE * dogeValue;
+            const rewardsPerHourKADENA = (hashRate * blockRewardHours) / difficulty;
+            const rewardsPerHourUSD = rewardsPerHourKADENA * kadenaValue;
             
             const electricityCostPerHour = (power / 1000) * cost;
             const feesCostUSD = rewardsPerHourUSD * fees;
@@ -507,49 +505,49 @@
             return profitPerMonthUSD;
         }
     
-        updateDataButton.addEventListener('click', async () => {
-        
-            // Disable the button to prevent further clicks
-            updateDataButton.disabled = true;
-    
-            try {
-                const useBlockAverage = useBlockAverageCheckbox.checked;
-        
-                // Fetch the latest DOGE blocks
-                const response = await fetch('https://api.blockchair.com/dogecoin/blocks?limit=60');
-                const data = await response.json();
-                const dogePrice = data.context.market_price_usd;
-        
-                // Determine which blocks to use based on the checkbox
-                let totalDifficulty = 0;
-                let blockCount = useBlockAverage ? data.data.length : 1; // Use all blocks or just the most recent block
-        
-                // Calculate the total difficulty based on the selected blocks
-                for (let i = 0; i < blockCount; i++) {
-                    totalDifficulty += data.data[i].difficulty;
-                    // console.log(data.data[i].difficulty);
-                }
-        
-                // Calculate the average difficulty if using the last 10 blocks
-                const averageDifficulty = totalDifficulty / blockCount;
-                
-                // Debugging
-                // console.log(`DOGE Price: ${dogePrice.toFixed(6)} USD`);
-                // console.log(`Average Difficulty: ${averageDifficulty.toFixed(2)}`);
-                
-                // Update the inputs with the fetched data
-                dogeValueInput.value = dogePrice.toFixed(6);
-                difficultyInput.value = averageDifficulty.toFixed(2);
-        
-                // Recalculate the numbers with the new data
-                calculate();
-            } catch (error) {
-                console.error('Error fetching DOGE data. Might have attempted to fetch too many too quickly! Error:', error);
-            } finally {
-                // Re-enable the button after the task is completed
-                updateDataButton.disabled = false;
-            }
-        });
+//        updateDataButton.addEventListener('click', async () => {
+//        
+//            // Disable the button to prevent further clicks
+//            updateDataButton.disabled = true;
+//    
+//            try {
+//                const useBlockAverage = useBlockAverageCheckbox.checked;
+//        
+//                // Fetch the latest KADENA blocks
+//                const response = await fetch('https://api.blockchair.com/kadenacoin/blocks?limit=60');
+//                const data = await response.json();
+//                const kadenaPrice = data.context.market_price_usd;
+//        
+//                // Determine which blocks to use based on the checkbox
+//                let totalDifficulty = 0;
+//                let blockCount = useBlockAverage ? data.data.length : 1; // Use all blocks or just the most recent block
+//        
+//                // Calculate the total difficulty based on the selected blocks
+//                for (let i = 0; i < blockCount; i++) {
+//                    totalDifficulty += data.data[i].difficulty;
+//                    // console.log(data.data[i].difficulty);
+//                }
+//        
+//                // Calculate the average difficulty if using the last 10 blocks
+//                const averageDifficulty = totalDifficulty / blockCount;
+//                
+//                // Debugging
+//                // console.log(`KADENA Price: ${kadenaPrice.toFixed(6)} USD`);
+//                // console.log(`Average Difficulty: ${averageDifficulty.toFixed(2)}`);
+//                
+//                // Update the inputs with the fetched data
+//                kadenaValueInput.value = kadenaPrice.toFixed(6);
+//                difficultyInput.value = averageDifficulty.toFixed(2);
+//        
+//                // Recalculate the numbers with the new data
+//                calculate();
+//            } catch (error) {
+//                console.error('Error fetching KADENA data. Might have attempted to fetch too many too quickly! Error:', error);
+//            } finally {
+//                // Re-enable the button after the task is completed
+//                updateDataButton.disabled = false;
+//            }
+//        });
     </script>
 </body>
 </html>
