@@ -48,7 +48,19 @@
             width: 100%;
             height: 400px;
         }
-		
+		/* Exempt checkbox and label from the above rules */
+		.checkbox-label {
+		    display: inline-flex; /* Keep inline layout for checkbox */
+		    align-items: center; /* Vertical alignment */
+		    margin-bottom: 0; /* Remove bottom margin for alignment */
+		}
+		.checkbox-label input {
+		    width: auto; /* Prevent checkbox from taking full width */
+		    padding: 0; /* Remove padding for checkbox */
+		    margin-right: 5px; /* Optional: space between checkbox and label */
+			transform: scale(1.3); /* Scale the checkbox */
+			transform-origin: center; /* Ensure it scales from the center */
+		}
     </style>
 </head>
 <body>
@@ -96,9 +108,16 @@
                 <input type="number" id="dogeValue" placeholder="0.342849" step="0.01" value="0.342849" min="0">
             </div>
         </div>
-        <button onclick="calculate()">Calculate</button>
-        <button id="resetButton">Reset</button>
-
+		
+		<div class="input-row">
+        	<button onclick="calculate()">Calculate</button>
+			<button id="resetButton">Reset</button>
+			<button id="updateDataButton">Get Current Data</button>
+			<label for="use10BlockAverage" class="checkbox-label">
+        	    <input type="checkbox" id="use10BlockAverage"> Use 10 Block Average
+        	</label>
+		</div>
+		
         <table>
             <thead>
                 <tr>
@@ -177,6 +196,8 @@
 		const additionalFundsInput = document.getElementById('additionalFunds');
 		const targetMonthsInput = document.getElementById('targetMonths');
         const monthlyDifficultyIncrease = document.getElementById('monthlyDifficultyIncrease');
+		const updateDataButton = document.getElementById('updateDataButton');
+		const use10BlockAverageCheckbox = document.getElementById('use10BlockAverage');
 		
         // Event listener for the reset button
         resetButton.addEventListener('click', () => {
@@ -484,6 +505,43 @@
 			
 		    return profitPerMonthUSD;
 		}
+	
+		updateDataButton.addEventListener('click', async () => {
+		    try {
+		        const use10BlockAverage = use10BlockAverageCheckbox.checked;
+		
+		        // Fetch the latest DOGE blocks
+		        const response = await fetch('https://api.blockchair.com/dogecoin/blocks?limit=10');
+		        const data = await response.json();
+		        const dogePrice = data.context.market_price_usd;
+		
+		        // Determine which blocks to use based on the checkbox
+		        let totalDifficulty = 0;
+		        let blockCount = use10BlockAverage ? data.data.length : 1; // Use all blocks or just the most recent block
+		
+		        // Calculate the total difficulty based on the selected blocks
+		        for (let i = 0; i < blockCount; i++) {
+		            totalDifficulty += data.data[i].difficulty;
+					// console.log(data.data[i].difficulty);
+		        }
+		
+		        // Calculate the average difficulty if using the last 10 blocks
+		        const averageDifficulty = totalDifficulty / blockCount;
+				
+				// Debugging
+				// console.log(`DOGE Price: ${dogePrice.toFixed(6)} USD`);
+				// console.log(`Average Difficulty: ${averageDifficulty.toFixed(2)}`);
+				
+		        // Update the inputs with the fetched data
+		        dogeValueInput.value = dogePrice.toFixed(6);
+		        difficultyInput.value = averageDifficulty.toFixed(2);
+		
+		        // Recalculate the numbers with the new data
+		        calculate();
+		    } catch (error) {
+		        console.error('Error fetching DOGE data. Might have attempted to fetch too many too quickly! Error:', error);
+		    }
+		});
     </script>
 </body>
 </html>
