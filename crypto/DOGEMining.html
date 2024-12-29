@@ -16,7 +16,7 @@
         .input-row {
             display: flex;
             gap: 10px;
-			margin-top: 20px;
+            margin-top: 20px;
             margin-bottom: 15px;
         }
         .input-group {
@@ -48,19 +48,19 @@
             width: 100%;
             height: 400px;
         }
-		/* Exempt checkbox and label from the above rules */
-		.checkbox-label {
-		    display: inline-flex; /* Keep inline layout for checkbox */
-		    align-items: center; /* Vertical alignment */
-		    margin-bottom: 0; /* Remove bottom margin for alignment */
-		}
-		.checkbox-label input {
-		    width: auto; /* Prevent checkbox from taking full width */
-		    padding: 0; /* Remove padding for checkbox */
-		    margin-right: 5px; /* Optional: space between checkbox and label */
-			transform: scale(1.3); /* Scale the checkbox */
-			transform-origin: center; /* Ensure it scales from the center */
-		}
+        /* Exempt checkbox and label from the above rules */
+        .checkbox-label {
+            display: inline-flex; /* Keep inline layout for checkbox */
+            align-items: center; /* Vertical alignment */
+            margin-bottom: 0; /* Remove bottom margin for alignment */
+        }
+        .checkbox-label input {
+            width: auto; /* Prevent checkbox from taking full width */
+            padding: 0; /* Remove padding for checkbox */
+            margin-right: 5px; /* Optional: space between checkbox and label */
+            transform: scale(1.3); /* Scale the checkbox */
+            transform-origin: center; /* Ensure it scales from the center */
+        }
     </style>
 </head>
 <body>
@@ -108,16 +108,16 @@
                 <input type="number" id="dogeValue" placeholder="0.342849" step="0.01" value="0.342849" min="0">
             </div>
         </div>
-		
-		<div class="input-row">
-        	<button onclick="calculate()">Calculate</button>
-			<button id="resetButton">Reset</button>
-			<button id="updateDataButton">Get Current Data</button>
-			<label for="use10BlockAverage" class="checkbox-label">
-        	    <input type="checkbox" id="use10BlockAverage"> Use 10 Block Average
-        	</label>
-		</div>
-		
+        
+        <div class="input-row">
+            <button onclick="calculate()">Calculate</button>
+            <button id="resetButton">Reset</button>
+            <button id="updateDataButton">Get Current Data</button>
+            <label for="use10BlockAverage" class="checkbox-label">
+                <input type="checkbox" id="use10BlockAverage"> Use 10 Block Average
+            </label>
+        </div>
+        
         <table>
             <thead>
                 <tr>
@@ -135,10 +135,10 @@
                 </tr>
             </tbody>
         </table>
-		
-		<br>
+        
+        <br>
         <h2>Scaling Profitability Table</h2>
-		<div class="input-row">
+        <div class="input-row">
             <div class="input-group">
                 <label for="minerCost">Miner Cost ($):</label>
                 <input type="number" id="minerCost" placeholder="11199.00" step="1000.00" value="11199.00" min="0">
@@ -152,53 +152,53 @@
                 <input type="number" id="targetMonths" placeholder="25" step="1" value="25" min="1">
             </div>
         </div>
-		<div class="input-row">
+        <div class="input-row">
             <div class="input-group">
                 <label for="monthlyDifficultyIncrease">Monthly Addition In Difficulty:</label>
                 <input type="number" id="monthlyDifficultyIncrease" placeholder="1000000" step="1000000" value="1000000" min="0">
             </div>
         </div>
-		
-		<table>
-		    <thead>
-		        <tr>
-		            <th>Month</th>
-		            <th>Total Miners</th>
-					<th>Miners Adopted</th>
-		            <th>Monthly Profit</th>
-		            <th>Annual Profit</th>
-					<th>Mining Difficulty</th>
-		        </tr>
-		    </thead>
-		    <tbody id="scalingResults">
-		        <tr>
-		            <td colspan="6">No results yet</td>
-		        </tr>
-		    </tbody>
-		</table>
-		
-		<canvas id="monthlyChart"></canvas>
+        
+        <table>
+            <thead>
+                <tr>
+                    <th>Month</th>
+                    <th>Total Miners</th>
+                    <th>Miners Adopted</th>
+                    <th>Monthly Profit</th>
+                    <th>Annual Profit</th>
+                    <th>Mining Difficulty</th>
+                </tr>
+            </thead>
+            <tbody id="scalingResults">
+                <tr>
+                    <td colspan="6">No results yet</td>
+                </tr>
+            </tbody>
+        </table>
+        
+        <canvas id="monthlyChart"></canvas>
     </div>
-	
-	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
         const multiplierInput = document.getElementById('multiplier');
         const hashRateInput = document.getElementById('hashRate');
         const powerInput = document.getElementById('power');
-		const costInput = document.getElementById('cost');
+        const costInput = document.getElementById('cost');
         const blockRewardInput = document.getElementById('blockReward');
-		const feesInput = document.getElementById('fees');
-		const blockTimeInput = document.getElementById('blockTime');
-		const difficultyInput = document.getElementById('difficulty');
-		const dogeValueInput = document.getElementById('dogeValue');
-		const resetButton = document.getElementById('resetButton');
-		const minerCostInput = document.getElementById('minerCost');
-		const additionalFundsInput = document.getElementById('additionalFunds');
-		const targetMonthsInput = document.getElementById('targetMonths');
+        const feesInput = document.getElementById('fees');
+        const blockTimeInput = document.getElementById('blockTime');
+        const difficultyInput = document.getElementById('difficulty');
+        const dogeValueInput = document.getElementById('dogeValue');
+        const resetButton = document.getElementById('resetButton');
+        const minerCostInput = document.getElementById('minerCost');
+        const additionalFundsInput = document.getElementById('additionalFunds');
+        const targetMonthsInput = document.getElementById('targetMonths');
         const monthlyDifficultyIncrease = document.getElementById('monthlyDifficultyIncrease');
-		const updateDataButton = document.getElementById('updateDataButton');
-		const use10BlockAverageCheckbox = document.getElementById('use10BlockAverage');
-		
+        const updateDataButton = document.getElementById('updateDataButton');
+        const use10BlockAverageCheckbox = document.getElementById('use10BlockAverage');
+        
         // Event listener for the reset button
         resetButton.addEventListener('click', () => {
             // Reset all fields to their original values
@@ -211,11 +211,11 @@
             document.getElementById('blockTime').value = document.getElementById('blockTime').placeholder;
             document.getElementById('difficulty').value = document.getElementById('difficulty').placeholder;
             document.getElementById('dogeValue').value = document.getElementById('dogeValue').placeholder;
-			document.getElementById('minerCost').value = document.getElementById('minerCost').placeholder;
-			document.getElementById('additionalFunds').value = document.getElementById('additionalFunds').placeholder;
-			document.getElementById('targetMonths').value = document.getElementById('targetMonths').placeholder;
-			document.getElementById('monthlyDifficultyIncrease').value = document.getElementById('monthlyDifficultyIncrease').placeholder;
-			
+            document.getElementById('minerCost').value = document.getElementById('minerCost').placeholder;
+            document.getElementById('additionalFunds').value = document.getElementById('additionalFunds').placeholder;
+            document.getElementById('targetMonths').value = document.getElementById('targetMonths').placeholder;
+            document.getElementById('monthlyDifficultyIncrease').value = document.getElementById('monthlyDifficultyIncrease').placeholder;
+            
             // Recalculate with default values
             calculate();
         });
@@ -250,16 +250,16 @@
 
         multiplierInput.addEventListener('input', updateHashAndPower);
         costInput.addEventListener('input', updateHashAndPower);
-		blockRewardInput.addEventListener('input', updateHashAndPower);
-		feesInput.addEventListener('input', updateHashAndPower);
-		blockTimeInput.addEventListener('input', updateHashAndPower);
-		difficultyInput.addEventListener('input', updateHashAndPower);
-		dogeValueInput.addEventListener('input', updateHashAndPower);
-		minerCost.addEventListener('input', updateHashAndPower);
-		additionalFunds.addEventListener('input', updateHashAndPower);
-		targetMonths.addEventListener('input', updateHashAndPower);
-		monthlyDifficultyIncrease.addEventListener('input', updateHashAndPower);
-		
+        blockRewardInput.addEventListener('input', updateHashAndPower);
+        feesInput.addEventListener('input', updateHashAndPower);
+        blockTimeInput.addEventListener('input', updateHashAndPower);
+        difficultyInput.addEventListener('input', updateHashAndPower);
+        dogeValueInput.addEventListener('input', updateHashAndPower);
+        minerCost.addEventListener('input', updateHashAndPower);
+        additionalFunds.addEventListener('input', updateHashAndPower);
+        targetMonths.addEventListener('input', updateHashAndPower);
+        monthlyDifficultyIncrease.addEventListener('input', updateHashAndPower);
+        
         function calculate() {
             // Get user inputs
             const hashRate = parseFloat(hashRateInput.value) / 1000; // Convert GH/s to T/s
@@ -297,251 +297,251 @@
             ).join('');
         
             document.getElementById('results').innerHTML = results;
-			
-			// Calculate mining profitability
-			calculateScalingProfitability();
+            
+            // Calculate mining profitability
+            calculateScalingProfitability();
         }
-		
-		function calculateScalingProfitability() {
-		    const minerCost = parseFloat(document.getElementById('minerCost').value);
-		    const additionalFunds = parseFloat(document.getElementById('additionalFunds').value);
-		    const targetMonths = parseInt(document.getElementById('targetMonths').value, 10);
-			const monthlyDifficultyIncrease = parseInt(document.getElementById('monthlyDifficultyIncrease').value);
-			let difficulty = parseFloat(document.getElementById('difficulty').value);
-			
-			// const cellText = document.querySelector('#results tr:nth-child(4) td:last-child').textContent.trim();
+        
+        function calculateScalingProfitability() {
+            const minerCost = parseFloat(document.getElementById('minerCost').value);
+            const additionalFunds = parseFloat(document.getElementById('additionalFunds').value);
+            const targetMonths = parseInt(document.getElementById('targetMonths').value, 10);
+            const monthlyDifficultyIncrease = parseInt(document.getElementById('monthlyDifficultyIncrease').value);
+            let difficulty = parseFloat(document.getElementById('difficulty').value);
+            
+            // const cellText = document.querySelector('#results tr:nth-child(4) td:last-child').textContent.trim();
             // const monthlyProductionPerMiner = parseFloat(cellText.replace('$', '').replace(',', '')) || 0;
             // console.log(monthlyProductionPerMiner);
-		
-		    let currentMiners = 1; // Start with one miner
-		    let cumulativeRevenue = 0;
-		    let data = [];
-			
-			// Chart rendering logic
+        
+            let currentMiners = 1; // Start with one miner
+            let cumulativeRevenue = 0;
+            let data = [];
+            
+            // Chart rendering logic
             const monthlyData = [];
-		
-		    for (let month = 1; month <= targetMonths; month++) {
-		        const monthlyRevenue = currentMiners * calculateRevenuePerMonth(difficulty);
-		        cumulativeRevenue += monthlyRevenue + additionalFunds;
-		
-		        // Calculate new miners that can be purchased
-		        const newMiners = Math.floor(cumulativeRevenue / minerCost);
-		        cumulativeRevenue -= newMiners * minerCost;
-		
-		        // Update miner count
-		        currentMiners += newMiners;
-				
-		        // Collect data for the table
-		        data.push({
-		            month,
-		            totalMiners: currentMiners,
-					newMiners: newMiners,
-		            monthlyProduction: Math.floor(currentMiners * calculateRevenuePerMonth(difficulty)),
-		            annualProduction: Math.floor(currentMiners * calculateRevenuePerMonth(difficulty) * 12),
-					miningDifficulty: difficulty
-		        });
-				
-				// Collect data for the chart
-				monthlyData.push({
-				    annualProduction: Math.floor(currentMiners * calculateRevenuePerMonth(difficulty) * 12),
-				    miningDifficulty: difficulty
-				});
-				
-				// Increase difficulty for the next month
-				difficulty += monthlyDifficultyIncrease;
-		    }
-		
-		    // Update the scaling results table
-		    const scalingResults = document.getElementById('scalingResults');
-		    scalingResults.innerHTML = data.map(row => `
-		        <tr>
-		            <td>${row.month}</td>
-		            <td>${row.totalMiners.toLocaleString()}</td>
-					<td>${row.newMiners.toLocaleString()}</td>
-		            <td>$${row.monthlyProduction.toLocaleString()}</td>
-		            <td>$${row.annualProduction.toLocaleString()}</td>
-					<td>${row.miningDifficulty.toLocaleString()}</td>
-		        </tr>
-		    `).join('');
-			
-			// Add the Total Revenue row
+        
+            for (let month = 1; month <= targetMonths; month++) {
+                const monthlyRevenue = currentMiners * calculateRevenuePerMonth(difficulty);
+                cumulativeRevenue += monthlyRevenue + additionalFunds;
+        
+                // Calculate new miners that can be purchased
+                const newMiners = Math.floor(cumulativeRevenue / minerCost);
+                cumulativeRevenue -= newMiners * minerCost;
+        
+                // Update miner count
+                currentMiners += newMiners;
+                
+                // Collect data for the table
+                data.push({
+                    month,
+                    totalMiners: currentMiners,
+                    newMiners: newMiners,
+                    monthlyProduction: Math.floor(currentMiners * calculateRevenuePerMonth(difficulty)),
+                    annualProduction: Math.floor(currentMiners * calculateRevenuePerMonth(difficulty) * 12),
+                    miningDifficulty: difficulty
+                });
+                
+                // Collect data for the chart
+                monthlyData.push({
+                    annualProduction: Math.floor(currentMiners * calculateRevenuePerMonth(difficulty) * 12),
+                    miningDifficulty: difficulty
+                });
+                
+                // Increase difficulty for the next month
+                difficulty += monthlyDifficultyIncrease;
+            }
+        
+            // Update the scaling results table
+            const scalingResults = document.getElementById('scalingResults');
+            scalingResults.innerHTML = data.map(row => `
+                <tr>
+                    <td>${row.month}</td>
+                    <td>${row.totalMiners.toLocaleString()}</td>
+                    <td>${row.newMiners.toLocaleString()}</td>
+                    <td>$${row.monthlyProduction.toLocaleString()}</td>
+                    <td>$${row.annualProduction.toLocaleString()}</td>
+                    <td>${row.miningDifficulty.toLocaleString()}</td>
+                </tr>
+            `).join('');
+            
+            // Add the Total Revenue row
             addTotalRevenueRow();
-	
-			// Update the scaling results chart
+    
+            // Update the scaling results chart
             renderChart(monthlyData);
-		}
-		
-		function addTotalRevenueRow() {
-		    const scalingResultsTable = document.getElementById('scalingResults');
-		    const rows = scalingResultsTable.querySelectorAll('tr');
-		    let totalRevenue = 0;
-		
-		    // Sum the values in the "Monthly Production ($)" column
-		    rows.forEach((row, index) => {
-		        if (index >= 0) { // Skip the header row
-		            const monthlyProductionCell = row.cells[3]; // 4th column (0-based index)
+        }
+        
+        function addTotalRevenueRow() {
+            const scalingResultsTable = document.getElementById('scalingResults');
+            const rows = scalingResultsTable.querySelectorAll('tr');
+            let totalRevenue = 0;
+        
+            // Sum the values in the "Monthly Production ($)" column
+            rows.forEach((row, index) => {
+                if (index >= 0) { // Skip the header row
+                    const monthlyProductionCell = row.cells[3]; // 4th column (0-based index)
                     const monthlyProductionCellTrimmed = parseFloat(monthlyProductionCell.textContent.replace('$', '').replace(',', '')) || 0;
-					// console.log(monthlyProductionCellTrimmed);
-					
-		            if (monthlyProductionCell) {
-		                const value = monthlyProductionCellTrimmed || 0;
-		                totalRevenue += value;
-		            }
-		        }
-		    });
-		
-		    // Remove existing "Total Revenue" row if it exists
-		    const existingTotalRow = document.getElementById('totalRevenueRow');
-		    if (existingTotalRow) {
-		        scalingResultsTable.removeChild(existingTotalRow);
-		    }
-		
-		    // Create and append the "Total Revenue" row
-		    const totalRow = document.createElement('tr');
-		    totalRow.id = 'totalRevenueRow';
-		    totalRow.innerHTML = `
-		        <td colspan="3"><strong>Total Revenue Generated:</strong></td>
-		        <td colspan="3"><strong>$${Number(totalRevenue.toFixed(2)).toLocaleString()}</strong></td>
-		    `;
-		    scalingResultsTable.appendChild(totalRow);
-		}
-		
-		let chartInstance; // Variable to store the chart instance
-		function renderChart(data) {
-		    const ctx = document.getElementById('monthlyChart').getContext('2d');
-		
-		    // If the chart instance already exists, update its data
-		    if (chartInstance) {
-		        chartInstance.data.labels = Array.from({ length: data.length }, (_, i) => `Month ${i + 1}`);
-		        chartInstance.data.datasets[0].data = data.map(item => item.annualProduction); // Profit dataset
-		        chartInstance.data.datasets[1].data = data.map(item => item.miningDifficulty); // Difficulty dataset
-		        chartInstance.update(); // Refresh the chart
-		    } else {
-		        // Create a new chart instance if it doesn't exist
-		        chartInstance = new Chart(ctx, {
-		            type: 'line',
-		            data: {
-		                labels: Array.from({ length: data.length }, (_, i) => `Month ${i + 1}`),
-		                datasets: [
-		                    {
-		                        label: 'Annual Profit ($)',
-		                        data: data.map(item => item.annualProduction),
-		                        borderColor: 'rgba(75, 192, 192, 1)', // Profit line color
-		                        borderWidth: 2,
-		                        fill: false
-		                    },
-		                    {
-		                        label: 'Mining Difficulty',
-		                        data: data.map(item => item.miningDifficulty),
-		                        borderColor: 'rgba(255, 99, 132, 1)', // Difficulty line color
-		                        borderWidth: 2,
-		                        fill: false,
-		                        yAxisID: 'y2' // Use a secondary y-axis for difficulty
-		                    }
-		                ]
-		            },
-		            options: {
-		                responsive: true,
-		                scales: {
-		                    x: {
-		                        title: {
-		                            display: true,
-		                            text: 'Months',
-		                            color: 'rgba(0, 0, 0, 0.8)' // X-axis title color
-		                        },
-		                        ticks: {
-		                            color: 'rgba(0, 0, 0, 0.8)' // X-axis tick labels color
-		                        }
-		                    },
-		                    y: {
-		                        title: {
-		                            display: true,
-		                            text: 'Profit ($)',
-		                            color: 'rgba(75, 192, 192, 1)' // Y-axis title color matching Profit
-		                        },
-		                        ticks: {
-		                            color: 'rgba(75, 192, 192, 1)' // Y-axis tick labels color matching Profit
-		                        }
-		                    },
-		                    y2: {
-		                        position: 'right',
-		                        title: {
-		                            display: true,
-		                            text: 'Difficulty',
-		                            color: 'rgba(255, 99, 132, 1)' // Secondary Y-axis title color matching Difficulty
-		                        },
-		                        ticks: {
-		                            color: 'rgba(255, 99, 132, 1)' // Secondary Y-axis tick labels color matching Difficulty
-		                        },
-		                        grid: {
-		                            drawOnChartArea: false // Hide grid lines for the secondary axis
-		                        }
-		                    }
-		                }
-		            }
-		        });
-		    }
-		}
-		
-		// Helper function to calculate rewards per month
-		function calculateRevenuePerMonth(difficulty) {
-		    const power = parseFloat(powerInput.value);
-		    const hashRate = parseFloat(hashRateInput.value) / 1000; // Convert GH/s to TH/s
-		    const blockReward = parseFloat(document.getElementById('blockReward').value);
-			const fees = parseFloat(document.getElementById('fees').value) / 100;
-		    const dogeValue = parseFloat(document.getElementById('dogeValue').value);
-			const cost = parseFloat(document.getElementById('cost').value);
-		
-		    // Calculate rewards per month based on total miners, difficulty, and block reward
-			const blockRewardHours = blockReward * 3600;
-		    const rewardsPerHourDOGE = (hashRate * blockRewardHours) / (difficulty * Math.pow(2, 32));
-		    const scaledRewardsPerHourDOGE = rewardsPerHourDOGE * Math.pow(10, 12); // Scale by 10^12
-		    const rewardsPerHourUSD = scaledRewardsPerHourDOGE * dogeValue;
-			
-			const electricityCostPerHour = (power / 1000) * cost;
+                    // console.log(monthlyProductionCellTrimmed);
+                    
+                    if (monthlyProductionCell) {
+                        const value = monthlyProductionCellTrimmed || 0;
+                        totalRevenue += value;
+                    }
+                }
+            });
+        
+            // Remove existing "Total Revenue" row if it exists
+            const existingTotalRow = document.getElementById('totalRevenueRow');
+            if (existingTotalRow) {
+                scalingResultsTable.removeChild(existingTotalRow);
+            }
+        
+            // Create and append the "Total Revenue" row
+            const totalRow = document.createElement('tr');
+            totalRow.id = 'totalRevenueRow';
+            totalRow.innerHTML = `
+                <td colspan="3"><strong>Total Revenue Generated:</strong></td>
+                <td colspan="3"><strong>$${Number(totalRevenue.toFixed(2)).toLocaleString()}</strong></td>
+            `;
+            scalingResultsTable.appendChild(totalRow);
+        }
+        
+        let chartInstance; // Variable to store the chart instance
+        function renderChart(data) {
+            const ctx = document.getElementById('monthlyChart').getContext('2d');
+        
+            // If the chart instance already exists, update its data
+            if (chartInstance) {
+                chartInstance.data.labels = Array.from({ length: data.length }, (_, i) => `Month ${i + 1}`);
+                chartInstance.data.datasets[0].data = data.map(item => item.annualProduction); // Profit dataset
+                chartInstance.data.datasets[1].data = data.map(item => item.miningDifficulty); // Difficulty dataset
+                chartInstance.update(); // Refresh the chart
+            } else {
+                // Create a new chart instance if it doesn't exist
+                chartInstance = new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: Array.from({ length: data.length }, (_, i) => `Month ${i + 1}`),
+                        datasets: [
+                            {
+                                label: 'Annual Profit ($)',
+                                data: data.map(item => item.annualProduction),
+                                borderColor: 'rgba(75, 192, 192, 1)', // Profit line color
+                                borderWidth: 2,
+                                fill: false
+                            },
+                            {
+                                label: 'Mining Difficulty',
+                                data: data.map(item => item.miningDifficulty),
+                                borderColor: 'rgba(255, 99, 132, 1)', // Difficulty line color
+                                borderWidth: 2,
+                                fill: false,
+                                yAxisID: 'y2' // Use a secondary y-axis for difficulty
+                            }
+                        ]
+                    },
+                    options: {
+                        responsive: true,
+                        scales: {
+                            x: {
+                                title: {
+                                    display: true,
+                                    text: 'Months',
+                                    color: 'rgba(0, 0, 0, 0.8)' // X-axis title color
+                                },
+                                ticks: {
+                                    color: 'rgba(0, 0, 0, 0.8)' // X-axis tick labels color
+                                }
+                            },
+                            y: {
+                                title: {
+                                    display: true,
+                                    text: 'Profit ($)',
+                                    color: 'rgba(75, 192, 192, 1)' // Y-axis title color matching Profit
+                                },
+                                ticks: {
+                                    color: 'rgba(75, 192, 192, 1)' // Y-axis tick labels color matching Profit
+                                }
+                            },
+                            y2: {
+                                position: 'right',
+                                title: {
+                                    display: true,
+                                    text: 'Difficulty',
+                                    color: 'rgba(255, 99, 132, 1)' // Secondary Y-axis title color matching Difficulty
+                                },
+                                ticks: {
+                                    color: 'rgba(255, 99, 132, 1)' // Secondary Y-axis tick labels color matching Difficulty
+                                },
+                                grid: {
+                                    drawOnChartArea: false // Hide grid lines for the secondary axis
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+        }
+        
+        // Helper function to calculate rewards per month
+        function calculateRevenuePerMonth(difficulty) {
+            const power = parseFloat(powerInput.value);
+            const hashRate = parseFloat(hashRateInput.value) / 1000; // Convert GH/s to TH/s
+            const blockReward = parseFloat(document.getElementById('blockReward').value);
+            const fees = parseFloat(document.getElementById('fees').value) / 100;
+            const dogeValue = parseFloat(document.getElementById('dogeValue').value);
+            const cost = parseFloat(document.getElementById('cost').value);
+        
+            // Calculate rewards per month based on total miners, difficulty, and block reward
+            const blockRewardHours = blockReward * 3600;
+            const rewardsPerHourDOGE = (hashRate * blockRewardHours) / (difficulty * Math.pow(2, 32));
+            const scaledRewardsPerHourDOGE = rewardsPerHourDOGE * Math.pow(10, 12); // Scale by 10^12
+            const rewardsPerHourUSD = scaledRewardsPerHourDOGE * dogeValue;
+            
+            const electricityCostPerHour = (power / 1000) * cost;
             const feesCostUSD = rewardsPerHourUSD * fees;
             const profitPerHourUSD = rewardsPerHourUSD - electricityCostPerHour - feesCostUSD;
-			const profitPerMonthUSD = profitPerHourUSD * 720; // 720 hours in a month.
-			
-		    return profitPerMonthUSD;
-		}
-	
-		updateDataButton.addEventListener('click', async () => {
-		    try {
-		        const use10BlockAverage = use10BlockAverageCheckbox.checked;
-		
-		        // Fetch the latest DOGE blocks
-		        const response = await fetch('https://api.blockchair.com/dogecoin/blocks?limit=10');
-		        const data = await response.json();
-		        const dogePrice = data.context.market_price_usd;
-		
-		        // Determine which blocks to use based on the checkbox
-		        let totalDifficulty = 0;
-		        let blockCount = use10BlockAverage ? data.data.length : 1; // Use all blocks or just the most recent block
-		
-		        // Calculate the total difficulty based on the selected blocks
-		        for (let i = 0; i < blockCount; i++) {
-		            totalDifficulty += data.data[i].difficulty;
-					// console.log(data.data[i].difficulty);
-		        }
-		
-		        // Calculate the average difficulty if using the last 10 blocks
-		        const averageDifficulty = totalDifficulty / blockCount;
-				
-				// Debugging
-				// console.log(`DOGE Price: ${dogePrice.toFixed(6)} USD`);
-				// console.log(`Average Difficulty: ${averageDifficulty.toFixed(2)}`);
-				
-		        // Update the inputs with the fetched data
-		        dogeValueInput.value = dogePrice.toFixed(6);
-		        difficultyInput.value = averageDifficulty.toFixed(2);
-		
-		        // Recalculate the numbers with the new data
-		        calculate();
-		    } catch (error) {
-		        console.error('Error fetching DOGE data. Might have attempted to fetch too many too quickly! Error:', error);
-		    }
-		});
+            const profitPerMonthUSD = profitPerHourUSD * 720; // 720 hours in a month.
+            
+            return profitPerMonthUSD;
+        }
+    
+        updateDataButton.addEventListener('click', async () => {
+            try {
+                const use10BlockAverage = use10BlockAverageCheckbox.checked;
+        
+                // Fetch the latest DOGE blocks
+                const response = await fetch('https://api.blockchair.com/dogecoin/blocks?limit=10');
+                const data = await response.json();
+                const dogePrice = data.context.market_price_usd;
+        
+                // Determine which blocks to use based on the checkbox
+                let totalDifficulty = 0;
+                let blockCount = use10BlockAverage ? data.data.length : 1; // Use all blocks or just the most recent block
+        
+                // Calculate the total difficulty based on the selected blocks
+                for (let i = 0; i < blockCount; i++) {
+                    totalDifficulty += data.data[i].difficulty;
+                    // console.log(data.data[i].difficulty);
+                }
+        
+                // Calculate the average difficulty if using the last 10 blocks
+                const averageDifficulty = totalDifficulty / blockCount;
+                
+                // Debugging
+                // console.log(`DOGE Price: ${dogePrice.toFixed(6)} USD`);
+                // console.log(`Average Difficulty: ${averageDifficulty.toFixed(2)}`);
+                
+                // Update the inputs with the fetched data
+                dogeValueInput.value = dogePrice.toFixed(6);
+                difficultyInput.value = averageDifficulty.toFixed(2);
+        
+                // Recalculate the numbers with the new data
+                calculate();
+            } catch (error) {
+                console.error('Error fetching DOGE data. Might have attempted to fetch too many too quickly! Error:', error);
+            }
+        });
     </script>
 </body>
 </html>
