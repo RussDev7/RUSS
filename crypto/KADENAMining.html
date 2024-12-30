@@ -486,7 +486,7 @@
         function calculateRevenuePerMonth(difficulty) {
             const multiplierInput = document.getElementById('multiplier'); // Divide by multiplier to always represent one unit
             const power = parseFloat(powerInput.value / multiplierInput.value);
-            const hashRate = parseFloat(hashRateInput.value) * Math.pow(10, 12); // Convert TH/s to H/s
+            const hashRate = parseFloat((hashRateInput.value * Math.pow(10, 12)) / multiplierInput.value); // Convert TH/s to H/s
             const blockReward = parseFloat(document.getElementById('blockReward').value);
             const fees = parseFloat(document.getElementById('fees').value) / 100;
             const kadenaValue = parseFloat(document.getElementById('kadenaValue').value);
