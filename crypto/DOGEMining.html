@@ -73,17 +73,17 @@
             </div>
             <div class="input-group">
                 <label for="hashRate">Hash Rate (GH/s):</label>
-                <input type="number" id="hashRate" placeholder="16.60" step="0.01" value="16.60" min="0">
+                <input type="number" id="hashRate" placeholder="20.00" step="0.01" value="20.00" min="0">
             </div>
             <div class="input-group">
                 <label for="power">Power (W):</label>
-                <input type="number" id="power" placeholder="3260.00" step="0.01" value="3260.00" min="0">
+                <input type="number" id="power" placeholder="6200.00" step="0.01" value="6200.00" min="0">
             </div>
         </div>
         <div class="input-row">
             <div class="input-group">
                 <label for="cost">Electricity Cost ($/kWh):</label>
-                <input type="number" id="cost" placeholder="0.1" step="0.01" value="0.1" min="0">
+                <input type="number" id="cost" placeholder="0.09" step="0.01" value="0.09" min="0">
             </div>
             <div class="input-group">
                 <label for="blockReward">Block Reward (DOGE):</label>
@@ -101,11 +101,11 @@
             </div>
             <div class="input-group">
                 <label for="difficulty">Difficulty:</label>
-                <input type="number" id="difficulty" placeholder="26205442.669" step="0.01" value="26205442.669" min="0">
+                <input type="number" id="difficulty" placeholder="24069451.57" step="0.01" value="24069451.57" min="0">
             </div>
             <div class="input-group">
                 <label for="dogeValue">DOGE Value:</label>
-                <input type="number" id="dogeValue" placeholder="0.342849" step="0.01" value="0.342849" min="0">
+                <input type="number" id="dogeValue" placeholder="0.313145" step="0.01" value="0.313145" min="0">
             </div>
         </div>
         
@@ -141,7 +141,7 @@
         <div class="input-row">
             <div class="input-group">
                 <label for="minerCost">Miner Cost ($):</label>
-                <input type="number" id="minerCost" placeholder="11199.00" step="1000.00" value="11199.00" min="0">
+                <input type="number" id="minerCost" placeholder="8598.00" step="1000.00" value="8598.00" min="0">
             </div>
             <div class="input-group">
                 <label for="additionalFunds">Additional Funds ($):</label>
@@ -155,7 +155,7 @@
         <div class="input-row">
             <div class="input-group">
                 <label for="monthlyDifficultyIncrease">Monthly Addition In Difficulty:</label>
-                <input type="number" id="monthlyDifficultyIncrease" placeholder="2847758.86178034" step="2800000" value="2847758.86178034" min="0">
+                <input type="number" id="monthlyDifficultyIncrease" placeholder="0.000" step="100000" value="0.000" min="0">
             </div>
         </div>
         
@@ -222,7 +222,7 @@
 
         // Variables to store the last user input values
         let lastHashRate = parseFloat(hashRateInput.value) || 16.6; // Default to 16.6 if empty
-        let lastPower = parseFloat(powerInput.value) || 3260.0; // Default to 3260 if empty
+        let lastPower = parseFloat(powerInput.value) || 6200.0; // Default to 6200 if empty
 
         // Update hashRate and power based on multiplier value
         function updateHashAndPower() {
@@ -243,7 +243,7 @@
         });
 
         powerInput.addEventListener('input', () => {
-            lastPower = parseFloat(powerInput.value) || 3260.0; // Store the new power value
+            lastPower = parseFloat(powerInput.value) || 6200.0; // Store the new power value
             multiplierInput.value = 1; // Reset multiplier to 1
             calculate();
         });
