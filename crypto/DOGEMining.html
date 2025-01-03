@@ -177,8 +177,8 @@
                     <th>Total Miners</th>
                     <th>New Miners</th>
                     <th>Monthly Profit</th>
-                    <th>Annual Profit</th>
                     <th>Delivery Cost</th>
+                    <th>Annual Profit</th>
                     <th>Mining Difficulty</th>
                 </tr>
             </thead>
@@ -363,8 +363,8 @@
                     totalMiners: currentMiners,
                     newMiners: newMiners,
                     monthlyProduction: Math.floor((currentMiners * calculateRevenuePerMonth(difficulty)) - providerCharge),
-                    annualProduction: Math.floor((currentMiners * calculateRevenuePerMonth(difficulty) * 12) - (providerCharge * 12)),
                     deliveryCost: Math.floor(calculateDeliveryChargePerMonth(month, currentMiners)),
+                    annualProduction: Math.floor((currentMiners * calculateRevenuePerMonth(difficulty) * 12) - (providerCharge * 12)),
                     miningDifficulty: difficulty
                 });
                 
@@ -372,7 +372,7 @@
                 monthlyData.push({
                     annualProduction: Math.floor((currentMiners * calculateRevenuePerMonth(difficulty) * 12) - (providerCharge * 12)),
                     miningDifficulty: difficulty,
-                    deliveryCost: Math.floor(calculateDeliveryChargePerMonth(month, currentMiners))
+                    deliveryCost: Math.floor(calculateDeliveryChargePerMonth(month, currentMiners) * 12)
                 });
                 
                 // Increase difficulty for the next month
@@ -387,8 +387,8 @@
                     <td>${row.totalMiners.toLocaleString()}</td>
                     <td>${row.newMiners.toLocaleString()}</td>
                     <td>$${row.monthlyProduction.toLocaleString()}</td>
-                    <td>$${row.annualProduction.toLocaleString()}</td>
                     <td>$${row.deliveryCost.toLocaleString()}</td>
+                    <td>$${row.annualProduction.toLocaleString()}</td>
                     <td>${row.miningDifficulty.toLocaleString()}</td>
                 </tr>
             `).join('');
@@ -469,7 +469,7 @@
                                 yAxisID: 'y2' // Use a secondary y-axis for difficulty
                             },
                             {
-                                label: 'Delivery Cost ($)',
+                                label: 'Annual Delivery Cost ($)',
                                 data: data.map(item => item.deliveryCost),
                                 borderColor: 'rgba(54, 162, 235, 1)', // Delivery Cost line color
                                 borderWidth: 2,
