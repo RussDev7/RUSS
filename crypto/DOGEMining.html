@@ -83,7 +83,21 @@
         <div class="input-row">
             <div class="input-group">
                 <label for="cost">Electricity Cost ($/kWh):</label>
-                <input type="number" id="cost" placeholder="0.0617" step="0.01" value="0.0617" min="0">
+                <input type="number" id="cost" placeholder="0.0747" step="0.01" value="0.0747" min="0">
+            </div>
+            <div class="input-group">
+                <label for="cost">Delivery Charge Rate:</label>
+                <input type="number" id="deliveryChargeRate" placeholder="0.04" step="0.01" value="0.04" min="0">
+            </div>
+            <div class="input-group">
+                <label for="cost">Monthly Provider Charge:</label>
+                <input type="number" id="providerCharge" placeholder="4.95" step="0.05" value="4.95" min="0">
+            </div>
+        </div>
+        <div class="input-row">
+            <div class="input-group">
+                <label for="blockTime">Block Time (seconds):</label>
+                <input type="number" id="blockTime" placeholder="1.3" step="0.01" value="1.3" min="0" disabled>
             </div>
             <div class="input-group">
                 <label for="blockReward">Block Reward (DOGE):</label>
@@ -96,10 +110,6 @@
         </div>
         <div class="input-row">
             <div class="input-group">
-                <label for="blockTime">Block Time (seconds):</label>
-                <input type="number" id="blockTime" placeholder="1.3" step="0.01" value="1.3" min="0" disabled>
-            </div>
-            <div class="input-group">
                 <label for="difficulty">Difficulty:</label>
                 <input type="number" id="difficulty" placeholder="22093882.30" step="0.01" value="22093882.30" min="0">
             </div>
@@ -108,7 +118,7 @@
                 <input type="number" id="dogeValue" placeholder="0.339405" step="0.01" value="0.339405" min="0">
             </div>
         </div>
-        
+		
         <div class="input-row">
             <button onclick="calculate()">Calculate</button>
             <button id="resetButton">Reset</button>
@@ -125,7 +135,8 @@
                     <th>Fees</th>
                     <th>Est. Rewards</th>
                     <th>Rev. $</th>
-                    <th>Cost</th>
+                    <th>Power Cost</th>
+                    <th>Delivery Cost</th>
                     <th>Profit</th>
                 </tr>
             </thead>
@@ -195,7 +206,9 @@
         const minerCostInput = document.getElementById('minerCost');
         const additionalFundsInput = document.getElementById('additionalFunds');
         const targetMonthsInput = document.getElementById('targetMonths');
-        const monthlyDifficultyIncrease = document.getElementById('monthlyDifficultyIncrease');
+        const monthlyDifficultyIncreaseInput = document.getElementById('monthlyDifficultyIncrease');
+		const deliveryChargeRateInput = document.getElementById('deliveryChargeRate');
+        const providerChargeInput = document.getElementById('providerCharge');
         const updateDataButton = document.getElementById('updateDataButton');
         const useBlockAverageCheckbox = document.getElementById('useBlockAverage');
         
@@ -215,6 +228,8 @@
             document.getElementById('additionalFunds').value = document.getElementById('additionalFunds').placeholder;
             document.getElementById('targetMonths').value = document.getElementById('targetMonths').placeholder;
             document.getElementById('monthlyDifficultyIncrease').value = document.getElementById('monthlyDifficultyIncrease').placeholder;
+			document.getElementById('deliveryChargeRate').value = document.getElementById('deliveryChargeRate').placeholder;
+			document.getElementById('providerCharge').value = document.getElementById('providerCharge').placeholder;
             
             // Recalculate with default values
             calculate();
@@ -258,7 +273,9 @@
         minerCost.addEventListener('input', updateHashAndPower);
         additionalFunds.addEventListener('input', updateHashAndPower);
         targetMonths.addEventListener('input', updateHashAndPower);
-        monthlyDifficultyIncrease.addEventListener('input', updateHashAndPower);
+        monthlyDifficultyIncreaseInput.addEventListener('input', updateHashAndPower);
+		deliveryChargeRateInput.addEventListener('input', updateHashAndPower);
+		providerChargeInput.addEventListener('input', updateHashAndPower);
         
         function calculate() {
             // Get user inputs
@@ -270,31 +287,38 @@
             const dogeValue = parseFloat(document.getElementById('dogeValue').value);
             const cost = parseFloat(document.getElementById('cost').value);
             const blockTime = parseFloat(document.getElementById('blockTime').value);
+			const deliveryChargeRate = parseFloat(document.getElementById('deliveryChargeRate').value);
+            const providerCharge = parseFloat(document.getElementById('providerCharge').value);
             
             // Calculate metrics
             const blockRewardHours = blockReward * 3600;
             const rewardsPerHourDOGE = (hashRate * blockRewardHours) / (difficulty * Math.pow(2, 32));
             const scaledRewardsPerHourDOGE = rewardsPerHourDOGE * Math.pow(10, 12); // Scale by 10^12
             const rewardsPerHourUSD = scaledRewardsPerHourDOGE * dogeValue;
-        
+			
+			// Calculate electricity
+			// const powerToKWH = ; // 5000W × 3h / 1000
+			const deliveryCharge = (power / 1000) * deliveryChargeRate; // ((Units * kWh day) * days) * Variable rate
             const electricityCostPerHour = (power / 1000) * cost;
             const feesCostUSD = rewardsPerHourUSD * fees;
-            const profitPerHourUSD = rewardsPerHourUSD - electricityCostPerHour - feesCostUSD;
-            
+            const profitPerHourUSD = rewardsPerHourUSD - electricityCostPerHour - feesCostUSD - deliveryCharge;
+			
             // Time periods
             const periods = { Hour: 1, Day: 24, Week: 168, Month: 720, Year: 8760 };
-            
+			
             // Generate results
-            const results = Object.entries(periods).map(([period, multiplier]) => 
-                `<tr>
+            const results = Object.entries(periods).map(([period, multiplier]) => {
+			    const providerChargeForPeriod = period === "Year" ? providerCharge * 12 : providerCharge; // Monthly fixed charge scaled
+                return `<tr>
                     <td>${period}</td>
                     <td>$${Number((feesCostUSD * multiplier).toFixed(2)).toLocaleString()}</td>
                     <td>${Number((scaledRewardsPerHourDOGE * multiplier).toFixed(2)).toLocaleString()} DOGE</td>
                     <td>$${Number((rewardsPerHourUSD * multiplier).toFixed(2)).toLocaleString()}</td>
                     <td>$${Number((electricityCostPerHour * multiplier).toFixed(2)).toLocaleString()}</td>
-                    <td>$${Number((profitPerHourUSD * multiplier).toFixed(2)).toLocaleString()}</td>
+                    <td>$${Number((deliveryCharge * multiplier).toFixed(2)).toLocaleString()}</td>
+                    <td>$${Number((profitPerHourUSD * multiplier - providerChargeForPeriod).toFixed(2)).toLocaleString()}</td>
                 </tr>`
-            ).join('');
+            }).join('');
         
             document.getElementById('results').innerHTML = results;
             
@@ -306,7 +330,8 @@
             const minerCost = parseFloat(document.getElementById('minerCost').value);
             const additionalFunds = parseFloat(document.getElementById('additionalFunds').value);
             const targetMonths = parseInt(document.getElementById('targetMonths').value, 10);
-            const monthlyDifficultyIncrease = parseInt(document.getElementById('monthlyDifficultyIncrease').value);
+            const monthlyDifficultyIncreaseInput = parseInt(document.getElementById('monthlyDifficultyIncrease').value);
+			const providerCharge = parseFloat(document.getElementById('providerCharge').value);
             let difficulty = parseFloat(document.getElementById('difficulty').value);
             
             // const cellText = document.querySelector('#results tr:nth-child(4) td:last-child').textContent.trim();
@@ -321,7 +346,7 @@
             const monthlyData = [];
         
             for (let month = 1; month <= targetMonths; month++) {
-                const monthlyRevenue = currentMiners * calculateRevenuePerMonth(difficulty);
+                const monthlyRevenue = currentMiners * calculateRevenuePerMonth(difficulty) - providerCharge;
                 cumulativeRevenue += monthlyRevenue + additionalFunds;
         
                 // Calculate new miners that can be purchased
@@ -336,19 +361,19 @@
                     month,
                     totalMiners: currentMiners,
                     newMiners: newMiners,
-                    monthlyProduction: Math.floor(currentMiners * calculateRevenuePerMonth(difficulty)),
-                    annualProduction: Math.floor(currentMiners * calculateRevenuePerMonth(difficulty) * 12),
+                    monthlyProduction: Math.floor((currentMiners * calculateRevenuePerMonth(difficulty)) - providerCharge),
+                    annualProduction: Math.floor((currentMiners * calculateRevenuePerMonth(difficulty) * 12) - (providerCharge * 12)),
                     miningDifficulty: difficulty
                 });
                 
                 // Collect data for the chart
                 monthlyData.push({
-                    annualProduction: Math.floor(currentMiners * calculateRevenuePerMonth(difficulty) * 12),
+                    annualProduction: Math.floor((currentMiners * calculateRevenuePerMonth(difficulty) * 12) - (providerCharge * 12)),
                     miningDifficulty: difficulty
                 });
                 
                 // Increase difficulty for the next month
-                difficulty += monthlyDifficultyIncrease;
+                difficulty += monthlyDifficultyIncreaseInput;
             }
         
             // Update the scaling results table
@@ -492,16 +517,20 @@
             const fees = parseFloat(document.getElementById('fees').value) / 100;
             const dogeValue = parseFloat(document.getElementById('dogeValue').value);
             const cost = parseFloat(document.getElementById('cost').value);
-        
+        	const deliveryChargeRate = parseFloat(document.getElementById('deliveryChargeRate').value);
+			
             // Calculate rewards per month based on total miners, difficulty, and block reward
             const blockRewardHours = blockReward * 3600;
             const rewardsPerHourDOGE = (hashRate * blockRewardHours) / (difficulty * Math.pow(2, 32));
             const scaledRewardsPerHourDOGE = rewardsPerHourDOGE * Math.pow(10, 12); // Scale by 10^12
             const rewardsPerHourUSD = scaledRewardsPerHourDOGE * dogeValue;
             
+			// Calculate electricity
+			// const powerToKWH = ; // 5000W × 3h / 1000
+			const deliveryCharge = (power / 1000) * deliveryChargeRate; // ((Units * kWh day) * days) * Variable rate
             const electricityCostPerHour = (power / 1000) * cost;
             const feesCostUSD = rewardsPerHourUSD * fees;
-            const profitPerHourUSD = rewardsPerHourUSD - electricityCostPerHour - feesCostUSD;
+            const profitPerHourUSD = rewardsPerHourUSD - electricityCostPerHour - feesCostUSD - deliveryCharge;
             const profitPerMonthUSD = profitPerHourUSD * 720; // 720 hours in a month.
             
             return profitPerMonthUSD;
