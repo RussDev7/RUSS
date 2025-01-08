@@ -111,11 +111,11 @@
         <div class="input-row">
             <div class="input-group">
                 <label for="difficulty">Difficulty:</label>
-                <input type="number" id="difficulty" placeholder="28127317.56" step="0.01" value="28127317.56" min="0">
+                <input type="number" id="difficulty" placeholder="27842180.74" step="1000000.00" value="27842180.74" min="0">
             </div>
             <div class="input-group">
                 <label for="dogeValue">DOGE Value:</label>
-                <input type="number" id="dogeValue" placeholder="0.335325" step="0.01" value="0.335325" min="0">
+                <input type="number" id="dogeValue" placeholder="0.342897" step="0.01" value="0.342897" min="0">
             </div>
         </div>
         
@@ -169,6 +169,10 @@
                 <input type="number" id="monthlyDifficultyIncrease" placeholder="120000.00" step="10000" value="120000.00" min="0">
             </div>
             <div class="input-group">
+                <label for="monthlyValueIncrease">Monthly Addition In Price ($):</label>
+                <input type="number" id="monthlyValueIncrease" placeholder="0.004969" step="0.01" value="0.004969" min="0">
+            </div>
+            <div class="input-group">
                 <label for="existingMiners">Existing Miners:</label>
                 <input type="number" id="existingMiners" placeholder="1" step="1" value="1" min="0">
             </div>
@@ -178,8 +182,9 @@
             <thead>
                 <tr>
                     <th>Month</th>
-                    <th>Total Miners</th>
-                    <th>New Miners</th>
+                    <th>Miners</th>
+                    <th>(New)</th>
+                    <th>DOGE $</th>
                     <th>Monthly Profit</th>
                     <th>Delivery Cost</th>
                     <th>Annual Profit</th>
@@ -188,7 +193,7 @@
             </thead>
             <tbody id="scalingResults">
                 <tr>
-                    <td colspan="7">No results yet</td>
+                    <td colspan="8">No results yet</td>
                 </tr>
             </tbody>
         </table>
@@ -212,6 +217,7 @@
         const additionalFundsInput = document.getElementById('additionalFunds');
         const targetMonthsInput = document.getElementById('targetMonths');
         const monthlyDifficultyIncreaseInput = document.getElementById('monthlyDifficultyIncrease');
+        const monthlyValueIncreaseInput = document.getElementById('monthlyValueIncrease');
         const deliveryChargeRateInput = document.getElementById('deliveryChargeRate');
         const providerChargeInput = document.getElementById('providerCharge');
         const existingMinersInput = document.getElementById('existingMiners');
@@ -234,6 +240,7 @@
             document.getElementById('additionalFunds').value = document.getElementById('additionalFunds').placeholder;
             document.getElementById('targetMonths').value = document.getElementById('targetMonths').placeholder;
             document.getElementById('monthlyDifficultyIncrease').value = document.getElementById('monthlyDifficultyIncrease').placeholder;
+            document.getElementById('monthlyValueIncrease').value = document.getElementById('monthlyValueIncrease').placeholder;
             document.getElementById('deliveryChargeRate').value = document.getElementById('deliveryChargeRate').placeholder;
             document.getElementById('providerCharge').value = document.getElementById('providerCharge').placeholder;
             document.getElementById('existingMiners').value = document.getElementById('existingMiners').placeholder;
@@ -281,6 +288,7 @@
         additionalFunds.addEventListener('input', updateHashAndPower);
         targetMonths.addEventListener('input', updateHashAndPower);
         monthlyDifficultyIncreaseInput.addEventListener('input', updateHashAndPower);
+        monthlyValueIncreaseInput.addEventListener('input', updateHashAndPower);
         deliveryChargeRateInput.addEventListener('input', updateHashAndPower);
         providerChargeInput.addEventListener('input', updateHashAndPower);
         existingMinersInput.addEventListener('input', updateHashAndPower);
@@ -338,10 +346,12 @@
             const minerCost = parseFloat(document.getElementById('minerCost').value);
             const additionalFunds = parseFloat(document.getElementById('additionalFunds').value);
             const targetMonths = parseInt(document.getElementById('targetMonths').value, 10);
-            const monthlyDifficultyIncreaseInput = parseInt(document.getElementById('monthlyDifficultyIncrease').value);
+            const monthlyDifficultyIncrease = parseFloat(document.getElementById('monthlyDifficultyIncrease').value);
+            const monthlyValueIncrease = parseFloat(document.getElementById('monthlyValueIncrease').value);
             const providerCharge = parseFloat(document.getElementById('providerCharge').value);
             const existingMiners = parseFloat(document.getElementById('existingMiners').value);
             let difficulty = parseFloat(document.getElementById('difficulty').value);
+            let dogeValue = parseFloat(document.getElementById('dogeValue').value);
             
             // const cellText = document.querySelector('#results tr:nth-child(4) td:last-child').textContent.trim();
             // const monthlyProductionPerMiner = parseFloat(cellText.replace('$', '').replace(',', '')) || 0;
@@ -355,36 +365,41 @@
             const monthlyData = [];
         
             for (let month = 1; month <= targetMonths; month++) {
-                const monthlyRevenue = currentMiners * calculateRevenuePerMonth(difficulty) - providerCharge;
+                const monthlyRevenue = currentMiners * calculateRevenuePerMonth(difficulty, dogeValue) - providerCharge;
                 cumulativeRevenue += monthlyRevenue + additionalFunds;
         
                 // Calculate new miners that can be purchased
                 const newMiners = Math.floor(cumulativeRevenue / minerCost);
                 cumulativeRevenue -= newMiners * minerCost;
-				
+                
                 // Collect data for the table
                 data.push({
                     month,
                     totalMiners: currentMiners,
                     newMiners: newMiners,
-                    monthlyProduction: Math.floor((currentMiners * calculateRevenuePerMonth(difficulty)) - providerCharge),
+                    dogeValue: dogeValue,
+                    monthlyProduction: Math.floor((currentMiners * calculateRevenuePerMonth(difficulty, dogeValue)) - providerCharge),
                     deliveryCost: Math.floor(calculateDeliveryChargePerMonth(month, currentMiners)),
-                    annualProduction: Math.floor((currentMiners * calculateRevenuePerMonth(difficulty) * 12) - (providerCharge * 12)),
+                    annualProduction: Math.floor((currentMiners * calculateRevenuePerMonth(difficulty, dogeValue) * 12) - (providerCharge * 12)),
                     miningDifficulty: difficulty
                 });
                 
                 // Collect data for the chart
                 monthlyData.push({
-                    annualProduction: Math.floor((currentMiners * calculateRevenuePerMonth(difficulty) * 12) - (providerCharge * 12)),
+                    annualProduction: Math.floor((currentMiners * calculateRevenuePerMonth(difficulty, dogeValue) * 12) - (providerCharge * 12)),
                     miningDifficulty: difficulty,
+                    dogeValue: dogeValue,
                     deliveryCost: Math.floor(calculateDeliveryChargePerMonth(month, currentMiners) * 12)
                 });
-				
-				// Update miner count
+                
+                // Update miner count
                 currentMiners += newMiners;
                 
                 // Increase difficulty for the next month
-                difficulty += monthlyDifficultyIncreaseInput;
+                difficulty += monthlyDifficultyIncrease;
+                
+                // Increase doge value for the next month
+                dogeValue += monthlyValueIncrease;
             }
         
             // Update the scaling results table
@@ -394,6 +409,7 @@
                     <td>${row.month}</td>
                     <td>${row.totalMiners.toLocaleString()}</td>
                     <td>${row.newMiners.toLocaleString()}</td>
+                    <td>${row.dogeValue.toLocaleString()}</td>
                     <td>$${row.monthlyProduction.toLocaleString()}</td>
                     <td>$${row.deliveryCost.toLocaleString()}</td>
                     <td>$${row.annualProduction.toLocaleString()}</td>
@@ -416,7 +432,7 @@
             // Sum the values in the "Monthly Production ($)" column
             rows.forEach((row, index) => {
                 if (index >= 0) { // Skip the header row
-                    const monthlyProductionCell = row.cells[3]; // 4th column (0-based index)
+                    const monthlyProductionCell = row.cells[4]; // 5th column (0-based index)
                     const monthlyProductionCellTrimmed = parseFloat(monthlyProductionCell.textContent.replace(/[$,]/g, '')) || 0;
                     // console.log(monthlyProductionCell.textContent.replace(/[$,]/g, ''));
                     
@@ -438,7 +454,7 @@
             totalRow.id = 'totalRevenueRow';
             totalRow.innerHTML = `
                 <td colspan="4"><strong>Total Revenue Generated:</strong></td>
-                <td colspan="3"><strong>$${Number(totalRevenue.toFixed(2)).toLocaleString()}</strong></td>
+                <td colspan="4"><strong>$${Number(totalRevenue.toFixed(2)).toLocaleString()}</strong></td>
             `;
             scalingResultsTable.appendChild(totalRow);
         }
@@ -453,6 +469,7 @@
                 chartInstance.data.datasets[0].data = data.map(item => item.annualProduction); // Profit dataset
                 chartInstance.data.datasets[1].data = data.map(item => item.miningDifficulty); // Difficulty dataset
                 chartInstance.data.datasets[2].data = data.map(item => item.deliveryCost); // Delivery Cost dataset
+                chartInstance.data.datasets[3].data = data.map(item => item.dogeValue); // DOGE Value dataset
                 chartInstance.update(); // Refresh the chart
             } else {
                 // Create a new chart instance if it doesn't exist
@@ -477,9 +494,17 @@
                                 yAxisID: 'y2' // Use a secondary y-axis for difficulty
                             },
                             {
-                                label: 'Annual Delivery Cost ($)',
+                                label: 'Annual Delivery Cost',
                                 data: data.map(item => item.deliveryCost),
                                 borderColor: 'rgba(54, 162, 235, 1)', // Delivery Cost line color
+                                borderWidth: 2,
+                                fill: false,
+                                hidden: true // Disabled by default
+                            },
+                            {
+                                label: 'DOGE Value',
+                                data: data.map(item => item.dogeValue),
+                                borderColor: 'rgba(255, 206, 86, 1)', // DOGE Value line color
                                 borderWidth: 2,
                                 fill: false,
                                 hidden: true // Disabled by default
@@ -530,13 +555,12 @@
         }
         
         // Helper function to calculate rewards per month
-        function calculateRevenuePerMonth(difficulty) {
+        function calculateRevenuePerMonth(difficulty, dogeValue) {
             const multiplierInput = document.getElementById('multiplier'); // Divide by multiplier to always represent one unit
             const power = parseFloat(powerInput.value / multiplierInput.value);
             const hashRate = parseFloat(hashRateInput.value / multiplierInput.value) / 1000; // Convert GH/s to TH/s
             const blockReward = parseFloat(document.getElementById('blockReward').value);
             const fees = parseFloat(document.getElementById('fees').value) / 100;
-            const dogeValue = parseFloat(document.getElementById('dogeValue').value);
             const cost = parseFloat(document.getElementById('cost').value);
             const deliveryChargeRate = parseFloat(document.getElementById('deliveryChargeRate').value);
             
