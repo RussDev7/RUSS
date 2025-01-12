@@ -365,7 +365,7 @@
             const monthlyData = [];
         
             for (let month = 1; month <= targetMonths; month++) {
-                const monthlyRevenue = currentMiners * calculateRevenuePerMonth(difficulty, dogeValue) - providerCharge;
+                const monthlyRevenue = currentMiners * (calculateRevenuePerHour(difficulty, dogeValue) * 720) - providerCharge;
                 cumulativeRevenue += monthlyRevenue + additionalFunds;
         
                 // Calculate new miners that can be purchased
@@ -378,18 +378,18 @@
                     totalMiners: currentMiners,
                     newMiners: newMiners,
                     dogeValue: dogeValue,
-                    monthlyProduction: Math.floor((currentMiners * calculateRevenuePerMonth(difficulty, dogeValue)) - providerCharge),
-                    deliveryCost: Math.floor(calculateDeliveryChargePerMonth(month, currentMiners)),
-                    annualProduction: Math.floor((currentMiners * calculateRevenuePerMonth(difficulty, dogeValue) * 12) - (providerCharge * 12)),
+                    monthlyProduction: Math.floor((currentMiners * (calculateRevenuePerHour(difficulty, dogeValue) * 720)) - providerCharge),
+                    deliveryCost: Math.floor(calculateDeliveryChargePerHour(month, currentMiners) * 720),
+                    annualProduction: Math.floor((currentMiners * (calculateRevenuePerHour(difficulty, dogeValue) * 8760)) - (providerCharge * 12)),
                     miningDifficulty: difficulty
                 });
                 
                 // Collect data for the chart
                 monthlyData.push({
-                    annualProduction: Math.floor((currentMiners * calculateRevenuePerMonth(difficulty, dogeValue) * 12) - (providerCharge * 12)),
+                    annualProduction: Math.floor((currentMiners * (calculateRevenuePerHour(difficulty, dogeValue) * 8760)) - (providerCharge * 12)),
                     miningDifficulty: difficulty,
                     dogeValue: dogeValue,
-                    deliveryCost: Math.floor(calculateDeliveryChargePerMonth(month, currentMiners) * 12)
+                    deliveryCost: Math.floor(calculateDeliveryChargePerHour(month, currentMiners) * 8760)
                 });
                 
                 // Update miner count
@@ -555,7 +555,7 @@
         }
         
         // Helper function to calculate rewards per month
-        function calculateRevenuePerMonth(difficulty, dogeValue) {
+        function calculateRevenuePerHour(difficulty, dogeValue) {
             const multiplierInput = document.getElementById('multiplier'); // Divide by multiplier to always represent one unit
             const power = parseFloat(powerInput.value / multiplierInput.value);
             const hashRate = parseFloat(hashRateInput.value / multiplierInput.value) / 1000; // Convert GH/s to TH/s
@@ -576,22 +576,21 @@
             const electricityCostPerHour = (power / 1000) * cost;
             const feesCostUSD = rewardsPerHourUSD * fees;
             const profitPerHourUSD = rewardsPerHourUSD - electricityCostPerHour - feesCostUSD - deliveryCharge;
-            const profitPerMonthUSD = profitPerHourUSD * 720; // 720 hours in a month.
             
-            return profitPerMonthUSD;
+            return profitPerHourUSD;
         }
         
         // Helper function to calculate rewards per month
-        function calculateDeliveryChargePerMonth(month, currentMiners) {
+        function calculateDeliveryChargePerHour(month, currentMiners) {
             const power = parseFloat(powerInput.value / multiplierInput.value);
             const deliveryChargeRate = parseFloat(document.getElementById('deliveryChargeRate').value);
             
             // Calculate electricity
             // const powerToKWH = ; // 5000W × 3h / 1000
             // ((((power / 1000) * deliveryChargeRate) * 24 hours) * 30 days) * currentMiners
-            const deliveryChargePerMonthUSD = ((((power / 1000) * deliveryChargeRate) * 24) * 30) * currentMiners;
+            const deliveryChargePerHourUSD = ((power / 1000) * deliveryChargeRate) * currentMiners;
             
-            return deliveryChargePerMonthUSD;
+            return deliveryChargePerHourUSD;
         }
     
         updateDataButton.addEventListener('click', async () => {
