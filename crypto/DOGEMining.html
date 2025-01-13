@@ -404,18 +404,21 @@
         
             // Update the scaling results table
             const scalingResults = document.getElementById('scalingResults');
-            scalingResults.innerHTML = data.map(row => `
-                <tr>
-                    <td>${row.month}</td>
-                    <td>${row.totalMiners.toLocaleString()}</td>
-                    <td>${row.newMiners.toLocaleString()}</td>
-                    <td>${row.dogeValue.toLocaleString()}</td>
-                    <td>$${row.monthlyProduction.toLocaleString()}</td>
-                    <td>$${row.deliveryCost.toLocaleString()}</td>
-                    <td>$${row.annualProduction.toLocaleString()}</td>
-                    <td>${row.miningDifficulty.toLocaleString()}</td>
-                </tr>
-            `).join('');
+            scalingResults.innerHTML = data.map((row, index) => {
+                const rowColor = (row.month % 12 === 0) ? 'background-color: #fffdab;' : ''; // Apply color to every 12th row; 12 === 1 for every 1, 13, exc.
+                return `
+                    <tr style="${rowColor}">
+                        <td>${row.month}</td>
+                        <td>${row.totalMiners.toLocaleString()}</td>
+                        <td>${row.newMiners.toLocaleString()}</td>
+                        <td>${row.dogeValue.toLocaleString()}</td>
+                        <td>$${row.monthlyProduction.toLocaleString()}</td>
+                        <td>$${row.deliveryCost.toLocaleString()}</td>
+                        <td>$${row.annualProduction.toLocaleString()}</td>
+                        <td>${row.miningDifficulty.toLocaleString()}</td>
+                    </tr>
+                `;
+            }).join('');
             
             // Add the Total Revenue row
             addTotalRevenueRow();
