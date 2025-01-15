@@ -10,7 +10,7 @@
             margin: 20px;
         }
         .container {
-            max-width: 800px;
+            max-width: 1000px;
             margin: 0 auto;
         }
         .input-row {
@@ -178,10 +178,66 @@
             </div>
         </div>
         
+        <h3>Equipment Factoring</h3>
+        
+        <!-- Dry Cooler Checkbox -->
+        <fieldset id="useDryCoolerFactoringBox">
+            <legend>
+                <label for="useDryCoolerFactoring" class="checkbox-label">
+                    <input type="checkbox" id="useDryCoolerFactoring" checked="true" onclick="toggleGroupBoxEnabledState('useDryCoolerFactoringBox', this.checked)">
+                    Dry Cooling
+                </label>
+            </legend>
+                
+            <!-- Dry Cooler Inputs -->
+            <div class="input-row">
+                <div class="input-group">
+                    <label for="coolerCost">Dry Cooler Cost:</label>
+                    <input type="number" id="coolerCost" placeholder="150000.00" step="50000.00" value="150000.00" min="0">
+                </div>
+                <div class="input-group">
+                    <label for="coolerHeatTransfer">Heat Transfer (kW):</label>
+                    <input type="number" id="coolerHeatTransfer" placeholder="2000" step="100" value="2000" min="0">
+                </div>
+                <div class="input-group">
+                    <label for="coolerPower">Power (W):</label>
+                    <input type="number" id="coolerPower" placeholder="43200" step="1000" value="43200" min="1">
+                </div>
+            </div>
+        </fieldset>
+            
+        <!-- Racks Checkbox -->
+        <fieldset id="useRackFactoringBox">
+            <legend>
+                <label for="useRackFactoring" class="checkbox-label">
+                    <input type="checkbox" id="useRackFactoring" checked="true" onclick="toggleGroupBoxEnabledState('useRackFactoringBox', this.checked)">
+                    Miner Racks
+                </label>
+            </legend>
+                
+            <!-- Rack Inputs -->
+            <div class="input-row">
+                <div class="input-group">
+                    <label for="rackCost">Rack Cost ($):</label>
+                    <input type="number" id="rackCost" placeholder="4000.00" step="500.00" value="4000.00" min="0">
+                </div>
+                <div class="input-group">
+                    <label for="rackCapacity">Rack Capacity:</label>
+                    <input type="number" id="rackCapacity" placeholder="20" step="5" value="20" min="0">
+                </div>
+                <div class="input-group">
+                    <label for="existingRacks">Existing Racks:</label>
+                    <input type="number" id="existingRacks" placeholder="1" step="1" value="1" min="0">
+                </div>
+            </div>
+        </fieldset>
+        
         <table>
             <thead>
                 <tr>
                     <th>Month</th>
+                    <th>Coolers</th>
+                    <th>Racks</th>
                     <th>Miners</th>
                     <th>New Miners</th>
                     <th>DOGE Price</th>
@@ -193,7 +249,7 @@
             </thead>
             <tbody id="scalingResults">
                 <tr>
-                    <td colspan="8">No results yet</td>
+                    <td colspan="10">No results yet</td>
                 </tr>
             </tbody>
         </table>
@@ -223,6 +279,14 @@
         const existingMinersInput = document.getElementById('existingMiners');
         const updateDataButton = document.getElementById('updateDataButton');
         const useBlockAverageCheckbox = document.getElementById('useBlockAverage');
+        const useDryCoolerFactoringCheckbox = document.getElementById('useDryCoolerFactoring');
+        const useRackFactoringCheckbox = document.getElementById('useRackFactoring');
+        const coolerCostInput = document.getElementById('coolerCost');
+        const coolerHeatTransferInput = document.getElementById('coolerHeatTransfer');
+        const coolerPowerInput = document.getElementById('coolerPower');
+        const rackCostInput = document.getElementById('rackCost');
+        const rackCapacityInput = document.getElementById('rackCapacity');
+        const existingRacksInput = document.getElementById('existingRacks');
         
         // Event listener for the reset button
         resetButton.addEventListener('click', () => {
@@ -243,7 +307,13 @@
             document.getElementById('monthlyValueIncrease').value = document.getElementById('monthlyValueIncrease').placeholder;
             document.getElementById('deliveryChargeRate').value = document.getElementById('deliveryChargeRate').placeholder;
             document.getElementById('providerCharge').value = document.getElementById('providerCharge').placeholder;
-            document.getElementById('existingMiners').value = document.getElementById('existingMiners').placeholder;
+            document.getElementById('existingMiners').value = document.getElementById('existingMiners').placeholder;            
+            document.getElementById('coolerCost').value = document.getElementById('coolerCost').placeholder;
+            document.getElementById('coolerHeatTransfer').value = document.getElementById('coolerHeatTransfer').placeholder;
+            document.getElementById('coolerPower').value = document.getElementById('coolerPower').placeholder;
+            document.getElementById('rackCost').value = document.getElementById('rackCost').placeholder;
+            document.getElementById('rackCapacity').value = document.getElementById('rackCapacity').placeholder;
+            document.getElementById('existingRacks').value = document.getElementById('existingRacks').placeholder;
             
             // Recalculate with default values
             calculate();
@@ -292,6 +362,14 @@
         deliveryChargeRateInput.addEventListener('input', updateHashAndPower);
         providerChargeInput.addEventListener('input', updateHashAndPower);
         existingMinersInput.addEventListener('input', updateHashAndPower);
+        useDryCoolerFactoringCheckbox.addEventListener('input', updateHashAndPower);
+        useRackFactoringCheckbox.addEventListener('input', updateHashAndPower);
+        coolerCostInput.addEventListener('input', updateHashAndPower);
+        coolerHeatTransferInput.addEventListener('input', updateHashAndPower);
+        coolerPowerInput.addEventListener('input', updateHashAndPower);
+        rackCostInput.addEventListener('input', updateHashAndPower);
+        rackCapacityInput.addEventListener('input', updateHashAndPower);
+        existingRacksInput.addEventListener('input', updateHashAndPower);
         
         function calculate() {
             // Get user inputs
@@ -343,6 +421,7 @@
         }
         
         function calculateScalingProfitability() {
+            const power = parseFloat(document.getElementById('power').value);
             const minerCost = parseFloat(document.getElementById('minerCost').value);
             const additionalFunds = parseFloat(document.getElementById('additionalFunds').value);
             const targetMonths = parseInt(document.getElementById('targetMonths').value, 10);
@@ -353,11 +432,23 @@
             let difficulty = parseFloat(document.getElementById('difficulty').value);
             let dogeValue = parseFloat(document.getElementById('dogeValue').value);
             
+            const useDryCoolerFactoring = document.getElementById('useDryCoolerFactoring').checked;
+            const useRackFactoring = document.getElementById('useRackFactoring').checked;
+            const coolerCost = parseFloat(document.getElementById('coolerCost').value);
+            const coolerHeatTransfer = parseFloat(document.getElementById('coolerHeatTransfer').value);
+            const coolerPower = parseFloat(document.getElementById('coolerPower').value);
+            const rackCost = parseFloat(document.getElementById('rackCost').value);
+            const rackCapacity = parseInt(document.getElementById('rackCapacity').value, 10);
+            const existingRacks = parseFloat(document.getElementById('existingRacks').value);
+            
             // const cellText = document.querySelector('#results tr:nth-child(4) td:last-child').textContent.trim();
             // const monthlyProductionPerMiner = parseFloat(cellText.replace('$', '').replace(',', '')) || 0;
             // console.log(monthlyProductionPerMiner);
         
             let currentMiners = existingMiners; // Start with a desired amount of miners
+            let currentCoolers = 1;             // Start with a single cooler
+            let currentRacks = existingRacks;   // Start with a desired amount of racks
+            let equipmentCost = 0;
             let cumulativeRevenue = 0;
             let data = [];
             
@@ -367,19 +458,68 @@
             for (let month = 1; month <= targetMonths; month++) {
                 const monthlyRevenue = currentMiners * (calculateRevenuePerHour(difficulty, dogeValue) * 720) - providerCharge;
                 cumulativeRevenue += monthlyRevenue + additionalFunds;
+                
+                // Calculate the additonal equipment costs
+                if (useDryCoolerFactoring) {
+                    const requiredCoolers = Math.ceil((currentMiners * power) / (coolerHeatTransfer * 1000));
+                    const requiredCoolersCost = requiredCoolers * coolerCost;
+                    const additionalPowerCost = calculatePowerChargePerHour(coolerPower, requiredCoolers);
+                    
+                    // Check if the required cooler is greater then what already exists
+                    if (requiredCoolers > currentCoolers)
+                    {
+                        cumulativeRevenue -= requiredCoolersCost;
+                        currentCoolers = requiredCoolers;
+                        
+                        // Add to the equipment cost
+                        equipmentCost += requiredCoolersCost;
+                    }
+                    
+                    // Always subtract the price of the cooler
+                    cumulativeRevenue -= additionalPowerCost;
+                    
+                    // Add to the equipment cost
+                    equipmentCost += additionalPowerCost;
+                }
+                else
+                {
+                    // Ensure no coolers exist if disabled
+                    currentCoolers = 0;
+                }
+                if (useRackFactoring) {
+                    const requiredRacks = Math.ceil(currentMiners / rackCapacity);
+                    const requiredRacksCost = requiredRacks * rackCost;
+                    
+                    // Check if the required racks is greater then what already exists
+                    if (requiredRacks > currentRacks)
+                    {
+                        cumulativeRevenue -= requiredRacksCost;
+                        currentRacks = requiredRacks;
+                        
+                        // Add to the equipment cost
+                        equipmentCost += requiredRacksCost;
+                    }
+                }
+                else
+                {
+                    // Ensure no coolers exist if disabled
+                    currentRacks = 0;
+                }
         
                 // Calculate new miners that can be purchased
-                const newMiners = Math.floor(cumulativeRevenue / minerCost);
+                const newMiners = Math.max(0, Math.floor(cumulativeRevenue / minerCost)); // Ensure newMiners is never negative
                 cumulativeRevenue -= newMiners * minerCost;
                 
                 // Collect data for the table
                 data.push({
                     month,
+                    totalCoolers: currentCoolers,
+                    totalRacks: currentRacks,
                     totalMiners: currentMiners,
                     newMiners: newMiners,
                     dogeValue: dogeValue,
                     monthlyProduction: Math.floor((currentMiners * (calculateRevenuePerHour(difficulty, dogeValue) * 720)) - providerCharge),
-                    deliveryCost: Math.floor(calculateDeliveryChargePerHour(month, currentMiners) * 720),
+                    deliveryCost: Math.floor(calculateDeliveryChargePerHour(currentMiners) * 720),
                     annualProduction: Math.floor((currentMiners * (calculateRevenuePerHour(difficulty, dogeValue) * 8760)) - (providerCharge * 12)),
                     miningDifficulty: difficulty
                 });
@@ -389,7 +529,8 @@
                     annualProduction: Math.floor((currentMiners * (calculateRevenuePerHour(difficulty, dogeValue) * 8760)) - (providerCharge * 12)),
                     miningDifficulty: difficulty,
                     dogeValue: dogeValue,
-                    deliveryCost: Math.floor(calculateDeliveryChargePerHour(month, currentMiners) * 8760)
+                    deliveryCost: Math.floor(calculateDeliveryChargePerHour(currentMiners) * 8760),
+                    equipmentCost: equipmentCost
                 });
                 
                 // Update miner count
@@ -409,6 +550,8 @@
                 return `
                     <tr style="${rowColor}">
                         <td>${row.month}</td>
+                        <td>${row.totalCoolers.toLocaleString()}</td>
+                        <td>${row.totalRacks.toLocaleString()}</td>
                         <td>${row.totalMiners.toLocaleString()}</td>
                         <td>${row.newMiners.toLocaleString()}</td>
                         <td>${row.dogeValue.toLocaleString()}</td>
@@ -435,7 +578,7 @@
             // Sum the values in the "Monthly Production ($)" column
             rows.forEach((row, index) => {
                 if (index >= 0) { // Skip the header row
-                    const monthlyProductionCell = row.cells[4]; // 5th column (0-based index)
+                    const monthlyProductionCell = row.cells[6]; // 7th column (0-based index)
                     const monthlyProductionCellTrimmed = parseFloat(monthlyProductionCell.textContent.replace(/[$,]/g, '')) || 0;
                     // console.log(monthlyProductionCell.textContent.replace(/[$,]/g, ''));
                     
@@ -456,7 +599,7 @@
             const totalRow = document.createElement('tr');
             totalRow.id = 'totalRevenueRow';
             totalRow.innerHTML = `
-                <td colspan="4"><strong>Total Revenue Generated:</strong></td>
+                <td colspan="6"><strong>Total Revenue Generated:</strong></td>
                 <td colspan="4"><strong>$${Number(totalRevenue.toFixed(2)).toLocaleString()}</strong></td>
             `;
             scalingResultsTable.appendChild(totalRow);
@@ -471,8 +614,9 @@
                 chartInstance.data.labels = Array.from({ length: data.length }, (_, i) => `Month ${i + 1}`);
                 chartInstance.data.datasets[0].data = data.map(item => item.annualProduction); // Profit dataset
                 chartInstance.data.datasets[1].data = data.map(item => item.miningDifficulty); // Difficulty dataset
-                chartInstance.data.datasets[2].data = data.map(item => item.deliveryCost); // Delivery Cost dataset
-                chartInstance.data.datasets[3].data = data.map(item => item.dogeValue); // DOGE Value dataset
+                chartInstance.data.datasets[2].data = data.map(item => item.deliveryCost);     // Delivery Cost dataset
+                chartInstance.data.datasets[3].data = data.map(item => item.dogeValue);        // DOGE Value dataset
+                chartInstance.data.datasets[4].data = data.map(item => item.equipmentCost);    // Equipment Cost dataset
                 chartInstance.update(); // Refresh the chart
             } else {
                 // Create a new chart instance if it doesn't exist
@@ -508,6 +652,14 @@
                                 label: 'DOGE Value',
                                 data: data.map(item => item.dogeValue),
                                 borderColor: 'rgba(255, 206, 86, 1)', // DOGE Value line color
+                                borderWidth: 2,
+                                fill: false,
+                                hidden: true // Disabled by default
+                            },
+                            {
+                                label: 'Equipment Cost',
+                                data: data.map(item => item.equipmentCost), // New dataset for Equipment Cost
+                                borderColor: 'rgba(153, 102, 255, 1)', // Equipment Cost line color
                                 borderWidth: 2,
                                 fill: false,
                                 hidden: true // Disabled by default
@@ -557,7 +709,7 @@
             }
         }
         
-        // Helper function to calculate rewards per month
+        // Helper function to calculate rewards per hour
         function calculateRevenuePerHour(difficulty, dogeValue) {
             const multiplierInput = document.getElementById('multiplier'); // Divide by multiplier to always represent one unit
             const power = parseFloat(powerInput.value / multiplierInput.value);
@@ -567,7 +719,7 @@
             const cost = parseFloat(document.getElementById('cost').value);
             const deliveryChargeRate = parseFloat(document.getElementById('deliveryChargeRate').value);
             
-            // Calculate rewards per month based on total miners, difficulty, and block reward
+            // Calculate rewards per hour based on total miners, difficulty, and block reward
             const blockRewardHours = blockReward * 3600;
             const rewardsPerHourDOGE = (hashRate * blockRewardHours) / (difficulty * Math.pow(2, 32));
             const scaledRewardsPerHourDOGE = rewardsPerHourDOGE * Math.pow(10, 12); // Scale by 10^12
@@ -583,8 +735,8 @@
             return profitPerHourUSD;
         }
         
-        // Helper function to calculate rewards per month
-        function calculateDeliveryChargePerHour(month, currentMiners) {
+        // Helper function to calculate rewards per hour
+        function calculateDeliveryChargePerHour(currentMiners) {
             const power = parseFloat(powerInput.value / multiplierInput.value);
             const deliveryChargeRate = parseFloat(document.getElementById('deliveryChargeRate').value);
             
@@ -594,6 +746,18 @@
             const deliveryChargePerHourUSD = ((power / 1000) * deliveryChargeRate) * currentMiners;
             
             return deliveryChargePerHourUSD;
+        }
+        
+        // Helper function to calculate rewards per hour
+        function calculatePowerChargePerHour(powerInput, unitsInput) {
+            const deliveryChargeRate = parseFloat(document.getElementById('deliveryChargeRate').value);
+            
+            // Calculate electricity
+            // const powerToKWH = ; // 5000W × 3h / 1000
+            // ((((power / 1000) * deliveryChargeRate) * 24 hours) * 30 days) * currentMiners
+            const powerChargePerHourUSD = ((powerInput / 1000) * deliveryChargeRate) * unitsInput;
+            
+            return powerChargePerHourUSD;
         }
     
         updateDataButton.addEventListener('click', async () => {
@@ -639,6 +803,15 @@
                 updateDataButton.disabled = false;
             }
         });
+        
+        // Function to toggle enabled state of inputs in the group
+        function toggleGroupBoxEnabledState(groupId, isEnabled) {
+            const groupBox = document.getElementById(groupId);
+            const inputs = groupBox.querySelectorAll('input[type="number"]');
+            inputs.forEach(input => {
+                input.disabled = !isEnabled;
+            });
+        }
     </script>
 </body>
 </html>
