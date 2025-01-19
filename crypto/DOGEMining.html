@@ -111,11 +111,11 @@
         <div class="input-row">
             <div class="input-group">
                 <label for="difficulty">Difficulty:</label>
-                <input type="number" id="difficulty" placeholder="24201323.95" step="1000000.00" value="24201323.95" min="0">
+                <input type="number" id="difficulty" placeholder="27520875.25" step="1000000.00" value="27520875.25" min="0">
             </div>
             <div class="input-group">
                 <label for="dogeValue">DOGE Value:</label>
-                <input type="number" id="dogeValue" placeholder="0.392886" step="0.01" value="0.392886" min="0">
+                <input type="number" id="dogeValue" placeholder="0.394134" step="0.01" value="0.394134" min="0">
             </div>
         </div>
         
@@ -170,7 +170,7 @@
             </div>
             <div class="input-group">
                 <label for="monthlyValueIncrease">Monthly Addition In Price ($):</label>
-                <input type="number" id="monthlyValueIncrease" placeholder="0.014914" step="0.001" value="0.014914" min="0">
+                <input type="number" id="monthlyValueIncrease" placeholder="0.01500" step="0.001" value="0.01500" min="0">
             </div>
             <div class="input-group">
                 <label for="existingMiners">Existing Miners:</label>
@@ -193,7 +193,11 @@
             <div class="input-row">
                 <div class="input-group">
                     <label for="networkHashrate">Network Hashrate (PH/s):</label>
-                    <input type="number" id="networkHashrate" placeholder="1.53" step="0.1" value="1.53" min="0.01" disabled>
+                    <input type="number" id="networkHashrate" placeholder="2.007" step="0.100" value="2.007" min="0.010" disabled>
+                </div>
+				<div class="input-group">
+                    <label for="monthlyHashrateIncrease">Monthly Addition In Hashrate (PH/s):</label>
+                    <input type="number" id="monthlyHashrateIncrease" placeholder="0.026" step="0.001" value="0.026" min="0.001" disabled>
                 </div>
             </div>
         </fieldset>
@@ -305,6 +309,7 @@
         const useDryCoolerFactoringCheckbox = document.getElementById('useDryCoolerFactoring');
         const useRackFactoringCheckbox = document.getElementById('useRackFactoring');
         const networkHashrateInput = document.getElementById('networkHashrate');
+		const monthlyHashrateIncreaseInput = document.getElementById('monthlyHashrateIncrease');
         const coolerCostInput = document.getElementById('coolerCost');
         const coolerHeatTransferInput = document.getElementById('coolerHeatTransfer');
         const coolerPowerInput = document.getElementById('coolerPower');
@@ -334,6 +339,7 @@
             document.getElementById('providerCharge').value = document.getElementById('providerCharge').placeholder;
             document.getElementById('existingMiners').value = document.getElementById('existingMiners').placeholder;
             document.getElementById('networkHashrate').value = document.getElementById('networkHashrate').placeholder;
+			document.getElementById('monthlyHashrateIncrease').value = document.getElementById('monthlyHashrateIncrease').placeholder;
             document.getElementById('coolerCost').value = document.getElementById('coolerCost').placeholder;
             document.getElementById('coolerHeatTransfer').value = document.getElementById('coolerHeatTransfer').placeholder;
             document.getElementById('coolerPower').value = document.getElementById('coolerPower').placeholder;
@@ -392,6 +398,7 @@
         useDryCoolerFactoringCheckbox.addEventListener('input', updateHashAndPower);
         useRackFactoringCheckbox.addEventListener('input', updateHashAndPower);
         networkHashrateInput.addEventListener('input', updateHashAndPower);
+		monthlyHashrateIncreaseInput.addEventListener('input', updateHashAndPower);
         coolerCostInput.addEventListener('input', updateHashAndPower);
         coolerHeatTransferInput.addEventListener('input', updateHashAndPower);
         coolerPowerInput.addEventListener('input', updateHashAndPower);
@@ -467,6 +474,7 @@
             const useDryCoolerFactoring = document.getElementById('useDryCoolerFactoring').checked;
             const useRackFactoring = document.getElementById('useRackFactoring').checked;
             const networkHashratePH = parseFloat(document.getElementById('networkHashrate').value);
+			const monthlyHashrateIncreasePH = parseFloat(document.getElementById('monthlyHashrateIncrease').value);
             const coolerCost = parseFloat(document.getElementById('coolerCost').value);
             const coolerHeatTransfer = parseFloat(document.getElementById('coolerHeatTransfer').value);
             const coolerPower = parseFloat(document.getElementById('coolerPower').value);
@@ -500,7 +508,7 @@
                     let scalingHashratePH = (hashRate * currentMiners) / 1000000;
                     
                     // Calculate new total blockchain hashrate increase in PH/s
-                    newNetworkHashratePH = networkHashratePH + scalingHashratePH; // New network hashrate in PH/s
+                    newNetworkHashratePH = networkHashratePH + scalingHashratePH + monthlyHashrateIncreasePH; // New network hashrate in PH/s // Plus increase
                     
                     // Calculate new difficulty
                     let newDifficulty = startingDifficulty * (newNetworkHashratePH / networkHashratePH);
