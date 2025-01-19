@@ -450,8 +450,9 @@
         }
         
         function calculateScalingProfitability() {
-            const hashRate = parseFloat(hashRateInput.value);
-            const power = parseFloat(document.getElementById('power').value);
+		    const multiplier = document.getElementById('multiplier'); // Divide by multiplier to always represent one unit
+            const hashRate = parseFloat(hashRateInput.value / multiplier.value);
+            const power = parseFloat(document.getElementById('power').value / multiplier.value);
             const minerCost = parseFloat(document.getElementById('minerCost').value);
             const additionalFunds = parseFloat(document.getElementById('additionalFunds').value);
             const targetMonths = parseInt(document.getElementById('targetMonths').value, 10);
@@ -783,9 +784,9 @@
         
         // Helper function to calculate rewards per hour
         function calculateRevenuePerHour(difficulty, dogeValue) {
-            const multiplierInput = document.getElementById('multiplier'); // Divide by multiplier to always represent one unit
-            const power = parseFloat(powerInput.value / multiplierInput.value);
-            const hashRate = parseFloat(hashRateInput.value / multiplierInput.value) / 1000; // Convert GH/s to TH/s
+            const multiplier = document.getElementById('multiplier'); // Divide by multiplier to always represent one unit
+            const power = parseFloat(powerInput.value / multiplier.value);
+            const hashRate = parseFloat(hashRateInput.value / multiplier.value) / 1000; // Convert GH/s to TH/s
             const blockReward = parseFloat(document.getElementById('blockReward').value);
             const fees = parseFloat(document.getElementById('fees').value) / 100;
             const cost = parseFloat(document.getElementById('cost').value);
@@ -809,7 +810,8 @@
         
         // Helper function to calculate rewards per hour
         function calculateDeliveryChargePerHour(currentMiners) {
-            const power = parseFloat(powerInput.value / multiplierInput.value);
+		    const multiplier = document.getElementById('multiplier'); // Divide by multiplier to always represent one unit
+            const power = parseFloat(powerInput.value / multiplier.value);
             const deliveryChargeRate = parseFloat(document.getElementById('deliveryChargeRate').value);
             
             // Calculate electricity
