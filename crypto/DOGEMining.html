@@ -195,7 +195,7 @@
                     <label for="networkHashrate">Network Hashrate (PH/s):</label>
                     <input type="number" id="networkHashrate" placeholder="2.007" step="0.100" value="2.007" min="0.010" disabled>
                 </div>
-				<div class="input-group">
+                <div class="input-group">
                     <label for="monthlyHashrateIncrease">Monthly Addition In Hashrate (PH/s):</label>
                     <input type="number" id="monthlyHashrateIncrease" placeholder="0.026" step="0.001" value="0.026" min="0.001" disabled>
                 </div>
@@ -309,7 +309,7 @@
         const useDryCoolerFactoringCheckbox = document.getElementById('useDryCoolerFactoring');
         const useRackFactoringCheckbox = document.getElementById('useRackFactoring');
         const networkHashrateInput = document.getElementById('networkHashrate');
-		const monthlyHashrateIncreaseInput = document.getElementById('monthlyHashrateIncrease');
+        const monthlyHashrateIncreaseInput = document.getElementById('monthlyHashrateIncrease');
         const coolerCostInput = document.getElementById('coolerCost');
         const coolerHeatTransferInput = document.getElementById('coolerHeatTransfer');
         const coolerPowerInput = document.getElementById('coolerPower');
@@ -319,7 +319,7 @@
         
         // Event listener for the reset button
         resetButton.addEventListener('click', () => {
-		
+        
             // Reset all fields to their original values
             document.getElementById('multiplier').value = document.getElementById('multiplier').placeholder;
             document.getElementById('hashRate').value = document.getElementById('hashRate').placeholder;
@@ -339,7 +339,7 @@
             document.getElementById('providerCharge').value = document.getElementById('providerCharge').placeholder;
             document.getElementById('existingMiners').value = document.getElementById('existingMiners').placeholder;
             document.getElementById('networkHashrate').value = document.getElementById('networkHashrate').placeholder;
-			document.getElementById('monthlyHashrateIncrease').value = document.getElementById('monthlyHashrateIncrease').placeholder;
+            document.getElementById('monthlyHashrateIncrease').value = document.getElementById('monthlyHashrateIncrease').placeholder;
             document.getElementById('coolerCost').value = document.getElementById('coolerCost').placeholder;
             document.getElementById('coolerHeatTransfer').value = document.getElementById('coolerHeatTransfer').placeholder;
             document.getElementById('coolerPower').value = document.getElementById('coolerPower').placeholder;
@@ -398,7 +398,7 @@
         useDryCoolerFactoringCheckbox.addEventListener('input', updateHashAndPower);
         useRackFactoringCheckbox.addEventListener('input', updateHashAndPower);
         networkHashrateInput.addEventListener('input', updateHashAndPower);
-		monthlyHashrateIncreaseInput.addEventListener('input', updateHashAndPower);
+        monthlyHashrateIncreaseInput.addEventListener('input', updateHashAndPower);
         coolerCostInput.addEventListener('input', updateHashAndPower);
         coolerHeatTransferInput.addEventListener('input', updateHashAndPower);
         coolerPowerInput.addEventListener('input', updateHashAndPower);
@@ -407,7 +407,7 @@
         existingRacksInput.addEventListener('input', updateHashAndPower);
         
         function calculate() {
-		
+        
             // Get user inputs
             const hashRate = parseFloat(hashRateInput.value) / 1000; // Convert GH/s to TH/s
             const blockReward = parseFloat(document.getElementById('blockReward').value);
@@ -457,7 +457,7 @@
         }
         
         function calculateScalingProfitability() {
-		    const multiplier = document.getElementById('multiplier'); // Divide by multiplier to always represent one unit
+            const multiplier = document.getElementById('multiplier'); // Divide by multiplier to always represent one unit
             const hashRate = parseFloat(hashRateInput.value / multiplier.value);
             const power = parseFloat(document.getElementById('power').value / multiplier.value);
             const minerCost = parseFloat(document.getElementById('minerCost').value);
@@ -474,7 +474,7 @@
             const useDryCoolerFactoring = document.getElementById('useDryCoolerFactoring').checked;
             const useRackFactoring = document.getElementById('useRackFactoring').checked;
             const networkHashratePH = parseFloat(document.getElementById('networkHashrate').value);
-			const monthlyHashrateIncreasePH = parseFloat(document.getElementById('monthlyHashrateIncrease').value);
+            const monthlyHashrateIncreasePH = parseFloat(document.getElementById('monthlyHashrateIncrease').value);
             const coolerCost = parseFloat(document.getElementById('coolerCost').value);
             const coolerHeatTransfer = parseFloat(document.getElementById('coolerHeatTransfer').value);
             const coolerPower = parseFloat(document.getElementById('coolerPower').value);
@@ -513,12 +513,12 @@
                     // Calculate new difficulty
                     let newDifficulty = startingDifficulty * (newNetworkHashratePH / networkHashratePH);
                     
-					// Save the contributed difficulty difference
+                    // Save the contributed difficulty difference
                     contributedDifficulty = parseFloat(newDifficulty - document.getElementById('difficulty').value);
-					
+                    
                     // Apply scaling difficulty increase
                     difficulty = newDifficulty;
-					
+                    
                     // Apply monthly difficulty increase
                     startingDifficulty += monthlyDifficultyIncrease;
                 }
@@ -818,7 +818,7 @@
         
         // Helper function to calculate rewards per hour
         function calculateDeliveryChargePerHour(currentMiners) {
-		    const multiplier = document.getElementById('multiplier'); // Divide by multiplier to always represent one unit
+            const multiplier = document.getElementById('multiplier'); // Divide by multiplier to always represent one unit
             const power = parseFloat(powerInput.value / multiplier.value);
             const deliveryChargeRate = parseFloat(document.getElementById('deliveryChargeRate').value);
             
@@ -846,7 +846,7 @@
         
             // Disable the button to prevent further clicks
             updateDataButton.disabled = true;
-    
+        
             try {
                 const useBlockAverage = useBlockAverageCheckbox.checked;
         
@@ -862,19 +862,24 @@
                 // Calculate the total difficulty based on the selected blocks
                 for (let i = 0; i < blockCount; i++) {
                     totalDifficulty += data.data[i].difficulty;
-                    // console.log(data.data[i].difficulty);
                 }
         
                 // Calculate the average difficulty if using the last 10 blocks
                 const averageDifficulty = totalDifficulty / blockCount;
+        
+                // Calculate the network hashrate (H/s)
+                const blockTimeInSeconds = 60; // 1 minute
+                const hashrate = (averageDifficulty * Math.pow(2, 32)) / blockTimeInSeconds;
                 
                 // Debugging
-                // console.log(`DOGE Price: ${dogePrice.toFixed(6)} USD`);
-                // console.log(`Average Difficulty: ${averageDifficulty.toFixed(2)}`);
+                console.log(`DOGE Price: ${dogePrice.toFixed(6)} USD`);
+                console.log(`Average Difficulty: ${averageDifficulty.toFixed(2)}`);
+                console.log(`Average Hashrate: ${(hashrate / 1e15).toFixed(3)} PH/s`);
                 
                 // Update the inputs with the fetched data
                 dogeValueInput.value = dogePrice.toFixed(6);
                 difficultyInput.value = averageDifficulty.toFixed(2);
+                networkHashrateInput.value = (hashrate / 1e15).toFixed(3); // Convert to PH/s
         
                 // Recalculate the numbers with the new data
                 calculate();
@@ -895,6 +900,6 @@
             });
         }
     </script>
-	<img src="http://006.free-counters.co.uk/count-133.pl?count=whosthere&type=greendigit&prog=unique" width="" height="" border="0" alt="" title="" hidden>
+    <img src="http://006.free-counters.co.uk/count-133.pl?count=whosthere&type=greendigit&prog=unique" width="" height="" border="0" alt="" title="" hidden>
 </body>
 </html>
