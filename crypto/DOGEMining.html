@@ -184,7 +184,7 @@
         <fieldset id="useDifficultyFactoringBox">
             <legend>
                 <label for="useDifficultyFactoring" class="checkbox-label">
-                    <input type="checkbox" id="useDifficultyFactoring" onclick="toggleGroupBoxEnabledState('useDifficultyFactoringBox', this.checked)">
+                    <input type="checkbox" id="useDifficultyFactoring" checked="true" onclick="toggleGroupBoxEnabledState('useDifficultyFactoringBox', this.checked)">
                     Enable
                 </label>
             </legend>
@@ -193,11 +193,11 @@
             <div class="input-row">
                 <div class="input-group">
                     <label for="networkHashrate">Network Hashrate (PH/s):</label>
-                    <input type="number" id="networkHashrate" placeholder="2.007" step="0.100" value="2.007" min="0.010" disabled>
+                    <input type="number" id="networkHashrate" placeholder="2.007" step="0.100" value="2.007" min="0.010">
                 </div>
                 <div class="input-group">
                     <label for="monthlyHashrateIncrease">Monthly Addition In Hashrate (PH/s):</label>
-                    <input type="number" id="monthlyHashrateIncrease" placeholder="0.026" step="0.001" value="0.026" min="0.001" disabled>
+                    <input type="number" id="monthlyHashrateIncrease" placeholder="0.026" step="0.001" value="0.026" min="0.001">
                 </div>
             </div>
         </fieldset>
