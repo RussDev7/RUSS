@@ -50,19 +50,27 @@
         }
         /* Exempt checkbox and label from the above rules */
         .checkbox-label {
-            display: inline-flex; /* Keep inline layout for checkbox */
-            align-items: center; /* Vertical alignment */
-            margin-bottom: 0; /* Remove bottom margin for alignment */
+            display: inline-flex;
+            align-items: center;
+            margin-bottom: 0;
         }
         .checkbox-label input {
-            width: auto; /* Prevent checkbox from taking full width */
-            padding: 0; /* Remove padding for checkbox */
-            margin-right: 5px; /* Optional: space between checkbox and label */
-            transform: scale(1.3); /* Scale the checkbox */
-            transform-origin: center; /* Ensure it scales from the center */
+            width: auto;
+            padding: 0;
+            margin-right: 5px;
+            transform: scale(1.3);
+            transform-origin: center;
+        }
+		/* Exempt radiobuttons from the above rules */
+        input[type="radio"] {
+            width: auto;
+            padding: 0;
+            margin-right: 5px;
+			transform: scale(1.5);
         }
     </style>
 </head>
+
 <body>
     <div class="container">
         <h1>DOGE Crypto Mining Calculator</h1>
@@ -73,11 +81,11 @@
             </div>
             <div class="input-group">
                 <label for="hashRate">Hash Rate (GH/s):</label>
-                <input type="number" id="hashRate" placeholder="20.00" step="0.01" value="20.00" min="0">
+                <input type="number" id="hashRate" placeholder="30.40" step="0.01" value="30.40" min="0">
             </div>
             <div class="input-group">
                 <label for="power">Power (W):</label>
-                <input type="number" id="power" placeholder="6200.00" step="0.01" value="6200.00" min="0">
+                <input type="number" id="power" placeholder="7600.00" step="0.01" value="7600.00" min="0">
             </div>
         </div>
         <div class="input-row">
@@ -152,7 +160,7 @@
         <div class="input-row">
             <div class="input-group">
                 <label for="minerCost">Miner Cost ($):</label>
-                <input type="number" id="minerCost" placeholder="8000.00" step="1000.00" value="8000.00" min="0">
+                <input type="number" id="minerCost" placeholder="12481.00" step="1000.00" value="12481.00" min="0">
             </div>
             <div class="input-group">
                 <label for="additionalFunds">Additional Monthly Funds ($):</label>
@@ -203,7 +211,49 @@
         </fieldset>
         
         <h3>Equipment Factoring</h3>
-        
+		
+        <label>
+            <input type="radio" name="equipmentOption" value="option1" onclick="changeHeader()" checked>
+            Use Shipping Containers
+        </label>
+        <br>
+		
+        <!-- Container Checkbox -->
+        <fieldset id="useContainerFactoringBox">
+            <legend>
+                <label for="useContainerFactoring" class="checkbox-label">
+                    <input type="checkbox" id="useContainerFactoring" checked="true" onclick="toggleGroupBoxEnabledState('useContainerFactoringBox', this.checked)">
+                    Shipping Container + Cooler
+                </label>
+            </legend>
+			
+            <!-- Rack Inputs -->
+            <div class="input-row">
+                <div class="input-group">
+                    <label for="containerCost">Container Cost ($):</label>
+                    <input type="number" id="containerCost" placeholder="115000.00" step="10000.00" value="115000.00" min="0">
+                </div>
+                <div class="input-group">
+                    <label for="containerHeatTransfer">Heat Transfer (kW):</label>
+                    <input type="number" id="containerHeatTransfer" placeholder="1400" step="100" value="1400" min="0">
+                </div>
+                <div class="input-group">
+                    <label for="containerPower">Power (W):</label>
+                    <input type="number" id="containerPower" placeholder="43200" step="1000" value="43200" min="1">
+                </div>
+                <div class="input-group">
+                    <label for="existingContainers">Existing Containers:</label>
+                    <input type="number" id="existingContainers" placeholder="1" step="1" value="1" min="0">
+                </div>
+            </div>
+        </fieldset>
+		
+        <label>
+            <input type="radio" name="equipmentOption" value="option2" onclick="changeHeader()">
+            Use Manual Scaleout
+        </label>
+        <br>
+		
         <!-- Dry Cooler Checkbox -->
         <fieldset id="useDryCoolerFactoringBox">
             <legend>
@@ -212,7 +262,7 @@
                     Dry Cooling
                 </label>
             </legend>
-                
+			
             <!-- Dry Cooler Inputs -->
             <div class="input-row">
                 <div class="input-group">
@@ -229,7 +279,7 @@
                 </div>
             </div>
         </fieldset>
-            
+		
         <!-- Racks Checkbox -->
         <fieldset id="useRackFactoringBox">
             <legend>
@@ -238,7 +288,7 @@
                     Miner Racks
                 </label>
             </legend>
-                
+			
             <!-- Rack Inputs -->
             <div class="input-row">
                 <div class="input-group">
@@ -255,13 +305,13 @@
                 </div>
             </div>
         </fieldset>
-        
+		
         <table>
             <thead>
                 <tr>
                     <th>Month</th>
-                    <th>Coolers</th>
-                    <th>Racks</th>
+                    <th id="secondHeader">Containers</th>
+                    <th id="thirdHeader">N/A</th>
                     <th>Miners</th>
                     <th>New Miners</th>
                     <th>DOGE Price</th>
@@ -305,9 +355,14 @@
         const existingMinersInput = document.getElementById('existingMiners');
         const updateDataButton = document.getElementById('updateDataButton');
         const useBlockAverageCheckbox = document.getElementById('useBlockAverage');
+		const useContainerFactoringCheckbox = document.getElementById('useContainerFactoring');
         const useDifficultyFactoringCheckbox = document.getElementById('useDifficultyFactoring');
         const useDryCoolerFactoringCheckbox = document.getElementById('useDryCoolerFactoring');
         const useRackFactoringCheckbox = document.getElementById('useRackFactoring');
+		const containerCostInput = document.getElementById('containerCost');
+		const containerHeatTransferInput = document.getElementById('containerHeatTransfer');
+		const containerPowerInput = document.getElementById('containerPower');
+		const existingContainersInput = document.getElementById('existingContainers');
         const networkHashrateInput = document.getElementById('networkHashrate');
         const monthlyHashrateIncreaseInput = document.getElementById('monthlyHashrateIncrease');
         const coolerCostInput = document.getElementById('coolerCost');
@@ -338,6 +393,10 @@
             document.getElementById('deliveryChargeRate').value = document.getElementById('deliveryChargeRate').placeholder;
             document.getElementById('providerCharge').value = document.getElementById('providerCharge').placeholder;
             document.getElementById('existingMiners').value = document.getElementById('existingMiners').placeholder;
+			document.getElementById('containerCost').value = document.getElementById('containerCost').placeholder;
+			document.getElementById('containerHeatTransfer').value = document.getElementById('containerHeatTransfer').placeholder;
+			document.getElementById('containerPower').value = document.getElementById('containerPower').placeholder;
+			document.getElementById('existingContainers').value = document.getElementById('existingContainers').placeholder;
             document.getElementById('networkHashrate').value = document.getElementById('networkHashrate').placeholder;
             document.getElementById('monthlyHashrateIncrease').value = document.getElementById('monthlyHashrateIncrease').placeholder;
             document.getElementById('coolerCost').value = document.getElementById('coolerCost').placeholder;
@@ -352,8 +411,8 @@
         });
 
         // Variables to store the last user input values
-        let lastHashRate = parseFloat(hashRateInput.value) || 20.0; // Default to 20.0 if empty
-        let lastPower = parseFloat(powerInput.value) || 6200.0; // Default to 6200 if empty
+        let lastHashRate = parseFloat(hashRateInput.value) || 30.40; // Default to 30.40 if empty
+        let lastPower = parseFloat(powerInput.value) || 7600.00;     // Default to 7600 if empty
 
         // Update hashRate and power based on multiplier value
         function updateHashAndPower() {
@@ -394,6 +453,11 @@
         deliveryChargeRateInput.addEventListener('input', updateHashAndPower);
         providerChargeInput.addEventListener('input', updateHashAndPower);
         existingMinersInput.addEventListener('input', updateHashAndPower);
+		useContainerFactoringCheckbox.addEventListener('input', updateHashAndPower);
+		containerCostInput.addEventListener('input', updateHashAndPower);
+		containerHeatTransferInput.addEventListener('input', updateHashAndPower);
+		containerPowerInput.addEventListener('input', updateHashAndPower);
+		existingContainersInput.addEventListener('input', updateHashAndPower);
         useDifficultyFactoringCheckbox.addEventListener('input', updateHashAndPower);
         useDryCoolerFactoringCheckbox.addEventListener('input', updateHashAndPower);
         useRackFactoringCheckbox.addEventListener('input', updateHashAndPower);
@@ -469,10 +533,18 @@
             const existingMiners = parseFloat(document.getElementById('existingMiners').value);
             let difficulty = parseFloat(document.getElementById('difficulty').value);
             let dogeValue = parseFloat(document.getElementById('dogeValue').value);
-            
+			
+			const selectedFactoringOption = document.querySelector('input[name="equipmentOption"]:checked');
+			
+			const useContainerFactoring = document.getElementById('useContainerFactoring').checked;
             const useDifficultyFactoring = document.getElementById('useDifficultyFactoring').checked;
             const useDryCoolerFactoring = document.getElementById('useDryCoolerFactoring').checked;
             const useRackFactoring = document.getElementById('useRackFactoring').checked;
+			
+			const containerCost = parseFloat(document.getElementById('containerCost').value);
+            const containerHeatTransfer = parseFloat(document.getElementById('containerHeatTransfer').value);
+            const containerPower = parseFloat(document.getElementById('containerPower').value);
+            const existingContainers = parseFloat(document.getElementById('existingContainers').value);
             const networkHashratePH = parseFloat(document.getElementById('networkHashrate').value);
             const monthlyHashrateIncreasePH = parseFloat(document.getElementById('monthlyHashrateIncrease').value);
             const coolerCost = parseFloat(document.getElementById('coolerCost').value);
@@ -487,9 +559,10 @@
             // console.log(monthlyProductionPerMiner);
             
             let startingDifficulty = parseFloat(document.getElementById('difficulty').value);
-            let currentMiners = existingMiners;  // Start with a desired amount of miners
-            let currentCoolers = 1;              // Start with a single cooler
-            let currentRacks = existingRacks;    // Start with a desired amount of racks
+            let currentMiners = existingMiners;          // Start with a desired amount of miners
+            let currentContainers = existingContainers;  // Start with a single container
+            let currentCoolers = 1;                      // Start with a single cooler
+            let currentRacks = existingRacks;            // Start with a desired amount of racks
             let equipmentCost = 0;
             let cumulativeRevenue = 0;
             let newNetworkHashratePH = 0;
@@ -527,57 +600,108 @@
                 cumulativeRevenue += monthlyRevenue + additionalFunds;
                 
                 // Calculate the additonal equipment costs
-                if (useDryCoolerFactoring) {
-                    const requiredCoolers = Math.ceil((currentMiners * power) / (coolerHeatTransfer * 1000));
-                    const requiredCoolersCost = requiredCoolers * coolerCost;
-                    const additionalPowerCost = calculatePowerChargePerHour(coolerPower, requiredCoolers);
-                    
-                    // Check if the required cooler is greater then what already exists
-                    if (requiredCoolers > currentCoolers)
-                    {
-                        cumulativeRevenue -= requiredCoolersCost;
-                        currentCoolers = requiredCoolers;
+				//
+				// Get factoring choice - Use Shipping Containers
+                if (selectedFactoringOption.value == "option1") {
+				
+				    // Reset the previous options coolers and racks
+				    currentCoolers = 0;
+				    currentRacks = 0;
+					
+				    if (useContainerFactoring) {
+				        const requiredContainers = Math.ceil((currentMiners * power) / (containerHeatTransfer * 1000));
+                        const requiredContainersCost = requiredContainers * containerCost;
+                        const additionalPowerCost = calculatePowerChargePerHour(containerPower, requiredContainers);
+                        
+                        // Check if the required cooler is greater then what already exists
+                        if (requiredContainers > currentContainers)
+                        {
+                            cumulativeRevenue -= requiredContainersCost;
+                            currentContainers = requiredContainers;
+                            
+                            // Add to the equipment cost
+                            equipmentCost += requiredContainersCost;
+                        }
+                        
+                        // Always subtract the price of the cooler
+                        cumulativeRevenue -= additionalPowerCost;
                         
                         // Add to the equipment cost
-                        equipmentCost += requiredCoolersCost;
+                        equipmentCost += additionalPowerCost;
                     }
-                    
-                    // Always subtract the price of the cooler
-                    cumulativeRevenue -= additionalPowerCost;
-                    
-                    // Add to the equipment cost
-                    equipmentCost += additionalPowerCost;
-                }
-                else
-                {
-                    // Ensure no coolers exist if disabled
-                    currentCoolers = 0;
-                }
-                if (useRackFactoring) {
-                    const requiredRacks = Math.ceil(currentMiners / rackCapacity);
-                    const requiredRacksCost = requiredRacks * rackCost;
-                    
-                    // Check if the required racks is greater then what already exists
-                    if (requiredRacks > currentRacks)
+                    else
                     {
-                        cumulativeRevenue -= requiredRacksCost;
-                        currentRacks = requiredRacks;
+                        // Ensure no containers exist if disabled
+						currentContainers = 0;
+						currentCoolers = 0;
+				        currentRacks = 0;
+                    }
+				}
+				// Get factoring choice - Use Manual Scaleout
+				else if (selectedFactoringOption.value == "option2") {
+				
+				    // Reset the previous options containers
+					currentContainers = 0;
+						
+                    if (useDryCoolerFactoring) {
+                        const requiredCoolers = Math.ceil((currentMiners * power) / (coolerHeatTransfer * 1000));
+                        const requiredCoolersCost = requiredCoolers * coolerCost;
+                        const additionalPowerCost = calculatePowerChargePerHour(coolerPower, requiredCoolers);
+                        
+                        // Check if the required cooler is greater then what already exists
+                        if (requiredCoolers > currentCoolers)
+                        {
+                            cumulativeRevenue -= requiredCoolersCost;
+                            currentCoolers = requiredCoolers;
+                            
+                            // Add to the equipment cost
+                            equipmentCost += requiredCoolersCost;
+                        }
+                        
+                        // Always subtract the price of the cooler
+                        cumulativeRevenue -= additionalPowerCost;
                         
                         // Add to the equipment cost
-                        equipmentCost += requiredRacksCost;
+                        equipmentCost += additionalPowerCost;
                     }
-                }
-                else
-                {
-                    // Ensure no coolers exist if disabled
-                    currentRacks = 0;
-                }
-        
+                    else
+                    {
+                        // Ensure no coolers exist if disabled
+                        currentCoolers = 0;
+                    }
+                    if (useRackFactoring) {
+                        const requiredRacks = Math.ceil(currentMiners / rackCapacity);
+                        const requiredRacksCost = requiredRacks * rackCost;
+                        
+                        // Check if the required racks is greater then what already exists
+                        if (requiredRacks > currentRacks)
+                        {
+                            cumulativeRevenue -= requiredRacksCost;
+                            currentRacks = requiredRacks;
+                            
+                            // Add to the equipment cost
+                            equipmentCost += requiredRacksCost;
+                        }
+                    }
+                    else
+                    {
+                        // Ensure no racks exist if disabled
+                        currentRacks = 0;
+                    }
+				}
+				
                 // Calculate new miners that can be purchased
                 const newMiners = Math.max(0, Math.floor(cumulativeRevenue / minerCost)); // Ensure newMiners is never negative
                 cumulativeRevenue -= newMiners * minerCost;
                 
                 // Collect data for the table
+                if (selectedFactoringOption.value == "option1") {
+                    currentCoolers = currentContainers;
+                    currentRacks = 0;
+                } else if (selectedFactoringOption.value == "option2") {
+                    currentCoolers = currentCoolers;
+                    currentRacks = currentRacks;
+                }
                 data.push({
                     month,
                     totalCoolers: currentCoolers,
@@ -898,6 +1022,86 @@
             inputs.forEach(input => {
                 input.disabled = !isEnabled;
             });
+        }
+		
+		// Function to toggle the groupboxes based on selected radio button
+        document.addEventListener("DOMContentLoaded", () => {
+            function updateGroupBoxState() {
+                const selectedOption = document.querySelector('input[name="equipmentOption"]:checked').value;
+                const groupBoxes = {
+                    option1: ["useContainerFactoringBox"],
+                    option2: ["useDryCoolerFactoringBox", "useRackFactoringBox"]
+                };
+        
+                // Enable or disable groupboxes and manage checkboxes
+                Object.keys(groupBoxes).forEach(option => {
+                    groupBoxes[option].forEach(groupId => {
+                        const groupBox = document.getElementById(groupId);
+                        const checkboxes = groupBox.querySelectorAll("input[type='checkbox']");
+                        const inputs = groupBox.querySelectorAll("input[type='number']");
+                        const isEnabled = selectedOption === option;
+        
+                        if (isEnabled) {
+                            // Check all checkboxes and trigger their input events
+                            checkboxes.forEach(checkbox => {
+                                if (!checkbox.checked) {
+                                    checkbox.checked = true;
+                                    checkbox.dispatchEvent(new Event('input')); // Trigger input event
+                                }
+                            });
+                        } else {
+                            // Uncheck all checkboxes and trigger their input events
+                            checkboxes.forEach(checkbox => {
+                                if (checkbox.checked) {
+                                    checkbox.checked = false;
+                                    checkbox.dispatchEvent(new Event('input')); // Trigger input event
+                                }
+                            });
+                        }
+        
+                        // Enable or disable the groupbox and its inputs
+                        checkboxes.forEach(checkbox => {
+                            checkbox.disabled = !isEnabled;
+                        });
+        
+                        inputs.forEach(input => {
+                            input.disabled = !isEnabled || (input.type === "checkbox" && !input.checked);
+                        });
+                    });
+                });
+            }
+        
+            // Attach event listeners to radio buttons
+            const radioButtons = document.querySelectorAll('input[name="equipmentOption"]');
+            radioButtons.forEach(radio => {
+                radio.addEventListener("change", updateGroupBoxState);
+            });
+        
+            // Attach event listeners to checkboxes inside the groupboxes
+            const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+            checkboxes.forEach(checkbox => {
+                checkbox.addEventListener("input", (event) => {
+                    toggleGroupBoxEnabledState(event.target.closest("fieldset").id, event.target.checked);
+                });
+            });
+        
+            // Initial state update
+            updateGroupBoxState();
+        });
+		
+		function changeHeader() {
+		    const selectedFactoringOption = document.querySelector('input[name="equipmentOption"]:checked');
+            const secondHeader = document.getElementById('secondHeader');
+			const thirdHeader = document.getElementById('thirdHeader');
+
+            if (selectedFactoringOption && selectedFactoringOption.value == "option1") {
+                secondHeader.textContent = "Containers";
+				thirdHeader.textContent = "N/A";
+            } 
+			else if (selectedFactoringOption && selectedFactoringOption.value == "option2") {
+                secondHeader.textContent = "Coolers";
+				thirdHeader.textContent = "Racks";
+            }
         }
     </script>
     <img src="http://006.free-counters.co.uk/count-133.pl?count=whosthere&type=greendigit&prog=unique" width="" height="" border="0" alt="" title="" hidden>
