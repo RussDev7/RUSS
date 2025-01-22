@@ -61,12 +61,12 @@
             transform: scale(1.3);
             transform-origin: center;
         }
-		/* Exempt radiobuttons from the above rules */
+        /* Exempt radiobuttons from the above rules */
         input[type="radio"] {
             width: auto;
             padding: 0;
             margin-right: 5px;
-			transform: scale(1.5);
+            transform: scale(1.5);
         }
     </style>
 </head>
@@ -192,7 +192,7 @@
         <fieldset id="useDifficultyFactoringBox">
             <legend>
                 <label for="useDifficultyFactoring" class="checkbox-label">
-                    <input type="checkbox" id="useDifficultyFactoring" checked="true" onclick="toggleGroupBoxEnabledState('useDifficultyFactoringBox', this.checked)">
+                    <input type="checkbox" id="useDifficultyFactoring" checked="true" onclick="toggleGroupBoxEnabledState('useDifficultyFactoringBox', this.checked); changeHeader();">
                     Enable
                 </label>
             </legend>
@@ -211,13 +211,13 @@
         </fieldset>
         
         <h3>Equipment Factoring</h3>
-		
+        
         <label>
             <input type="radio" name="equipmentOption" value="option1" onclick="changeHeader()" checked>
             Use Shipping Containers
         </label>
         <br>
-		
+        
         <!-- Container Checkbox -->
         <fieldset id="useContainerFactoringBox">
             <legend>
@@ -226,7 +226,7 @@
                     Shipping Container + Cooler
                 </label>
             </legend>
-			
+            
             <!-- Rack Inputs -->
             <div class="input-row">
                 <div class="input-group">
@@ -247,13 +247,13 @@
                 </div>
             </div>
         </fieldset>
-		
+        
         <label>
             <input type="radio" name="equipmentOption" value="option2" onclick="changeHeader()">
             Use Manual Scaleout
         </label>
         <br>
-		
+        
         <!-- Dry Cooler Checkbox -->
         <fieldset id="useDryCoolerFactoringBox">
             <legend>
@@ -262,7 +262,7 @@
                     Dry Cooling
                 </label>
             </legend>
-			
+            
             <!-- Dry Cooler Inputs -->
             <div class="input-row">
                 <div class="input-group">
@@ -279,7 +279,7 @@
                 </div>
             </div>
         </fieldset>
-		
+        
         <!-- Racks Checkbox -->
         <fieldset id="useRackFactoringBox">
             <legend>
@@ -288,7 +288,7 @@
                     Miner Racks
                 </label>
             </legend>
-			
+            
             <!-- Rack Inputs -->
             <div class="input-row">
                 <div class="input-group">
@@ -305,7 +305,7 @@
                 </div>
             </div>
         </fieldset>
-		
+        
         <table>
             <thead>
                 <tr>
@@ -319,7 +319,7 @@
                     <th>Delivery Cost</th>
                     <th>Annual Profit</th>
                     <th>Difficulty</th>
-                    <th>Hashrate</th>
+                    <th id="eleventhHeader">Hashrate</th>
                     <th>Contributed Difficulty</th>
                 </tr>
             </thead>
@@ -355,14 +355,14 @@
         const existingMinersInput = document.getElementById('existingMiners');
         const updateDataButton = document.getElementById('updateDataButton');
         const useBlockAverageCheckbox = document.getElementById('useBlockAverage');
-		const useContainerFactoringCheckbox = document.getElementById('useContainerFactoring');
+        const useContainerFactoringCheckbox = document.getElementById('useContainerFactoring');
         const useDifficultyFactoringCheckbox = document.getElementById('useDifficultyFactoring');
         const useDryCoolerFactoringCheckbox = document.getElementById('useDryCoolerFactoring');
         const useRackFactoringCheckbox = document.getElementById('useRackFactoring');
-		const containerCostInput = document.getElementById('containerCost');
-		const containerHeatTransferInput = document.getElementById('containerHeatTransfer');
-		const containerPowerInput = document.getElementById('containerPower');
-		const existingContainersInput = document.getElementById('existingContainers');
+        const containerCostInput = document.getElementById('containerCost');
+        const containerHeatTransferInput = document.getElementById('containerHeatTransfer');
+        const containerPowerInput = document.getElementById('containerPower');
+        const existingContainersInput = document.getElementById('existingContainers');
         const networkHashrateInput = document.getElementById('networkHashrate');
         const monthlyHashrateIncreaseInput = document.getElementById('monthlyHashrateIncrease');
         const coolerCostInput = document.getElementById('coolerCost');
@@ -393,10 +393,10 @@
             document.getElementById('deliveryChargeRate').value = document.getElementById('deliveryChargeRate').placeholder;
             document.getElementById('providerCharge').value = document.getElementById('providerCharge').placeholder;
             document.getElementById('existingMiners').value = document.getElementById('existingMiners').placeholder;
-			document.getElementById('containerCost').value = document.getElementById('containerCost').placeholder;
-			document.getElementById('containerHeatTransfer').value = document.getElementById('containerHeatTransfer').placeholder;
-			document.getElementById('containerPower').value = document.getElementById('containerPower').placeholder;
-			document.getElementById('existingContainers').value = document.getElementById('existingContainers').placeholder;
+            document.getElementById('containerCost').value = document.getElementById('containerCost').placeholder;
+            document.getElementById('containerHeatTransfer').value = document.getElementById('containerHeatTransfer').placeholder;
+            document.getElementById('containerPower').value = document.getElementById('containerPower').placeholder;
+            document.getElementById('existingContainers').value = document.getElementById('existingContainers').placeholder;
             document.getElementById('networkHashrate').value = document.getElementById('networkHashrate').placeholder;
             document.getElementById('monthlyHashrateIncrease').value = document.getElementById('monthlyHashrateIncrease').placeholder;
             document.getElementById('coolerCost').value = document.getElementById('coolerCost').placeholder;
@@ -453,11 +453,11 @@
         deliveryChargeRateInput.addEventListener('input', updateHashAndPower);
         providerChargeInput.addEventListener('input', updateHashAndPower);
         existingMinersInput.addEventListener('input', updateHashAndPower);
-		useContainerFactoringCheckbox.addEventListener('input', updateHashAndPower);
-		containerCostInput.addEventListener('input', updateHashAndPower);
-		containerHeatTransferInput.addEventListener('input', updateHashAndPower);
-		containerPowerInput.addEventListener('input', updateHashAndPower);
-		existingContainersInput.addEventListener('input', updateHashAndPower);
+        useContainerFactoringCheckbox.addEventListener('input', updateHashAndPower);
+        containerCostInput.addEventListener('input', updateHashAndPower);
+        containerHeatTransferInput.addEventListener('input', updateHashAndPower);
+        containerPowerInput.addEventListener('input', updateHashAndPower);
+        existingContainersInput.addEventListener('input', updateHashAndPower);
         useDifficultyFactoringCheckbox.addEventListener('input', updateHashAndPower);
         useDryCoolerFactoringCheckbox.addEventListener('input', updateHashAndPower);
         useRackFactoringCheckbox.addEventListener('input', updateHashAndPower);
@@ -533,15 +533,15 @@
             const existingMiners = parseFloat(document.getElementById('existingMiners').value);
             let difficulty = parseFloat(document.getElementById('difficulty').value);
             let dogeValue = parseFloat(document.getElementById('dogeValue').value);
-			
-			const selectedFactoringOption = document.querySelector('input[name="equipmentOption"]:checked');
-			
-			const useContainerFactoring = document.getElementById('useContainerFactoring').checked;
+            
+            const selectedFactoringOption = document.querySelector('input[name="equipmentOption"]:checked');
+            
+            const useContainerFactoring = document.getElementById('useContainerFactoring').checked;
             const useDifficultyFactoring = document.getElementById('useDifficultyFactoring').checked;
             const useDryCoolerFactoring = document.getElementById('useDryCoolerFactoring').checked;
             const useRackFactoring = document.getElementById('useRackFactoring').checked;
-			
-			const containerCost = parseFloat(document.getElementById('containerCost').value);
+            
+            const containerCost = parseFloat(document.getElementById('containerCost').value);
             const containerHeatTransfer = parseFloat(document.getElementById('containerHeatTransfer').value);
             const containerPower = parseFloat(document.getElementById('containerPower').value);
             const existingContainers = parseFloat(document.getElementById('existingContainers').value);
@@ -600,16 +600,16 @@
                 cumulativeRevenue += monthlyRevenue + additionalFunds;
                 
                 // Calculate the additonal equipment costs
-				//
-				// Get factoring choice - Use Shipping Containers
+                //
+                // Get factoring choice - Use Shipping Containers
                 if (selectedFactoringOption.value == "option1") {
-				
-				    // Reset the previous options coolers and racks
-				    currentCoolers = 0;
-				    currentRacks = 0;
-					
-				    if (useContainerFactoring) {
-				        const requiredContainers = Math.ceil((currentMiners * power) / (containerHeatTransfer * 1000));
+                
+                    // Reset the previous options coolers and racks
+                    currentCoolers = 0;
+                    currentRacks = 0;
+                    
+                    if (useContainerFactoring) {
+                        const requiredContainers = Math.ceil((currentMiners * power) / (containerHeatTransfer * 1000));
                         const requiredContainersCost = requiredContainers * containerCost;
                         const additionalPowerCost = calculatePowerChargePerHour(containerPower, requiredContainers);
                         
@@ -632,17 +632,17 @@
                     else
                     {
                         // Ensure no containers exist if disabled
-						currentContainers = 0;
-						currentCoolers = 0;
-				        currentRacks = 0;
+                        currentContainers = 0;
+                        currentCoolers = 0;
+                        currentRacks = 0;
                     }
-				}
-				// Get factoring choice - Use Manual Scaleout
-				else if (selectedFactoringOption.value == "option2") {
-				
-				    // Reset the previous options containers
-					currentContainers = 0;
-						
+                }
+                // Get factoring choice - Use Manual Scaleout
+                else if (selectedFactoringOption.value == "option2") {
+                
+                    // Reset the previous options containers
+                    currentContainers = 0;
+                        
                     if (useDryCoolerFactoring) {
                         const requiredCoolers = Math.ceil((currentMiners * power) / (coolerHeatTransfer * 1000));
                         const requiredCoolersCost = requiredCoolers * coolerCost;
@@ -688,8 +688,8 @@
                         // Ensure no racks exist if disabled
                         currentRacks = 0;
                     }
-				}
-				
+                }
+                
                 // Calculate new miners that can be purchased
                 const newMiners = Math.max(0, Math.floor(cumulativeRevenue / minerCost)); // Ensure newMiners is never negative
                 cumulativeRevenue -= newMiners * minerCost;
@@ -701,6 +701,9 @@
                 } else if (selectedFactoringOption.value == "option2") {
                     currentCoolers = currentCoolers;
                     currentRacks = currentRacks;
+                }
+                if (!useDifficultyFactoring) {
+                    newNetworkHashratePH = "-";
                 }
                 data.push({
                     month,
@@ -1023,8 +1026,8 @@
                 input.disabled = !isEnabled;
             });
         }
-		
-		// Function to toggle the groupboxes based on selected radio button
+        
+        // Function to toggle the groupboxes based on selected radio button
         document.addEventListener("DOMContentLoaded", () => {
             function updateGroupBoxState() {
                 const selectedOption = document.querySelector('input[name="equipmentOption"]:checked').value;
@@ -1088,19 +1091,27 @@
             // Initial state update
             updateGroupBoxState();
         });
-		
-		function changeHeader() {
-		    const selectedFactoringOption = document.querySelector('input[name="equipmentOption"]:checked');
+        
+        function changeHeader() {
+            const useDifficultyFactoring = document.getElementById('useDifficultyFactoring').checked;
+            const selectedFactoringOption = document.querySelector('input[name="equipmentOption"]:checked');
             const secondHeader = document.getElementById('secondHeader');
-			const thirdHeader = document.getElementById('thirdHeader');
-
+            const thirdHeader = document.getElementById('thirdHeader');
+            const eleventhHeader = document.getElementById('eleventhHeader');
+            
+            if (useDifficultyFactoring) {
+                eleventhHeader.textContent = "Hashrate";
+            }
+            else {
+                eleventhHeader.textContent = "N/A";
+            }
             if (selectedFactoringOption && selectedFactoringOption.value == "option1") {
                 secondHeader.textContent = "Containers";
-				thirdHeader.textContent = "N/A";
+                thirdHeader.textContent = "N/A";
             } 
-			else if (selectedFactoringOption && selectedFactoringOption.value == "option2") {
+            else if (selectedFactoringOption && selectedFactoringOption.value == "option2") {
                 secondHeader.textContent = "Coolers";
-				thirdHeader.textContent = "Racks";
+                thirdHeader.textContent = "Racks";
             }
         }
     </script>
