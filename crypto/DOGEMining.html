@@ -231,15 +231,15 @@
             <div class="input-row">
                 <div class="input-group">
                     <label for="containerCost">Container Cost ($):</label>
-                    <input type="number" id="containerCost" placeholder="115000.00" step="10000.00" value="115000.00" min="0">
+                    <input type="number" id="containerCost" placeholder="130000.00" step="10000.00" value="130000.00" min="0">
                 </div>
                 <div class="input-group">
-                    <label for="containerHeatTransfer">Heat Transfer (kW):</label>
-                    <input type="number" id="containerHeatTransfer" placeholder="1400" step="100" value="1400" min="0">
+                    <label for="containerCapacity">Container Capacity:</label>
+                    <input type="number" id="containerCapacity" placeholder="100" step="10" value="100" min="0">
                 </div>
                 <div class="input-group">
                     <label for="containerPower">Power (W):</label>
-                    <input type="number" id="containerPower" placeholder="43200" step="1000" value="43200" min="1">
+                    <input type="number" id="containerPower" placeholder="25920" step="1000" value="25920" min="1">
                 </div>
                 <div class="input-group">
                     <label for="existingContainers">Existing Containers:</label>
@@ -360,7 +360,7 @@
         const useDryCoolerFactoringCheckbox = document.getElementById('useDryCoolerFactoring');
         const useRackFactoringCheckbox = document.getElementById('useRackFactoring');
         const containerCostInput = document.getElementById('containerCost');
-        const containerHeatTransferInput = document.getElementById('containerHeatTransfer');
+        const containerCapacityInput = document.getElementById('containerCapacity');
         const containerPowerInput = document.getElementById('containerPower');
         const existingContainersInput = document.getElementById('existingContainers');
         const networkHashrateInput = document.getElementById('networkHashrate');
@@ -394,7 +394,7 @@
             document.getElementById('providerCharge').value = document.getElementById('providerCharge').placeholder;
             document.getElementById('existingMiners').value = document.getElementById('existingMiners').placeholder;
             document.getElementById('containerCost').value = document.getElementById('containerCost').placeholder;
-            document.getElementById('containerHeatTransfer').value = document.getElementById('containerHeatTransfer').placeholder;
+            document.getElementById('containerCapacity').value = document.getElementById('containerCapacity').placeholder;
             document.getElementById('containerPower').value = document.getElementById('containerPower').placeholder;
             document.getElementById('existingContainers').value = document.getElementById('existingContainers').placeholder;
             document.getElementById('networkHashrate').value = document.getElementById('networkHashrate').placeholder;
@@ -455,7 +455,7 @@
         existingMinersInput.addEventListener('input', updateHashAndPower);
         useContainerFactoringCheckbox.addEventListener('input', updateHashAndPower);
         containerCostInput.addEventListener('input', updateHashAndPower);
-        containerHeatTransferInput.addEventListener('input', updateHashAndPower);
+        containerCapacityInput.addEventListener('input', updateHashAndPower);
         containerPowerInput.addEventListener('input', updateHashAndPower);
         existingContainersInput.addEventListener('input', updateHashAndPower);
         useDifficultyFactoringCheckbox.addEventListener('input', updateHashAndPower);
@@ -542,7 +542,7 @@
             const useRackFactoring = document.getElementById('useRackFactoring').checked;
             
             const containerCost = parseFloat(document.getElementById('containerCost').value);
-            const containerHeatTransfer = parseFloat(document.getElementById('containerHeatTransfer').value);
+            const containerCapacity = parseFloat(document.getElementById('containerCapacity').value);
             const containerPower = parseFloat(document.getElementById('containerPower').value);
             const existingContainers = parseFloat(document.getElementById('existingContainers').value);
             const networkHashratePH = parseFloat(document.getElementById('networkHashrate').value);
@@ -609,15 +609,16 @@
                     currentRacks = 0;
                     
                     if (useContainerFactoring) {
-                        const requiredContainers = Math.ceil((currentMiners * power) / (containerHeatTransfer * 1000));
-                        const requiredContainersCost = requiredContainers * containerCost;
-                        const additionalPowerCost = calculatePowerChargePerHour(containerPower, requiredContainers);
+                        // const totalRequiredContainers = Math.ceil((currentMiners * power) / (containerCapacity * 1000));
+						const totalRequiredContainers = Math.ceil(currentMiners / containerCapacity);
+                        const requiredContainersCost = (totalRequiredContainers - currentContainers) * containerCost; // Only include the amount needed this month
+                        const additionalPowerCost = calculatePowerChargePerHour(containerPower, totalRequiredContainers);
                         
                         // Check if the required cooler is greater then what already exists
-                        if (requiredContainers > currentContainers)
+                        if (totalRequiredContainers > currentContainers)
                         {
-                            cumulativeRevenue -= requiredContainersCost;
-                            currentContainers = requiredContainers;
+						    cumulativeRevenue -= requiredContainersCost;
+                            currentContainers = totalRequiredContainers;
                             
                             // Add to the equipment cost
                             equipmentCost += requiredContainersCost;
@@ -644,15 +645,15 @@
                     currentContainers = 0;
                         
                     if (useDryCoolerFactoring) {
-                        const requiredCoolers = Math.ceil((currentMiners * power) / (coolerHeatTransfer * 1000));
-                        const requiredCoolersCost = requiredCoolers * coolerCost;
-                        const additionalPowerCost = calculatePowerChargePerHour(coolerPower, requiredCoolers);
+                        const totalRequiredCoolers = Math.ceil((currentMiners * power) / (coolerHeatTransfer * 1000));
+                        const requiredCoolersCost = (totalRequiredCoolers - currentCoolers) * coolerCost; // Only include the amount needed this month
+                        const additionalPowerCost = calculatePowerChargePerHour(coolerPower, totalRequiredCoolers);
                         
                         // Check if the required cooler is greater then what already exists
-                        if (requiredCoolers > currentCoolers)
+                        if (totalRequiredCoolers > currentCoolers)
                         {
                             cumulativeRevenue -= requiredCoolersCost;
-                            currentCoolers = requiredCoolers;
+                            currentCoolers = totalRequiredCoolers;
                             
                             // Add to the equipment cost
                             equipmentCost += requiredCoolersCost;
@@ -670,14 +671,14 @@
                         currentCoolers = 0;
                     }
                     if (useRackFactoring) {
-                        const requiredRacks = Math.ceil(currentMiners / rackCapacity);
-                        const requiredRacksCost = requiredRacks * rackCost;
+                        const totalRequiredRacks = Math.ceil(currentMiners / rackCapacity);
+                        const requiredRacksCost = (totalRequiredRacks - currentRacks) * rackCost; // Only include the amount needed this month
                         
                         // Check if the required racks is greater then what already exists
-                        if (requiredRacks > currentRacks)
+                        if (totalRequiredRacks > currentRacks)
                         {
                             cumulativeRevenue -= requiredRacksCost;
-                            currentRacks = requiredRacks;
+                            currentRacks = totalRequiredRacks;
                             
                             // Add to the equipment cost
                             equipmentCost += requiredRacksCost;
@@ -692,6 +693,7 @@
                 
                 // Calculate new miners that can be purchased
                 const newMiners = Math.max(0, Math.floor(cumulativeRevenue / minerCost)); // Ensure newMiners is never negative
+				console.log("NewMiners: " + newMiners)
                 cumulativeRevenue -= newMiners * minerCost;
                 
                 // Collect data for the table
