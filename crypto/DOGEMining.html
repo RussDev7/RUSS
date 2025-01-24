@@ -168,7 +168,7 @@
             </div>
             <div class="input-group">
                 <label for="targetMonths">Target Months:</label>
-                <input type="number" id="targetMonths" placeholder="48" step="1" value="48" min="1">
+                <input type="number" id="targetMonths" placeholder="60" step="1" value="60" min="1">
             </div>
         </div>
         <div class="input-row">
@@ -306,6 +306,26 @@
             </div>
         </fieldset>
         
+        <h3>Scaling Limit Stop</h3>
+        
+        <!-- Enable Checkbox -->
+        <fieldset id="useScalingLimitStopBox">
+            <legend>
+                <label for="useScalingLimitStop" class="checkbox-label">
+                    <input type="checkbox" id="useScalingLimitStop" checked="true" onclick="toggleGroupBoxEnabledState('useScalingLimitStopBox', this.checked); changeHeader();">
+                    Enable
+                </label>
+            </legend>
+                
+            <!-- Network HashRate Inputs -->
+            <div class="input-row">
+                <div class="input-group">
+                    <label for="scalingMaxMiners">Max Miners:</label>
+                    <input type="number" id="scalingMaxMiners" placeholder="100000" step="10000" value="100000" min="1">
+                </div>
+            </div>
+        </fieldset>
+        
         <table>
             <thead>
                 <tr>
@@ -320,7 +340,7 @@
                     <th>Annual Profit</th>
                     <th>Difficulty</th>
                     <th id="eleventhHeader">Hashrate</th>
-                    <th>Contributed Difficulty</th>
+                    <th id="twelfthHeader">Contributed Difficulty</th>
                 </tr>
             </thead>
             <tbody id="scalingResults">
@@ -359,6 +379,7 @@
         const useDifficultyFactoringCheckbox = document.getElementById('useDifficultyFactoring');
         const useDryCoolerFactoringCheckbox = document.getElementById('useDryCoolerFactoring');
         const useRackFactoringCheckbox = document.getElementById('useRackFactoring');
+        const useScalingLimitStopBoxCheckbox = document.getElementById('useScalingLimitStop');
         const containerCostInput = document.getElementById('containerCost');
         const containerCapacityInput = document.getElementById('containerCapacity');
         const containerPowerInput = document.getElementById('containerPower');
@@ -371,6 +392,7 @@
         const rackCostInput = document.getElementById('rackCost');
         const rackCapacityInput = document.getElementById('rackCapacity');
         const existingRacksInput = document.getElementById('existingRacks');
+        const scalingMaxMinersInput = document.getElementById('scalingMaxMiners');
         
         // Event listener for the reset button
         resetButton.addEventListener('click', () => {
@@ -405,6 +427,7 @@
             document.getElementById('rackCost').value = document.getElementById('rackCost').placeholder;
             document.getElementById('rackCapacity').value = document.getElementById('rackCapacity').placeholder;
             document.getElementById('existingRacks').value = document.getElementById('existingRacks').placeholder;
+            document.getElementById('scalingMaxMiners').value = document.getElementById('scalingMaxMiners').placeholder;
             
             // Recalculate with default values
             calculate();
@@ -461,6 +484,7 @@
         useDifficultyFactoringCheckbox.addEventListener('input', updateHashAndPower);
         useDryCoolerFactoringCheckbox.addEventListener('input', updateHashAndPower);
         useRackFactoringCheckbox.addEventListener('input', updateHashAndPower);
+        useScalingLimitStopBoxCheckbox.addEventListener('input', updateHashAndPower);
         networkHashrateInput.addEventListener('input', updateHashAndPower);
         monthlyHashrateIncreaseInput.addEventListener('input', updateHashAndPower);
         coolerCostInput.addEventListener('input', updateHashAndPower);
@@ -469,6 +493,7 @@
         rackCostInput.addEventListener('input', updateHashAndPower);
         rackCapacityInput.addEventListener('input', updateHashAndPower);
         existingRacksInput.addEventListener('input', updateHashAndPower);
+        scalingMaxMinersInput.addEventListener('input', updateHashAndPower);
         
         function calculate() {
         
@@ -540,6 +565,7 @@
             const useDifficultyFactoring = document.getElementById('useDifficultyFactoring').checked;
             const useDryCoolerFactoring = document.getElementById('useDryCoolerFactoring').checked;
             const useRackFactoring = document.getElementById('useRackFactoring').checked;
+            const useScalingLimitStop = document.getElementById('useScalingLimitStop').checked;
             
             const containerCost = parseFloat(document.getElementById('containerCost').value);
             const containerCapacity = parseFloat(document.getElementById('containerCapacity').value);
@@ -553,6 +579,8 @@
             const rackCost = parseFloat(document.getElementById('rackCost').value);
             const rackCapacity = parseInt(document.getElementById('rackCapacity').value, 10);
             const existingRacks = parseFloat(document.getElementById('existingRacks').value);
+            const scalingMaxMiners = document.getElementById('scalingMaxMiners').value;
+            let maxMinersReached = false;
             
             // const cellText = document.querySelector('#results tr:nth-child(4) td:last-child').textContent.trim();
             // const monthlyProductionPerMiner = parseFloat(cellText.replace('$', '').replace(',', '')) || 0;
@@ -576,18 +604,21 @@
             
                 // Calculate the additonal equipment difficulty factoring
                 if (useDifficultyFactoring) {
-                
+
                     // Convert total miner GH/s to PH/s
                     let scalingHashratePH = (hashRate * currentMiners) / 1000000;
-                    
+                        
                     // Calculate new total blockchain hashrate increase in PH/s
                     newNetworkHashratePH = networkHashratePH + scalingHashratePH + monthlyHashrateIncreasePH; // New network hashrate in PH/s // Plus increase
-                    
+                        
                     // Calculate new difficulty
                     let newDifficulty = startingDifficulty * (newNetworkHashratePH / networkHashratePH);
                     
                     // Save the contributed difficulty difference
-                    contributedDifficulty = parseFloat(newDifficulty - document.getElementById('difficulty').value);
+                    // if scaling limit stop is enabled and scaling limit stop is not exceeded
+                    if (!maxMinersReached) {
+                        contributedDifficulty = parseFloat(newDifficulty - document.getElementById('difficulty').value);
+                    }
                     
                     // Apply scaling difficulty increase
                     difficulty = newDifficulty;
@@ -609,15 +640,16 @@
                     currentRacks = 0;
                     
                     if (useContainerFactoring) {
+                    
                         // const totalRequiredContainers = Math.ceil((currentMiners * power) / (containerCapacity * 1000));
-						const totalRequiredContainers = Math.ceil(currentMiners / containerCapacity);
+                        const totalRequiredContainers = Math.ceil(currentMiners / containerCapacity);
                         const requiredContainersCost = (totalRequiredContainers - currentContainers) * containerCost; // Only include the amount needed this month
                         const additionalPowerCost = calculatePowerChargePerHour(containerPower, totalRequiredContainers);
                         
                         // Check if the required cooler is greater then what already exists
                         if (totalRequiredContainers > currentContainers)
                         {
-						    cumulativeRevenue -= requiredContainersCost;
+                            cumulativeRevenue -= requiredContainersCost;
                             currentContainers = totalRequiredContainers;
                             
                             // Add to the equipment cost
@@ -692,9 +724,29 @@
                 }
                 
                 // Calculate new miners that can be purchased
-                const newMiners = Math.max(0, Math.floor(cumulativeRevenue / minerCost)); // Ensure newMiners is never negative
-				console.log("NewMiners: " + newMiners)
-                cumulativeRevenue -= newMiners * minerCost;
+                let newMiners = Math.max(0, Math.floor(cumulativeRevenue / minerCost)); // Ensure newMiners is never negative
+                
+                // Account for a scaling limit
+                if (useScalingLimitStop && (currentMiners + newMiners) >= scalingMaxMiners) {
+                
+                    // Limit will be reached
+                    //
+                    // Limit new miners to the remaining capacity
+                    if (currentMiners < scalingMaxMiners) {
+                        newMiners = Math.min(newMiners, scalingMaxMiners - currentMiners);
+                    }
+                    else {
+                        // Complete limit reached, dont use anymore funds
+                        newMiners = 0;
+                        maxMinersReached = true;
+                    }
+                }
+                else {
+                    
+                    // Scaling limit not enabled or limit not yet reached
+                    // Use all revenue funds torwards scaling
+                    cumulativeRevenue -= newMiners * minerCost;
+                }
                 
                 // Collect data for the table
                 if (selectedFactoringOption.value == "option1") {
@@ -706,6 +758,7 @@
                 }
                 if (!useDifficultyFactoring) {
                     newNetworkHashratePH = "-";
+                    contributedDifficulty = "-";
                 }
                 data.push({
                     month,
@@ -1100,12 +1153,15 @@
             const secondHeader = document.getElementById('secondHeader');
             const thirdHeader = document.getElementById('thirdHeader');
             const eleventhHeader = document.getElementById('eleventhHeader');
+            const twelfthHeader = document.getElementById('twelfthHeader');
             
             if (useDifficultyFactoring) {
                 eleventhHeader.textContent = "Hashrate";
+                twelfthHeader.textContent = "Contributed Difficulty";
             }
             else {
                 eleventhHeader.textContent = "N/A";
+                twelfthHeader.textContent = "N/A";
             }
             if (selectedFactoringOption && selectedFactoringOption.value == "option1") {
                 secondHeader.textContent = "Containers";
