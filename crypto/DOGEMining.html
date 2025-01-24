@@ -119,11 +119,11 @@
         <div class="input-row">
             <div class="input-group">
                 <label for="difficulty">Difficulty:</label>
-                <input type="number" id="difficulty" placeholder="27520875.25" step="1000000.00" value="27520875.25" min="0">
+                <input type="number" id="difficulty" placeholder="29079626.89" step="1000000.00" value="29079626.89" min="0">
             </div>
             <div class="input-group">
                 <label for="dogeValue">DOGE Value:</label>
-                <input type="number" id="dogeValue" placeholder="0.394134" step="0.01" value="0.394134" min="0">
+                <input type="number" id="dogeValue" placeholder="0.353209" step="0.01" value="0.353209" min="0">
             </div>
         </div>
         
@@ -164,7 +164,7 @@
             </div>
             <div class="input-group">
                 <label for="additionalFunds">Additional Monthly Funds ($):</label>
-                <input type="number" id="additionalFunds" placeholder="10000" step="1000.00" value="10000" min="0">
+                <input type="number" id="additionalFunds" placeholder="0" step="1000.00" value="0" min="0">
             </div>
             <div class="input-group">
                 <label for="targetMonths">Target Months:</label>
@@ -174,15 +174,15 @@
         <div class="input-row">
             <div class="input-group">
                 <label for="monthlyDifficultyIncrease">Monthly Addition In Difficulty:</label>
-                <input type="number" id="monthlyDifficultyIncrease" placeholder="120000.00" step="10000" value="120000.00" min="0">
+                <input type="number" id="monthlyDifficultyIncrease" placeholder="200000.00" step="10000" value="200000.00" min="0">
             </div>
             <div class="input-group">
                 <label for="monthlyValueIncrease">Monthly Addition In Price ($):</label>
-                <input type="number" id="monthlyValueIncrease" placeholder="0.01500" step="0.001" value="0.01500" min="0">
+                <input type="number" id="monthlyValueIncrease" placeholder="0.01200" step="0.001" value="0.01200" min="0">
             </div>
             <div class="input-group">
                 <label for="existingMiners">Existing Miners:</label>
-                <input type="number" id="existingMiners" placeholder="1" step="1" value="1" min="0">
+                <input type="number" id="existingMiners" placeholder="10" step="1" value="10" min="0">
             </div>
         </div>
         
@@ -205,7 +205,7 @@
                 </div>
                 <div class="input-group">
                     <label for="monthlyHashrateIncrease">Monthly Addition In Hashrate (PH/s):</label>
-                    <input type="number" id="monthlyHashrateIncrease" placeholder="0.026" step="0.001" value="0.026" min="0.001">
+                    <input type="number" id="monthlyHashrateIncrease" placeholder="0.059" step="0.001" value="0.059" min="0.001">
                 </div>
             </div>
         </fieldset>
@@ -231,7 +231,7 @@
             <div class="input-row">
                 <div class="input-group">
                     <label for="containerCost">Container Cost ($):</label>
-                    <input type="number" id="containerCost" placeholder="130000.00" step="10000.00" value="130000.00" min="0">
+                    <input type="number" id="containerCost" placeholder="200000.00" step="10000.00" value="200000.00" min="0">
                 </div>
                 <div class="input-group">
                     <label for="containerCapacity">Container Capacity:</label>
@@ -267,7 +267,7 @@
             <div class="input-row">
                 <div class="input-group">
                     <label for="coolerCost">Dry Cooler Cost:</label>
-                    <input type="number" id="coolerCost" placeholder="100000.00" step="50000.00" value="100000.00" min="0">
+                    <input type="number" id="coolerCost" placeholder="150000.00" step="50000.00" value="150000.00" min="0">
                 </div>
                 <div class="input-group">
                     <label for="coolerHeatTransfer">Heat Transfer (kW):</label>
@@ -306,13 +306,13 @@
             </div>
         </fieldset>
         
-        <h3>Scaling Limit Stop</h3>
+        <h3>Scaling Stop Limit</h3>
         
         <!-- Enable Checkbox -->
-        <fieldset id="useScalingLimitStopBox">
+        <fieldset id="useScalingStopLimitBox">
             <legend>
-                <label for="useScalingLimitStop" class="checkbox-label">
-                    <input type="checkbox" id="useScalingLimitStop" checked="true" onclick="toggleGroupBoxEnabledState('useScalingLimitStopBox', this.checked); changeHeader();">
+                <label for="useScalingStopLimit" class="checkbox-label">
+                    <input type="checkbox" id="useScalingStopLimit" checked="true" onclick="toggleGroupBoxEnabledState('useScalingStopLimitBox', this.checked); changeHeader();">
                     Enable
                 </label>
             </legend>
@@ -379,7 +379,7 @@
         const useDifficultyFactoringCheckbox = document.getElementById('useDifficultyFactoring');
         const useDryCoolerFactoringCheckbox = document.getElementById('useDryCoolerFactoring');
         const useRackFactoringCheckbox = document.getElementById('useRackFactoring');
-        const useScalingLimitStopBoxCheckbox = document.getElementById('useScalingLimitStop');
+        const useScalingStopLimitBoxCheckbox = document.getElementById('useScalingStopLimit');
         const containerCostInput = document.getElementById('containerCost');
         const containerCapacityInput = document.getElementById('containerCapacity');
         const containerPowerInput = document.getElementById('containerPower');
@@ -484,7 +484,7 @@
         useDifficultyFactoringCheckbox.addEventListener('input', updateHashAndPower);
         useDryCoolerFactoringCheckbox.addEventListener('input', updateHashAndPower);
         useRackFactoringCheckbox.addEventListener('input', updateHashAndPower);
-        useScalingLimitStopBoxCheckbox.addEventListener('input', updateHashAndPower);
+        useScalingStopLimitBoxCheckbox.addEventListener('input', updateHashAndPower);
         networkHashrateInput.addEventListener('input', updateHashAndPower);
         monthlyHashrateIncreaseInput.addEventListener('input', updateHashAndPower);
         coolerCostInput.addEventListener('input', updateHashAndPower);
@@ -565,7 +565,7 @@
             const useDifficultyFactoring = document.getElementById('useDifficultyFactoring').checked;
             const useDryCoolerFactoring = document.getElementById('useDryCoolerFactoring').checked;
             const useRackFactoring = document.getElementById('useRackFactoring').checked;
-            const useScalingLimitStop = document.getElementById('useScalingLimitStop').checked;
+            const useScalingStopLimit = document.getElementById('useScalingStopLimit').checked;
             
             const containerCost = parseFloat(document.getElementById('containerCost').value);
             const containerCapacity = parseFloat(document.getElementById('containerCapacity').value);
@@ -727,7 +727,7 @@
                 let newMiners = Math.max(0, Math.floor(cumulativeRevenue / minerCost)); // Ensure newMiners is never negative
                 
                 // Account for a scaling limit
-                if (useScalingLimitStop && (currentMiners + newMiners) >= scalingMaxMiners) {
+                if (useScalingStopLimit && (currentMiners + newMiners) >= scalingMaxMiners) {
                 
                     // Limit will be reached
                     //
