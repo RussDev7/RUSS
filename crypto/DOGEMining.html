@@ -168,7 +168,7 @@
             </div>
             <div class="input-group">
                 <label for="targetMonths">Target Months:</label>
-                <input type="number" id="targetMonths" placeholder="60" step="1" value="60" min="1">
+                <input type="number" id="targetMonths" placeholder="72" step="1" value="72" min="1">
             </div>
         </div>
         <div class="input-row">
@@ -205,7 +205,7 @@
                 </div>
                 <div class="input-group">
                     <label for="monthlyHashrateIncrease">Monthly Addition In Hashrate (PH/s):</label>
-                    <input type="number" id="monthlyHashrateIncrease" placeholder="0.059" step="0.001" value="0.059" min="0.001">
+                    <input type="number" id="monthlyHashrateIncrease" placeholder="0.017" step="0.010" value="0.017" min="0.000">
                 </div>
             </div>
         </fieldset>
@@ -607,17 +607,17 @@
 
                     // Convert total miner GH/s to PH/s
                     let scalingHashratePH = (hashRate * currentMiners) / 1000000;
-                        
+					
                     // Calculate new total blockchain hashrate increase in PH/s
-                    newNetworkHashratePH = networkHashratePH + scalingHashratePH + monthlyHashrateIncreasePH; // New network hashrate in PH/s // Plus increase
-                        
+                    newNetworkHashratePH = networkHashratePH + scalingHashratePH + (monthlyHashrateIncreasePH * month); // New network hashrate in PH/s // Plus increase
+					
                     // Calculate new difficulty
                     let newDifficulty = startingDifficulty * (newNetworkHashratePH / networkHashratePH);
                     
                     // Save the contributed difficulty difference
                     // if scaling limit stop is enabled and scaling limit stop is not exceeded
                     if (!maxMinersReached) {
-                        contributedDifficulty = parseFloat(newDifficulty - document.getElementById('difficulty').value);
+                        contributedDifficulty = parseFloat(newDifficulty - startingDifficulty);
                     }
                     
                     // Apply scaling difficulty increase
