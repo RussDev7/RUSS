@@ -607,10 +607,10 @@
 
                     // Convert total miner GH/s to PH/s
                     let scalingHashratePH = (hashRate * currentMiners) / 1000000;
-					
+                    
                     // Calculate new total blockchain hashrate increase in PH/s
                     newNetworkHashratePH = networkHashratePH + scalingHashratePH + (monthlyHashrateIncreasePH * month); // New network hashrate in PH/s // Plus increase
-					
+                    
                     // Calculate new difficulty
                     let newDifficulty = startingDifficulty * (newNetworkHashratePH / networkHashratePH);
                     
@@ -739,6 +739,9 @@
                         // Complete limit reached, dont use anymore funds
                         newMiners = 0;
                         maxMinersReached = true;
+                        
+                        // Update the equipment cost if max miners is achieved
+                        equipmentCost = 0;
                     }
                 }
                 else {
