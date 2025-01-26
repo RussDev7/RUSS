@@ -1085,7 +1085,6 @@
             });
         }
         
-        // Function to toggle the groupboxes based on selected radio button
         document.addEventListener("DOMContentLoaded", () => {
             function updateGroupBoxState() {
                 const selectedOption = document.querySelector('input[name="equipmentOption"]:checked').value;
@@ -1105,7 +1104,7 @@
                         if (isEnabled) {
                             // Check all checkboxes and trigger their input events
                             checkboxes.forEach(checkbox => {
-                                if (!checkbox.checked) {
+                                if (checkbox.id !== "useBlockAverage" && !checkbox.checked) { // Exclude "useBlockAverage"
                                     checkbox.checked = true;
                                     checkbox.dispatchEvent(new Event('input')); // Trigger input event
                                 }
@@ -1113,7 +1112,7 @@
                         } else {
                             // Uncheck all checkboxes and trigger their input events
                             checkboxes.forEach(checkbox => {
-                                if (checkbox.checked) {
+                                if (checkbox.id !== "useBlockAverage" && checkbox.checked) { // Exclude "useBlockAverage"
                                     checkbox.checked = false;
                                     checkbox.dispatchEvent(new Event('input')); // Trigger input event
                                 }
@@ -1122,7 +1121,9 @@
         
                         // Enable or disable the groupbox and its inputs
                         checkboxes.forEach(checkbox => {
-                            checkbox.disabled = !isEnabled;
+                            if (checkbox.id !== "useBlockAverage") { // Exclude "useBlockAverage"
+                                checkbox.disabled = !isEnabled;
+                            }
                         });
         
                         inputs.forEach(input => {
@@ -1141,9 +1142,11 @@
             // Attach event listeners to checkboxes inside the groupboxes
             const checkboxes = document.querySelectorAll('input[type="checkbox"]');
             checkboxes.forEach(checkbox => {
-                checkbox.addEventListener("input", (event) => {
-                    toggleGroupBoxEnabledState(event.target.closest("fieldset").id, event.target.checked);
-                });
+                if (checkbox.id !== "useBlockAverage") { // Exclude "useBlockAverage"
+                    checkbox.addEventListener("input", (event) => {
+                        toggleGroupBoxEnabledState(event.target.closest("fieldset").id, event.target.checked);
+                    });
+                }
             });
         
             // Initial state update
