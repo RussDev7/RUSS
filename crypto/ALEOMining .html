@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DOGE Crypto Mining Calculator</title>
+    <title>ALEO Crypto Mining Calculator</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -73,19 +73,19 @@
 
 <body>
     <div class="container">
-        <h1>DOGE Crypto Mining Calculator</h1>
+        <h1>ALEO Crypto Mining Calculator</h1>
         <div class="input-row">
             <div class="input-group">
                 <label for="multiplier">Unit(s) Multiplier:</label>
                 <input type="number" id="multiplier" placeholder="1" step="1" value="1" min="1">
             </div>
             <div class="input-group">
-                <label for="hashRate">Hash Rate (GH/s):</label>
-                <input type="number" id="hashRate" placeholder="30.40" step="0.01" value="30.40" min="0">
+                <label for="hashRate">Hash Rate (MH/s):</label>
+                <input type="number" id="hashRate" placeholder="50.00" step="0.01" value="50.00" min="0">
             </div>
             <div class="input-group">
                 <label for="power">Power (W):</label>
-                <input type="number" id="power" placeholder="7600.00" step="0.01" value="7600.00" min="0">
+                <input type="number" id="power" placeholder="100.00" step="0.01" value="100.00" min="0">
             </div>
         </div>
         <div class="input-row">
@@ -105,11 +105,11 @@
         <div class="input-row">
             <div class="input-group">
                 <label for="blockTime">Block Time (seconds):</label>
-                <input type="number" id="blockTime" placeholder="1.3" step="0.01" value="1.3" min="0" disabled>
+                <input type="number" id="blockTime" placeholder="32.0" step="0.01" value="32.0" min="0" disabled>
             </div>
             <div class="input-group">
-                <label for="blockReward">Block Reward (DOGE):</label>
-                <input type="number" id="blockReward" placeholder="10000" step="0.01" value="10000" min="0">
+                <label for="blockReward">Block Reward (ALEO):</label>
+                <input type="number" id="blockReward" placeholder="75.00" step="0.01" value="75.00" min="0">
             </div>
             <div class="input-group">
                 <label for="fees">Fees (%):</label>
@@ -119,11 +119,11 @@
         <div class="input-row">
             <div class="input-group">
                 <label for="difficulty">Difficulty:</label>
-                <input type="number" id="difficulty" placeholder="29079626.89" step="1000000.00" value="29079626.89" min="0">
+                <input type="number" id="difficulty" placeholder="4088112217090.27" step="500000000000.00" value="4088112217090.27" min="0">
             </div>
             <div class="input-group">
-                <label for="dogeValue">DOGE Value:</label>
-                <input type="number" id="dogeValue" placeholder="0.353209" step="0.01" value="0.353209" min="0">
+                <label for="aleoValue">ALEO Value:</label>
+                <input type="number" id="aleoValue" placeholder="0.3742" step="0.01" value="0.3742" min="0">
             </div>
         </div>
         
@@ -160,29 +160,29 @@
         <div class="input-row">
             <div class="input-group">
                 <label for="minerCost">Miner Cost ($):</label>
-                <input type="number" id="minerCost" placeholder="12481.00" step="1000.00" value="12481.00" min="0">
+                <input type="number" id="minerCost" placeholder="2500.00" step="1000.00" value="2500.00" min="0">
             </div>
             <div class="input-group">
                 <label for="additionalFunds">Additional Monthly Funds ($):</label>
-                <input type="number" id="additionalFunds" placeholder="0" step="1000.00" value="0" min="0">
+                <input type="number" id="additionalFunds" placeholder="5000.00" step="1000.00" value="5000.00" min="0">
             </div>
             <div class="input-group">
                 <label for="targetMonths">Target Months:</label>
-                <input type="number" id="targetMonths" placeholder="60" step="1" value="60" min="1">
+                <input type="number" id="targetMonths" placeholder="30" step="1" value="30" min="1">
             </div>
         </div>
         <div class="input-row">
             <div class="input-group">
                 <label for="monthlyDifficultyIncrease">Monthly Addition In Difficulty:</label>
-                <input type="number" id="monthlyDifficultyIncrease" placeholder="200000.00" step="10000" value="200000.00">
+                <input type="number" id="monthlyDifficultyIncrease" placeholder="-25040465877.016502" step="10000" value="-25040465877.016502">
             </div>
             <div class="input-group">
                 <label for="monthlyValueIncrease">Monthly Addition In Price ($):</label>
-                <input type="number" id="monthlyValueIncrease" placeholder="0.01200" step="0.001" value="0.01200">
+                <input type="number" id="monthlyValueIncrease" placeholder="-0.013" step="0.001" value="-0.013">
             </div>
             <div class="input-group">
                 <label for="existingMiners">Existing Miners:</label>
-                <input type="number" id="existingMiners" placeholder="10" step="1" value="10" min="0">
+                <input type="number" id="existingMiners" placeholder="100" step="1" value="100" min="0">
             </div>
         </div>
         
@@ -207,12 +207,12 @@
             <!-- Network HashRate Inputs -->
             <div class="input-row">
                 <div class="input-group">
-                    <label for="networkHashrate">Network Hashrate (PH/s):</label>
-                    <input type="number" id="networkHashrate" placeholder="2.007" step="0.100" value="2.007" min="0.010">
+                    <label for="networkHashrate">Network Hashrate (GH/s):</label>
+                    <input type="number" id="networkHashrate" placeholder="153.91" step="0.100" value="153.91" min="0.010">
                 </div>
                 <div class="input-group">
-                    <label for="monthlyHashrateIncrease">Monthly Addition In Hashrate (PH/s):</label>
-                    <input type="number" id="monthlyHashrateIncrease" placeholder="0.017" step="0.010" value="0.017">
+                    <label for="monthlyHashrateIncrease">Monthly Addition In Hashrate (GH/s):</label>
+                    <input type="number" id="monthlyHashrateIncrease" placeholder="-0.00114" step="10.00" value="-0.00114">
                 </div>
             </div>
         </fieldset>
@@ -238,11 +238,11 @@
             <div class="input-row">
                 <div class="input-group">
                     <label for="containerCost">Container Cost ($):</label>
-                    <input type="number" id="containerCost" placeholder="150000.00" step="10000.00" value="150000.00" min="0">
+                    <input type="number" id="containerCost" placeholder="50000.00" step="10000.00" value="50000.00" min="0">
                 </div>
                 <div class="input-group">
                     <label for="containerCapacity">Container Capacity:</label>
-                    <input type="number" id="containerCapacity" placeholder="120" step="10" value="120" min="0">
+                    <input type="number" id="containerCapacity" placeholder="12000" step="10" value="12000" min="0">
                 </div>
                 <div class="input-group">
                     <label for="containerPower">Power (W):</label>
@@ -328,7 +328,7 @@
             <div class="input-row">
                 <div class="input-group">
                     <label for="scalingMaxMiners">Max Miners:</label>
-                    <input type="number" id="scalingMaxMiners" placeholder="60000" step="10000" value="60000" min="1">
+                    <input type="number" id="scalingMaxMiners" placeholder="3000" step="10000" value="3000" min="1">
                 </div>
             </div>
         </fieldset>
@@ -341,7 +341,7 @@
                     <th id="thirdHeader">N/A</th>
                     <th>Miners</th>
                     <th>New Miners</th>
-                    <th>DOGE Price</th>
+                    <th>ALEO Price</th>
                     <th>Monthly Profit</th>
                     <th>Delivery Cost</th>
                     <th>Annual Profit</th>
@@ -370,7 +370,7 @@
         const feesInput = document.getElementById('fees');
         const blockTimeInput = document.getElementById('blockTime');
         const difficultyInput = document.getElementById('difficulty');
-        const dogeValueInput = document.getElementById('dogeValue');
+        const aleoValueInput = document.getElementById('aleoValue');
         const resetButton = document.getElementById('resetButton');
         const minerCostInput = document.getElementById('minerCost');
         const additionalFundsInput = document.getElementById('additionalFunds');
@@ -415,7 +415,7 @@
             document.getElementById('fees').value = document.getElementById('fees').placeholder;
             document.getElementById('blockTime').value = document.getElementById('blockTime').placeholder;
             document.getElementById('difficulty').value = document.getElementById('difficulty').placeholder;
-            document.getElementById('dogeValue').value = document.getElementById('dogeValue').placeholder;
+            document.getElementById('aleoValue').value = document.getElementById('aleoValue').placeholder;
             document.getElementById('minerCost').value = document.getElementById('minerCost').placeholder;
             document.getElementById('additionalFunds').value = document.getElementById('additionalFunds').placeholder;
             document.getElementById('targetMonths').value = document.getElementById('targetMonths').placeholder;
@@ -476,7 +476,7 @@
         feesInput.addEventListener('input', updateHashAndPower);
         blockTimeInput.addEventListener('input', updateHashAndPower);
         difficultyInput.addEventListener('input', updateHashAndPower);
-        dogeValueInput.addEventListener('input', updateHashAndPower);
+        aleoValueInput.addEventListener('input', updateHashAndPower);
         minerCost.addEventListener('input', updateHashAndPower);
         additionalFunds.addEventListener('input', updateHashAndPower);
         targetMonths.addEventListener('input', updateHashAndPower);
@@ -509,12 +509,12 @@
         function calculate() {
         
             // Get user inputs
-            const hashRate = parseFloat(hashRateInput.value) / 1000; // Convert GH/s to TH/s
+            const hashRate = parseFloat(hashRateInput.value) / 1000000; // Convert MH/s to TH/s
             const blockReward = parseFloat(document.getElementById('blockReward').value);
             const difficulty = parseFloat(document.getElementById('difficulty').value);
             const power = parseFloat(powerInput.value);
             const fees = parseFloat(document.getElementById('fees').value) / 100;
-            const dogeValue = parseFloat(document.getElementById('dogeValue').value);
+            const aleoValue = parseFloat(document.getElementById('aleoValue').value);
             const cost = parseFloat(document.getElementById('cost').value);
             const blockTime = parseFloat(document.getElementById('blockTime').value);
             const deliveryChargeRate = parseFloat(document.getElementById('deliveryChargeRate').value);
@@ -522,10 +522,10 @@
             
             // Calculate metrics
             const blockRewardHours = blockReward * 3600;
-            const rewardsPerHourDOGE = (hashRate * blockRewardHours) / (difficulty * Math.pow(2, 32));
-            const scaledRewardsPerHourDOGE = rewardsPerHourDOGE * Math.pow(10, 12); // Scale by 10^12
-            const rewardsPerHourUSD = scaledRewardsPerHourDOGE * dogeValue;
-            
+            const rewardsPerHourALEO = (hashRate * blockRewardHours) / difficulty;
+            const scaledRewardsPerHourALEO = rewardsPerHourALEO * Math.pow(10, 12); // Scale by 10^12
+            const rewardsPerHourUSD = scaledRewardsPerHourALEO * aleoValue;
+			
             // Calculate electricity
             // const powerToKWH = ; // 5000W × 3h / 1000
             const deliveryCharge = (power / 1000) * deliveryChargeRate; // ((Units * kWh day) * days) * Variable rate
@@ -542,7 +542,7 @@
                 return `<tr>
                     <td>${period}</td>
                     <td>$${Number((feesCostUSD * multiplier).toFixed(2)).toLocaleString()}</td>
-                    <td>${Number((scaledRewardsPerHourDOGE * multiplier).toFixed(2)).toLocaleString()} DOGE</td>
+                    <td>${Number((scaledRewardsPerHourALEO * multiplier).toFixed(2)).toLocaleString()} ALEO</td>
                     <td>$${Number((rewardsPerHourUSD * multiplier).toFixed(2)).toLocaleString()}</td>
                     <td>$${Number((electricityCostPerHour * multiplier).toFixed(2)).toLocaleString()}</td>
                     <td>$${Number((deliveryCharge * multiplier).toFixed(2)).toLocaleString()}</td>
@@ -568,7 +568,7 @@
             const providerCharge = parseFloat(document.getElementById('providerCharge').value);
             const existingMiners = parseFloat(document.getElementById('existingMiners').value);
             const difficulty = parseFloat(document.getElementById('difficulty').value);
-            const dogeValue = parseFloat(document.getElementById('dogeValue').value);
+            const aleoValue = parseFloat(document.getElementById('aleoValue').value);
             
             const selectedFactoringOption = document.querySelector('input[name="equipmentOption"]:checked');
             
@@ -584,8 +584,8 @@
             const containerCapacity = parseFloat(document.getElementById('containerCapacity').value);
             const containerPower = parseFloat(document.getElementById('containerPower').value);
             const existingContainers = parseFloat(document.getElementById('existingContainers').value);
-            const networkHashratePH = parseFloat(document.getElementById('networkHashrate').value);
-            const monthlyHashrateIncreasePH = parseFloat(document.getElementById('monthlyHashrateIncrease').value);
+            const networkHashrateGH = parseFloat(document.getElementById('networkHashrate').value);
+            const monthlyHashrateIncreaseGH = parseFloat(document.getElementById('monthlyHashrateIncrease').value);
             const coolerCost = parseFloat(document.getElementById('coolerCost').value);
             const coolerHeatTransfer = parseFloat(document.getElementById('coolerHeatTransfer').value);
             const coolerPower = parseFloat(document.getElementById('coolerPower').value);
@@ -600,8 +600,8 @@
             // console.log(monthlyProductionPerMiner);
             
             let currentDifficulty = difficulty;
-            let currentNetworkHashratePH = networkHashratePH;
-            let currentDogeValue = dogeValue;
+            let currentNetworkHashrateGH = networkHashrateGH;
+            let currentAleoValue = aleoValue;
             let currentMiners = existingMiners;               // Start with a desired amount of miners
             let currentContainers = existingContainers;       // Start with a desired amount of container
             let currentCoolers = 1;                           // Start with a single cooler
@@ -622,19 +622,18 @@
                 
                 // Calculate the additonal equipment difficulty factoring
                 if (useDifficultyFactoring) {
-
-                    // Convert total miner GH/s to PH/s
-                    let contributedHashratePH = (currentMiners * hashRate) / 1000000;
-                    let contributionRatio = contributedHashratePH / currentNetworkHashratePH; // * 10^−9
+				
+                    let contributedHashratePH = currentMiners * (hashRate / 1e9); // Convert total miner MH/s to PH/s
+                    let contributionRatio = contributedHashratePH / (currentNetworkHashrateGH / 1000000); // Convert GH/s to PH/s
                     contributedDifficulty = contributionRatio * currentDifficulty
-                    
+					
                     // Apply scaling difficulty increase
                     if (useContributedDifficulty) {
                         additionalDifficulty += contributedDifficulty;
                     }
                 }
                 
-                const monthlyRevenue = currentMiners * (calculateRevenuePerHour(currentDifficulty + additionalDifficulty, currentDogeValue) * 720) - providerCharge;
+                const monthlyRevenue = currentMiners * (calculateRevenuePerHour(currentDifficulty + additionalDifficulty, currentAleoValue) * 720) - providerCharge;
                 cumulativeRevenue += monthlyRevenue + additionalFunds;
                 
                 // Calculate the additonal equipment costs
@@ -760,8 +759,8 @@
                 
                 // Apply scaling hashrate increase
                 if (useDifficultyFactoring && useContributedHashrate) {
-                    let contributedHashratePH = (newMiners * hashRate) / 1000000;
-                    currentNetworkHashratePH += contributedHashratePH;
+                    let contributedHashratePH = newMiners * (hashRate / 1e9);
+                    currentNetworkHashrateGH += contributedHashratePH * 1000000;
                 }
                 
                 // Collect data for the table
@@ -773,7 +772,7 @@
                     currentRacks = currentRacks;
                 }
                 if (!useDifficultyFactoring) {
-                    currentNetworkHashratePH = "-";
+                    currentNetworkHashrateGH = "-";
                     contributedDifficulty = "-";
                 }
                 data.push({
@@ -782,36 +781,36 @@
                     totalRacks: currentRacks,
                     totalMiners: currentMiners,
                     newMiners: newMiners,
-                    dogeValue: currentDogeValue,
-                    monthlyProduction: Math.floor((currentMiners * (calculateRevenuePerHour(currentDifficulty + additionalDifficulty, currentDogeValue) * 720)) - providerCharge),
+                    aleoValue: currentAleoValue,
+                    monthlyProduction: Math.floor((currentMiners * (calculateRevenuePerHour(currentDifficulty + additionalDifficulty, currentAleoValue) * 720)) - providerCharge),
                     deliveryCost: Math.floor(calculateDeliveryChargePerHour(currentMiners) * 720),
-                    annualProduction: Math.floor((currentMiners * (calculateRevenuePerHour(currentDifficulty + additionalDifficulty, currentDogeValue) * 8760)) - (providerCharge * 12)),
+                    annualProduction: Math.floor((currentMiners * (calculateRevenuePerHour(currentDifficulty + additionalDifficulty, currentAleoValue) * 8760)) - (providerCharge * 12)),
                     miningDifficulty: currentDifficulty + additionalDifficulty,
-                    networkHashrate: currentNetworkHashratePH,
+                    networkHashrate: currentNetworkHashrateGH,
                     contributedDifficulty: contributedDifficulty
                 });
                 
                 // Collect data for the chart
                 monthlyData.push({
-                    annualProduction: Math.floor((currentMiners * (calculateRevenuePerHour(currentDifficulty + additionalDifficulty, currentDogeValue) * 8760)) - (providerCharge * 12)),
+                    annualProduction: Math.floor((currentMiners * (calculateRevenuePerHour(currentDifficulty + additionalDifficulty, currentAleoValue) * 8760)) - (providerCharge * 12)),
                     miningDifficulty: currentDifficulty + additionalDifficulty,
-                    dogeValue: currentDogeValue,
+                    aleoValue: currentAleoValue,
                     deliveryCost: Math.floor(calculateDeliveryChargePerHour(currentMiners) * 8760),
                     equipmentCost: equipmentCost,
-                    networkHashrate: currentNetworkHashratePH
+                    networkHashrate: currentNetworkHashrateGH
                 });
                 
                 // Update miner count
                 currentMiners += newMiners;
                 
                 // Increase Hashrate for the next month
-                currentNetworkHashratePH += monthlyHashrateIncreasePH;
+                currentNetworkHashrateGH += monthlyHashrateIncreaseGH;
                 
                 // Increase difficulty for the next month
                 currentDifficulty += monthlyDifficultyIncrease;
                 
-                // Increase doge value for the next month
-                currentDogeValue += monthlyValueIncrease;
+                // Increase aleo value for the next month
+                currentAleoValue += monthlyValueIncrease;
             }
         
             // Update the scaling results table
@@ -825,7 +824,7 @@
                         <td>${row.totalRacks.toLocaleString()}</td>
                         <td>${row.totalMiners.toLocaleString()}</td>
                         <td>${row.newMiners.toLocaleString()}</td>
-                        <td>${row.dogeValue.toLocaleString()}</td>
+                        <td>${row.aleoValue.toLocaleString()}</td>
                         <td>$${row.monthlyProduction.toLocaleString()}</td>
                         <td>$${row.deliveryCost.toLocaleString()}</td>
                         <td>$${row.annualProduction.toLocaleString()}</td>
@@ -888,7 +887,7 @@
                 chartInstance.data.datasets[0].data = data.map(item => item.annualProduction); // Profit dataset
                 chartInstance.data.datasets[1].data = data.map(item => item.miningDifficulty); // Difficulty dataset
                 chartInstance.data.datasets[2].data = data.map(item => item.deliveryCost);     // Delivery Cost dataset
-                chartInstance.data.datasets[3].data = data.map(item => item.dogeValue);        // DOGE Value dataset
+                chartInstance.data.datasets[3].data = data.map(item => item.aleoValue);        // ALEO Value dataset
                 chartInstance.data.datasets[4].data = data.map(item => item.equipmentCost);    // Equipment Cost dataset
                 chartInstance.data.datasets[5].data = data.map(item => item.networkHashrate);  // Network Hashrate dataset
                 chartInstance.update(); // Refresh the chart
@@ -923,9 +922,9 @@
                                 hidden: true // Disabled by default
                             },
                             {
-                                label: 'DOGE Value',
-                                data: data.map(item => item.dogeValue),
-                                borderColor: 'rgba(255, 206, 86, 1)', // DOGE Value line color
+                                label: 'ALEO Value',
+                                data: data.map(item => item.aleoValue),
+                                borderColor: 'rgba(255, 206, 86, 1)', // ALEO Value line color
                                 borderWidth: 2,
                                 fill: false,
                                 hidden: true // Disabled by default
@@ -992,10 +991,10 @@
         }
         
         // Helper function to calculate rewards per hour
-        function calculateRevenuePerHour(difficulty, dogeValue) {
+        function calculateRevenuePerHour(difficulty, aleoValue) {
             const multiplier = document.getElementById('multiplier'); // Divide by multiplier to always represent one unit
             const power = parseFloat(powerInput.value / multiplier.value);
-            const hashRate = parseFloat(hashRateInput.value / multiplier.value) / 1000; // Convert GH/s to TH/s
+            const hashRate = parseFloat(hashRateInput.value / multiplier.value) / 1000000; // Convert GH/s to TH/s
             const blockReward = parseFloat(document.getElementById('blockReward').value);
             const fees = parseFloat(document.getElementById('fees').value) / 100;
             const cost = parseFloat(document.getElementById('cost').value);
@@ -1003,9 +1002,9 @@
             
             // Calculate rewards per hour based on total miners, difficulty, and block reward
             const blockRewardHours = blockReward * 3600;
-            const rewardsPerHourDOGE = (hashRate * blockRewardHours) / (difficulty * Math.pow(2, 32));
-            const scaledRewardsPerHourDOGE = rewardsPerHourDOGE * Math.pow(10, 12); // Scale by 10^12
-            const rewardsPerHourUSD = scaledRewardsPerHourDOGE * dogeValue;
+            const rewardsPerHourALEO = (hashRate * blockRewardHours) / difficulty;
+            const scaledRewardsPerHourALEO = rewardsPerHourALEO * Math.pow(10, 12); // Scale by 10^12
+            const rewardsPerHourUSD = scaledRewardsPerHourALEO * aleoValue;
             
             // Calculate electricity
             // const powerToKWH = ; // 5000W × 3h / 1000
@@ -1051,10 +1050,10 @@
             try {
                 const useBlockAverage = useBlockAverageCheckbox.checked;
         
-                // Fetch the latest DOGE blocks
-                const response = await fetch('https://api.blockchair.com/dogecoin/blocks?limit=60');
+                // Fetch the latest ALEO blocks
+                const response = await fetch('https://api.blockchair.com/aleocoin/blocks?limit=60');
                 const data = await response.json();
-                const dogePrice = data.context.market_price_usd;
+                const aleoPrice = data.context.market_price_usd;
         
                 // Determine which blocks to use based on the checkbox
                 let totalDifficulty = 0;
@@ -1070,22 +1069,22 @@
         
                 // Calculate the network hashrate (H/s)
                 const blockTimeInSeconds = 60; // 1 minute
-                const hashrate = (averageDifficulty * Math.pow(2, 32)) / blockTimeInSeconds;
+                const hashrate = averageDifficulty / blockTimeInSeconds;
                 
                 // Debugging
-                // console.log(`DOGE Price: ${dogePrice.toFixed(6)} USD`);
+                // console.log(`ALEO Price: ${aleoPrice.toFixed(6)} USD`);
                 // console.log(`Average Difficulty: ${averageDifficulty.toFixed(2)}`);
                 // console.log(`Average Hashrate: ${(hashrate / 1e15).toFixed(3)} PH/s`);
                 
                 // Update the inputs with the fetched data
-                dogeValueInput.value = dogePrice.toFixed(6);
+                aleoValueInput.value = aleoPrice.toFixed(6);
                 difficultyInput.value = averageDifficulty.toFixed(2);
                 networkHashrateInput.value = (hashrate / 1e15).toFixed(3); // Convert to PH/s
         
                 // Recalculate the numbers with the new data
                 calculate();
             } catch (error) {
-                console.error('Error fetching DOGE data. Might have attempted to fetch too many too quickly! Error:', error);
+                console.error('Error fetching ALEO data. Might have attempted to fetch too many too quickly! Error:', error);
             } finally {
                 // Re-enable the button after the task is completed
                 updateDataButton.disabled = false;
