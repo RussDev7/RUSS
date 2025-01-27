@@ -459,13 +459,13 @@
 
         // Recalculate when hashRate or power changes
         hashRateInput.addEventListener('input', () => {
-            lastHashRate = parseFloat(hashRateInput.value) || 20.0; // Store the new hashRate value
+            lastHashRate = parseFloat(hashRateInput.value) || 30.0; // Store the new hashRate value
             multiplierInput.value = 1; // Reset multiplier to 1
             calculate();
         });
 
         powerInput.addEventListener('input', () => {
-            lastPower = parseFloat(powerInput.value) || 6200.0; // Store the new power value
+            lastPower = parseFloat(powerInput.value) || 7600.0; // Store the new power value
             multiplierInput.value = 1; // Reset multiplier to 1
             calculate();
         });
