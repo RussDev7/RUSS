@@ -1,0 +1,1210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BTC Crypto Mining Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+        .input-row {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+            margin-bottom: 15px;
+        }
+        .input-group {
+            flex: 1;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        input {
+            width: 100%;
+            padding: 8px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: center;
+        }
+        th {
+            background-color: #f4f4f4;
+        }
+        canvas {
+            margin-top: 30px;
+            width: 100%;
+            height: 400px;
+        }
+        /* Exempt checkbox and label from the above rules */
+        .checkbox-label {
+            display: inline-flex;
+            align-items: center;
+            margin-bottom: 0;
+        }
+        .checkbox-label input {
+            width: auto;
+            padding: 0;
+            margin-right: 5px;
+            transform: scale(1.3);
+            transform-origin: center;
+        }
+        /* Exempt radiobuttons from the above rules */
+        input[type="radio"] {
+            width: auto;
+            padding: 0;
+            margin-right: 5px;
+            transform: scale(1.5);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>BTC Crypto Mining Calculator</h1>
+        <div class="input-row">
+            <div class="input-group">
+                <label for="multiplier">Unit(s) Multiplier:</label>
+                <input type="number" id="multiplier" placeholder="1" step="1" value="1" min="1">
+            </div>
+            <div class="input-group">
+                <label for="hashRate">Hash Rate (TH/s):</label>
+                <input type="number" id="hashRate" placeholder="860.00" step="0.01" value="860.00" min="0">
+            </div>
+            <div class="input-group">
+                <label for="power">Power (W):</label>
+                <input type="number" id="power" placeholder="11180.00" step="0.01" value="11180.00" min="0">
+            </div>
+        </div>
+        <div class="input-row">
+            <div class="input-group">
+                <label for="cost">Electricity Cost ($/kWh):</label>
+                <input type="number" id="cost" placeholder="0.0747" step="0.01" value="0.0747" min="0">
+            </div>
+            <div class="input-group">
+                <label for="deliveryChargeRate">Delivery Charge Rate:</label>
+                <input type="number" id="deliveryChargeRate" placeholder="0.04" step="0.01" value="0.04" min="0">
+            </div>
+            <div class="input-group">
+                <label for="providerCharge">Monthly Provider Charge:</label>
+                <input type="number" id="providerCharge" placeholder="4.95" step="0.05" value="4.95" min="0">
+            </div>
+        </div>
+        <div class="input-row">
+            <div class="input-group">
+                <label for="blockTime">Block Time (seconds):</label>
+                <input type="number" id="blockTime" placeholder="579.0" step="0.01" value="579.0" min="0" disabled>
+            </div>
+            <div class="input-group">
+                <label for="blockReward">Block Reward (BTC):</label>
+                <input type="number" id="blockReward" placeholder="3.16" step="0.01" value="3.16" min="0">
+            </div>
+            <div class="input-group">
+                <label for="fees">Fees (%):</label>
+                <input type="number" id="fees" placeholder="0.0" step="1.0" value="0.0" min="0">
+            </div>
+        </div>
+        <div class="input-row">
+            <div class="input-group">
+                <label for="difficulty">Difficulty:</label>
+                <input type="number" id="difficulty" placeholder="108105433845147.00" step="500000000000.00" value="108105433845147.00" min="0">
+            </div>
+            <div class="input-group">
+                <label for="btcValue">BTC Value:</label>
+                <input type="number" id="btcValue" placeholder="102507.54" step="10000.00" value="102507.54" min="0">
+            </div>
+        </div>
+        
+        <div class="input-row">
+            <button onclick="calculate()">Calculate</button>
+            <button id="resetButton">Reset</button>
+            <!-- <button id="updateDataButton">Get Current Data</button> -->
+            <!-- <label for="useBlockAverage" class="checkbox-label"> -->
+            <!--     <input type="checkbox" id="useBlockAverage"> Use 60 Block Average (~1h) -->
+            <!-- </label> -->
+        </div>
+        
+        <table>
+            <thead>
+                <tr>
+                    <th>Per</th>
+                    <th>Fees</th>
+                    <th>Est. Rewards</th>
+                    <th>Rev. $</th>
+                    <th>Power Cost</th>
+                    <th>Delivery Cost</th>
+                    <th>Profit</th>
+                </tr>
+            </thead>
+            <tbody id="results">
+                <tr>
+                    <td colspan="7">No results yet</td>
+                </tr>
+            </tbody>
+        </table>
+        
+        <br>
+        <h2>Scaling Profitability Table</h2>
+        <div class="input-row">
+            <div class="input-group">
+                <label for="minerCost">Miner Cost ($):</label>
+                <input type="number" id="minerCost" placeholder="20000.00" step="1000.00" value="20000.00" min="0">
+            </div>
+            <div class="input-group">
+                <label for="additionalFunds">Additional Monthly Funds ($):</label>
+                <input type="number" id="additionalFunds" placeholder="0.00" step="1000.00" value="0.00" min="0">
+            </div>
+            <div class="input-group">
+                <label for="targetMonths">Target Months:</label>
+                <input type="number" id="targetMonths" placeholder="48" step="1" value="48" min="1">
+            </div>
+        </div>
+        <div class="input-row">
+            <div class="input-group">
+                <label for="monthlyDifficultyIncrease">Monthly Addition In Difficulty:</label>
+                <input type="number" id="monthlyDifficultyIncrease" placeholder="1307572743424.918" step="10000" value="1307572743424.918">
+            </div>
+            <div class="input-group">
+                <label for="monthlyValueIncrease">Monthly Addition In Price ($):</label>
+                <input type="number" id="monthlyValueIncrease" placeholder="988.98606557377" step="0.001" value="988.98606557377">
+            </div>
+            <div class="input-group">
+                <label for="existingMiners">Existing Miners:</label>
+                <input type="number" id="existingMiners" placeholder="10" step="1" value="10" min="0">
+            </div>
+        </div>
+        
+        <h3>Difficulty Factoring</h3>
+        
+        <!-- Enable Checkbox -->
+        <fieldset id="useDifficultyFactoringBox">
+            <legend>
+                <label for="useDifficultyFactoring" class="checkbox-label">
+                    <input type="checkbox" id="useDifficultyFactoring" checked="true" onclick="toggleGroupBoxEnabledState('useDifficultyFactoringBox', this.checked); changeHeader();">
+                    Enable
+                </label>
+            </legend>
+            
+            <label for="useContributedHashrate" class="checkbox-label">
+                <input type="checkbox" id="useContributedHashrate" checked="true"> Include Contributed Hashrate
+            </label>
+            <label for="useContributedDifficulty" class="checkbox-label">
+                <input type="checkbox" id="useContributedDifficulty" checked="true"> Include Contributed Difficulty
+            </label>
+            
+            <!-- Network HashRate Inputs -->
+            <div class="input-row">
+                <div class="input-group">
+                    <label for="networkHashrate">Network Hashrate (GH/s):</label>
+                    <input type="number" id="networkHashrate" placeholder="801915.89" step="0.100" value="801915.89" min="0.010">
+                </div>
+                <div class="input-group">
+                    <label for="monthlyHashrateIncrease">Monthly Addition In Hashrate (PH/s):</label>
+                    <input type="number" id="monthlyHashrateIncrease" placeholder="5.386904098360656" step="10.00" value="5.386904098360656">
+                </div>
+            </div>
+        </fieldset>
+        
+        <h3>Equipment Factoring</h3>
+        
+        <label>
+            <input type="radio" name="equipmentOption" value="option1" onclick="changeHeader()" checked>
+            Use Shipping Containers
+        </label>
+        <br>
+        
+        <!-- Container Checkbox -->
+        <fieldset id="useContainerFactoringBox">
+            <legend>
+                <label for="useContainerFactoring" class="checkbox-label">
+                    <input type="checkbox" id="useContainerFactoring" checked="true" onclick="toggleGroupBoxEnabledState('useContainerFactoringBox', this.checked)">
+                    Shipping Container + Cooler
+                </label>
+            </legend>
+            
+            <!-- Rack Inputs -->
+            <div class="input-row">
+                <div class="input-group">
+                    <label for="containerCost">Container Cost ($):</label>
+                    <input type="number" id="containerCost" placeholder="150000.00" step="10000.00" value="150000.00" min="0">
+                </div>
+                <div class="input-group">
+                    <label for="containerCapacity">Container Capacity:</label>
+                    <input type="number" id="containerCapacity" placeholder="120" step="10" value="120" min="0">
+                </div>
+                <div class="input-group">
+                    <label for="containerPower">Power (W):</label>
+                    <input type="number" id="containerPower" placeholder="25920" step="1000" value="25920" min="1">
+                </div>
+                <div class="input-group">
+                    <label for="existingContainers">Existing Containers:</label>
+                    <input type="number" id="existingContainers" placeholder="1" step="1" value="1" min="0">
+                </div>
+            </div>
+        </fieldset>
+        
+        <label>
+            <input type="radio" name="equipmentOption" value="option2" onclick="changeHeader()">
+            Use Manual Scaleout
+        </label>
+        <br>
+        
+        <!-- Dry Cooler Checkbox -->
+        <fieldset id="useDryCoolerFactoringBox">
+            <legend>
+                <label for="useDryCoolerFactoring" class="checkbox-label">
+                    <input type="checkbox" id="useDryCoolerFactoring" onclick="toggleGroupBoxEnabledState('useDryCoolerFactoringBox', this.checked)">
+                    Dry Cooling
+                </label>
+            </legend>
+            
+            <!-- Dry Cooler Inputs -->
+            <div class="input-row">
+                <div class="input-group">
+                    <label for="coolerCost">Dry Cooler Cost:</label>
+                    <input type="number" id="coolerCost" placeholder="150000.00" step="50000.00" value="150000.00" min="0">
+                </div>
+                <div class="input-group">
+                    <label for="coolerHeatTransfer">Heat Transfer (kW):</label>
+                    <input type="number" id="coolerHeatTransfer" placeholder="2000" step="100" value="2000" min="0">
+                </div>
+                <div class="input-group">
+                    <label for="coolerPower">Power (W):</label>
+                    <input type="number" id="coolerPower" placeholder="43200" step="1000" value="43200" min="1">
+                </div>
+            </div>
+        </fieldset>
+        
+        <!-- Racks Checkbox -->
+        <fieldset id="useRackFactoringBox">
+            <legend>
+                <label for="useRackFactoring" class="checkbox-label">
+                    <input type="checkbox" id="useRackFactoring" onclick="toggleGroupBoxEnabledState('useRackFactoringBox', this.checked)">
+                    Miner Racks
+                </label>
+            </legend>
+            
+            <!-- Rack Inputs -->
+            <div class="input-row">
+                <div class="input-group">
+                    <label for="rackCost">Rack Cost ($):</label>
+                    <input type="number" id="rackCost" placeholder="2950.00" step="500.00" value="2950.00" min="0">
+                </div>
+                <div class="input-group">
+                    <label for="rackCapacity">Rack Capacity:</label>
+                    <input type="number" id="rackCapacity" placeholder="20" step="5" value="20" min="0">
+                </div>
+                <div class="input-group">
+                    <label for="existingRacks">Existing Racks:</label>
+                    <input type="number" id="existingRacks" placeholder="1" step="1" value="1" min="0">
+                </div>
+            </div>
+        </fieldset>
+        
+        <h3>Scaling Stop Limit</h3>
+        
+        <!-- Enable Checkbox -->
+        <fieldset id="useScalingStopLimitBox">
+            <legend>
+                <label for="useScalingStopLimit" class="checkbox-label">
+                    <input type="checkbox" id="useScalingStopLimit" checked="true" onclick="toggleGroupBoxEnabledState('useScalingStopLimitBox', this.checked); changeHeader();">
+                    Enable
+                </label>
+            </legend>
+                
+            <!-- Network HashRate Inputs -->
+            <div class="input-row">
+                <div class="input-group">
+                    <label for="scalingMaxMiners">Max Miners:</label>
+                    <input type="number" id="scalingMaxMiners" placeholder="4000" step="10000" value="4000" min="1">
+                </div>
+            </div>
+        </fieldset>
+        
+        <table>
+            <thead>
+                <tr>
+                    <th>Month</th>
+                    <th id="secondHeader">Containers</th>
+                    <th id="thirdHeader">N/A</th>
+                    <th>Miners</th>
+                    <th>New Miners</th>
+                    <th>BTC Price</th>
+                    <th>Monthly Profit</th>
+                    <th>Delivery Cost</th>
+                    <th>Annual Profit</th>
+                    <th>Difficulty</th>
+                    <th id="eleventhHeader">Hashrate</th>
+                    <th id="twelfthHeader">Contributed Difficulty</th>
+                </tr>
+            </thead>
+            <tbody id="scalingResults">
+                <tr>
+                    <td colspan="12">No results yet</td>
+                </tr>
+            </tbody>
+        </table>
+        
+        <canvas id="monthlyChart"></canvas>
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        const multiplierInput = document.getElementById('multiplier');
+        const hashRateInput = document.getElementById('hashRate');
+        const powerInput = document.getElementById('power');
+        const costInput = document.getElementById('cost');
+        const blockRewardInput = document.getElementById('blockReward');
+        const feesInput = document.getElementById('fees');
+        const blockTimeInput = document.getElementById('blockTime');
+        const difficultyInput = document.getElementById('difficulty');
+        const btcValueInput = document.getElementById('btcValue');
+        const resetButton = document.getElementById('resetButton');
+        const minerCostInput = document.getElementById('minerCost');
+        const additionalFundsInput = document.getElementById('additionalFunds');
+        const targetMonthsInput = document.getElementById('targetMonths');
+        const monthlyDifficultyIncreaseInput = document.getElementById('monthlyDifficultyIncrease');
+        const monthlyValueIncreaseInput = document.getElementById('monthlyValueIncrease');
+        const deliveryChargeRateInput = document.getElementById('deliveryChargeRate');
+        const providerChargeInput = document.getElementById('providerCharge');
+        const existingMinersInput = document.getElementById('existingMiners');
+        const updateDataButton = document.getElementById('updateDataButton');
+        const useBlockAverageCheckbox = document.getElementById('useBlockAverage');
+        const useContainerFactoringCheckbox = document.getElementById('useContainerFactoring');
+        const useDifficultyFactoringCheckbox = document.getElementById('useDifficultyFactoring');
+        const useDryCoolerFactoringCheckbox = document.getElementById('useDryCoolerFactoring');
+        const useRackFactoringCheckbox = document.getElementById('useRackFactoring');
+        const useScalingStopLimitBoxCheckbox = document.getElementById('useScalingStopLimit');
+        const containerCostInput = document.getElementById('containerCost');
+        const containerCapacityInput = document.getElementById('containerCapacity');
+        const containerPowerInput = document.getElementById('containerPower');
+        const existingContainersInput = document.getElementById('existingContainers');
+        const useContributedHashrateCheckbox = document.getElementById('useContributedHashrate');
+        const useContributedDifficultyCheckbox = document.getElementById('useContributedDifficulty');
+        const networkHashrateInput = document.getElementById('networkHashrate');
+        const monthlyHashrateIncreaseInput = document.getElementById('monthlyHashrateIncrease');
+        const coolerCostInput = document.getElementById('coolerCost');
+        const coolerHeatTransferInput = document.getElementById('coolerHeatTransfer');
+        const coolerPowerInput = document.getElementById('coolerPower');
+        const rackCostInput = document.getElementById('rackCost');
+        const rackCapacityInput = document.getElementById('rackCapacity');
+        const existingRacksInput = document.getElementById('existingRacks');
+        const scalingMaxMinersInput = document.getElementById('scalingMaxMiners');
+        
+        // Event listener for the reset button
+        resetButton.addEventListener('click', () => {
+        
+            // Reset all fields to their original values
+            document.getElementById('multiplier').value = document.getElementById('multiplier').placeholder;
+            document.getElementById('hashRate').value = document.getElementById('hashRate').placeholder;
+            document.getElementById('power').value = document.getElementById('power').placeholder;
+            document.getElementById('cost').value = document.getElementById('cost').placeholder;
+            document.getElementById('blockReward').value = document.getElementById('blockReward').placeholder;
+            document.getElementById('fees').value = document.getElementById('fees').placeholder;
+            document.getElementById('blockTime').value = document.getElementById('blockTime').placeholder;
+            document.getElementById('difficulty').value = document.getElementById('difficulty').placeholder;
+            document.getElementById('btcValue').value = document.getElementById('btcValue').placeholder;
+            document.getElementById('minerCost').value = document.getElementById('minerCost').placeholder;
+            document.getElementById('additionalFunds').value = document.getElementById('additionalFunds').placeholder;
+            document.getElementById('targetMonths').value = document.getElementById('targetMonths').placeholder;
+            document.getElementById('monthlyDifficultyIncrease').value = document.getElementById('monthlyDifficultyIncrease').placeholder;
+            document.getElementById('monthlyValueIncrease').value = document.getElementById('monthlyValueIncrease').placeholder;
+            document.getElementById('deliveryChargeRate').value = document.getElementById('deliveryChargeRate').placeholder;
+            document.getElementById('providerCharge').value = document.getElementById('providerCharge').placeholder;
+            document.getElementById('existingMiners').value = document.getElementById('existingMiners').placeholder;
+            document.getElementById('containerCost').value = document.getElementById('containerCost').placeholder;
+            document.getElementById('containerCapacity').value = document.getElementById('containerCapacity').placeholder;
+            document.getElementById('containerPower').value = document.getElementById('containerPower').placeholder;
+            document.getElementById('existingContainers').value = document.getElementById('existingContainers').placeholder;
+            document.getElementById('networkHashrate').value = document.getElementById('networkHashrate').placeholder;
+            document.getElementById('monthlyHashrateIncrease').value = document.getElementById('monthlyHashrateIncrease').placeholder;
+            document.getElementById('coolerCost').value = document.getElementById('coolerCost').placeholder;
+            document.getElementById('coolerHeatTransfer').value = document.getElementById('coolerHeatTransfer').placeholder;
+            document.getElementById('coolerPower').value = document.getElementById('coolerPower').placeholder;
+            document.getElementById('rackCost').value = document.getElementById('rackCost').placeholder;
+            document.getElementById('rackCapacity').value = document.getElementById('rackCapacity').placeholder;
+            document.getElementById('existingRacks').value = document.getElementById('existingRacks').placeholder;
+            document.getElementById('scalingMaxMiners').value = document.getElementById('scalingMaxMiners').placeholder;
+            
+            // Recalculate with default values
+            calculate();
+        });
+
+        // Variables to store the last user input values
+        let lastHashRate = parseFloat(hashRateInput.value) || 50.00; // Default to 30.40 if empty
+        let lastPower = parseFloat(powerInput.value) || 100.00;     // Default to 7600 if empty
+
+        // Update hashRate and power based on multiplier value
+        function updateHashAndPower() {
+            const multiplier = parseFloat(multiplierInput.value) || 1;
+
+            // Update hashRate and power based on the last user input and multiplier
+            hashRateInput.value = (lastHashRate * multiplier).toFixed(2);
+            powerInput.value = (lastPower * multiplier).toFixed(2);
+
+            calculate(); // Recalculate whenever the multiplier changes
+        }
+
+        // Recalculate when hashRate or power changes
+        hashRateInput.addEventListener('input', () => {
+            lastHashRate = parseFloat(hashRateInput.value) || 50.0; // Store the new hashRate value
+            multiplierInput.value = 1; // Reset multiplier to 1
+            calculate();
+        });
+
+        powerInput.addEventListener('input', () => {
+            lastPower = parseFloat(powerInput.value) || 100.0; // Store the new power value
+            multiplierInput.value = 1; // Reset multiplier to 1
+            calculate();
+        });
+
+        multiplierInput.addEventListener('input', updateHashAndPower);
+        costInput.addEventListener('input', updateHashAndPower);
+        blockRewardInput.addEventListener('input', updateHashAndPower);
+        feesInput.addEventListener('input', updateHashAndPower);
+        blockTimeInput.addEventListener('input', updateHashAndPower);
+        difficultyInput.addEventListener('input', updateHashAndPower);
+        btcValueInput.addEventListener('input', updateHashAndPower);
+        minerCost.addEventListener('input', updateHashAndPower);
+        additionalFunds.addEventListener('input', updateHashAndPower);
+        targetMonths.addEventListener('input', updateHashAndPower);
+        monthlyDifficultyIncreaseInput.addEventListener('input', updateHashAndPower);
+        monthlyValueIncreaseInput.addEventListener('input', updateHashAndPower);
+        deliveryChargeRateInput.addEventListener('input', updateHashAndPower);
+        providerChargeInput.addEventListener('input', updateHashAndPower);
+        existingMinersInput.addEventListener('input', updateHashAndPower);
+        useContainerFactoringCheckbox.addEventListener('input', updateHashAndPower);
+        containerCostInput.addEventListener('input', updateHashAndPower);
+        containerCapacityInput.addEventListener('input', updateHashAndPower);
+        containerPowerInput.addEventListener('input', updateHashAndPower);
+        existingContainersInput.addEventListener('input', updateHashAndPower);
+        useDifficultyFactoringCheckbox.addEventListener('input', updateHashAndPower);
+        useDryCoolerFactoringCheckbox.addEventListener('input', updateHashAndPower);
+        useRackFactoringCheckbox.addEventListener('input', updateHashAndPower);
+        useScalingStopLimitBoxCheckbox.addEventListener('input', updateHashAndPower);
+        useContributedHashrateCheckbox.addEventListener('input', updateHashAndPower);
+        useContributedDifficultyCheckbox.addEventListener('input', updateHashAndPower);
+        networkHashrateInput.addEventListener('input', updateHashAndPower);
+        monthlyHashrateIncreaseInput.addEventListener('input', updateHashAndPower);
+        coolerCostInput.addEventListener('input', updateHashAndPower);
+        coolerHeatTransferInput.addEventListener('input', updateHashAndPower);
+        coolerPowerInput.addEventListener('input', updateHashAndPower);
+        rackCostInput.addEventListener('input', updateHashAndPower);
+        rackCapacityInput.addEventListener('input', updateHashAndPower);
+        existingRacksInput.addEventListener('input', updateHashAndPower);
+        scalingMaxMinersInput.addEventListener('input', updateHashAndPower);
+        
+        function calculate() {
+        
+            // Get user inputs
+            const hashRate = parseFloat(hashRateInput.value);
+            const blockReward = parseFloat(document.getElementById('blockReward').value);
+            const difficulty = parseFloat(document.getElementById('difficulty').value);
+            const power = parseFloat(powerInput.value);
+            const fees = parseFloat(document.getElementById('fees').value) / 100;
+            const btcValue = parseFloat(document.getElementById('btcValue').value);
+            const cost = parseFloat(document.getElementById('cost').value);
+            const blockTime = parseFloat(document.getElementById('blockTime').value);
+            const deliveryChargeRate = parseFloat(document.getElementById('deliveryChargeRate').value);
+            const providerCharge = parseFloat(document.getElementById('providerCharge').value);
+            
+            // Calculate metrics
+            const blockRewardHours = blockReward * 3600;
+            const rewardsPerHourBTC = (hashRate * blockRewardHours) / (difficulty * Math.pow(2, 32));
+            const scaledRewardsPerHourBTC = rewardsPerHourBTC * Math.pow(10, 12); // Scale by 10^12
+            const rewardsPerHourUSD = scaledRewardsPerHourBTC * btcValue;
+			
+			console.log("=====");
+			console.log(blockRewardHours);
+			console.log(rewardsPerHourBTC);
+			console.log(scaledRewardsPerHourBTC);
+			console.log(rewardsPerHourUSD);
+			
+            // Calculate electricity
+            // const powerToKWH = ; // 5000W × 3h / 1000
+            const deliveryCharge = (power / 1000) * deliveryChargeRate; // ((Units * kWh day) * days) * Variable rate
+            const electricityCostPerHour = (power / 1000) * cost;
+            const feesCostUSD = rewardsPerHourUSD * fees;
+            const profitPerHourUSD = rewardsPerHourUSD - electricityCostPerHour - feesCostUSD - deliveryCharge;
+            
+            // Time periods
+            const periods = { Hour: 1, Day: 24, Week: 168, Month: 720, Year: 8760 };
+            
+            // Generate results
+            const results = Object.entries(periods).map(([period, multiplier]) => {
+                const providerChargeForPeriod = period === "Year" ? providerCharge * 12 : providerCharge; // Monthly fixed charge scaled
+                return `<tr>
+                    <td>${period}</td>
+                    <td>$${Number((feesCostUSD * multiplier).toFixed(2)).toLocaleString()}</td>
+                    <td>${Number((scaledRewardsPerHourBTC * multiplier).toFixed(2)).toLocaleString()} BTC</td>
+                    <td>$${Number((rewardsPerHourUSD * multiplier).toFixed(2)).toLocaleString()}</td>
+                    <td>$${Number((electricityCostPerHour * multiplier).toFixed(2)).toLocaleString()}</td>
+                    <td>$${Number((deliveryCharge * multiplier).toFixed(2)).toLocaleString()}</td>
+                    <td>$${Number((profitPerHourUSD * multiplier - providerChargeForPeriod).toFixed(2)).toLocaleString()}</td>
+                </tr>`
+            }).join('');
+        
+            document.getElementById('results').innerHTML = results;
+            
+            // Calculate mining profitability
+            calculateScalingProfitability();
+        }
+        
+        function calculateScalingProfitability() {
+            const multiplier = document.getElementById('multiplier'); // Divide by multiplier to always represent one unit
+            const hashRate = parseFloat(hashRateInput.value / multiplier.value);
+            const power = parseFloat(document.getElementById('power').value / multiplier.value);
+            const minerCost = parseFloat(document.getElementById('minerCost').value);
+            const additionalFunds = parseFloat(document.getElementById('additionalFunds').value);
+            const targetMonths = parseInt(document.getElementById('targetMonths').value, 10);
+            const monthlyDifficultyIncrease = parseFloat(document.getElementById('monthlyDifficultyIncrease').value);
+            const monthlyValueIncrease = parseFloat(document.getElementById('monthlyValueIncrease').value);
+            const providerCharge = parseFloat(document.getElementById('providerCharge').value);
+            const existingMiners = parseFloat(document.getElementById('existingMiners').value);
+            const difficulty = parseFloat(document.getElementById('difficulty').value);
+            const btcValue = parseFloat(document.getElementById('btcValue').value);
+            
+            const selectedFactoringOption = document.querySelector('input[name="equipmentOption"]:checked');
+            
+            const useContainerFactoring = document.getElementById('useContainerFactoring').checked;
+            const useDifficultyFactoring = document.getElementById('useDifficultyFactoring').checked;
+            const useDryCoolerFactoring = document.getElementById('useDryCoolerFactoring').checked;
+            const useRackFactoring = document.getElementById('useRackFactoring').checked;
+            const useScalingStopLimit = document.getElementById('useScalingStopLimit').checked;
+            const useContributedHashrate = document.getElementById('useContributedHashrate').checked;
+            const useContributedDifficulty = document.getElementById('useContributedDifficulty').checked;
+            
+            const containerCost = parseFloat(document.getElementById('containerCost').value);
+            const containerCapacity = parseFloat(document.getElementById('containerCapacity').value);
+            const containerPower = parseFloat(document.getElementById('containerPower').value);
+            const existingContainers = parseFloat(document.getElementById('existingContainers').value);
+            const networkHashratePH = parseFloat(document.getElementById('networkHashrate').value);
+            const monthlyHashrateIncreaseGH = parseFloat(document.getElementById('monthlyHashrateIncrease').value);
+            const coolerCost = parseFloat(document.getElementById('coolerCost').value);
+            const coolerHeatTransfer = parseFloat(document.getElementById('coolerHeatTransfer').value);
+            const coolerPower = parseFloat(document.getElementById('coolerPower').value);
+            const rackCost = parseFloat(document.getElementById('rackCost').value);
+            const rackCapacity = parseInt(document.getElementById('rackCapacity').value, 10);
+            const existingRacks = parseFloat(document.getElementById('existingRacks').value);
+            const scalingMaxMiners = document.getElementById('scalingMaxMiners').value;
+            let maxMinersReached = false;
+            
+            // const cellText = document.querySelector('#results tr:nth-child(4) td:last-child').textContent.trim();
+            // const monthlyProductionPerMiner = parseFloat(cellText.replace('$', '').replace(',', '')) || 0;
+            // console.log(monthlyProductionPerMiner);
+            
+            let currentDifficulty = difficulty;
+            let currentNetworkHashratePH = networkHashratePH;
+            let currentBtcValue = btcValue;
+            let currentMiners = existingMiners;               // Start with a desired amount of miners
+            let currentContainers = existingContainers;       // Start with a desired amount of container
+            let currentCoolers = 1;                           // Start with a single cooler
+            let currentRacks = existingRacks;                 // Start with a desired amount of racks
+            let equipmentCost = 0;
+            let cumulativeRevenue = 0;
+            let contributedDifficulty = 0;
+            let additionalDifficulty = 0;
+            let data = [];
+            
+            // Chart rendering logic
+            const monthlyData = [];
+        
+            for (let month = 1; month <= targetMonths; month++) {
+            
+                // Reset additonal difficulty
+                additionalDifficulty = 0;
+                
+                // Calculate the additonal equipment difficulty factoring
+                if (useDifficultyFactoring) {
+				
+                    let contributedHashratePH = currentMiners * (hashRate / 1000); // Convert total miner TH/s to PH/s
+                    let contributionRatio = contributedHashratePH / currentNetworkHashratePH;
+                    contributedDifficulty = contributionRatio * currentDifficulty
+					
+                    // Apply scaling difficulty increase
+                    if (useContributedDifficulty) {
+                        additionalDifficulty += contributedDifficulty;
+                    }
+                }
+                
+                const monthlyRevenue = currentMiners * (calculateRevenuePerHour(currentDifficulty + additionalDifficulty, currentBtcValue) * 720) - providerCharge;
+                cumulativeRevenue += monthlyRevenue + additionalFunds;
+                
+                // Calculate the additonal equipment costs
+                //
+                // Get factoring choice - Use Shipping Containers
+                if (selectedFactoringOption.value == "option1") {
+                
+                    // Reset the previous options coolers and racks
+                    currentCoolers = 0;
+                    currentRacks = 0;
+                    
+                    if (useContainerFactoring) {
+                    
+                        // const totalRequiredContainers = Math.ceil((currentMiners * power) / (containerCapacity * 1000));
+                        const totalRequiredContainers = Math.ceil(currentMiners / containerCapacity);
+                        const requiredContainersCost = (totalRequiredContainers - currentContainers) * containerCost; // Only include the amount needed this month
+                        const additionalPowerCost = calculatePowerChargePerHour(containerPower, totalRequiredContainers);
+                        
+                        // Check if the required cooler is greater then what already exists
+                        if (totalRequiredContainers > currentContainers)
+                        {
+                            cumulativeRevenue -= requiredContainersCost;
+                            currentContainers = totalRequiredContainers;
+                            
+                            // Add to the equipment cost
+                            equipmentCost += requiredContainersCost;
+                        }
+                        
+                        // Always subtract the price of the cooler
+                        cumulativeRevenue -= additionalPowerCost;
+                        
+                        // Add to the equipment cost
+                        equipmentCost += additionalPowerCost;
+                    }
+                    else
+                    {
+                        // Ensure no containers exist if disabled
+                        currentContainers = 0;
+                        currentCoolers = 0;
+                        currentRacks = 0;
+                    }
+                }
+                // Get factoring choice - Use Manual Scaleout
+                else if (selectedFactoringOption.value == "option2") {
+                
+                    // Reset the previous options containers
+                    currentContainers = 0;
+                        
+                    if (useDryCoolerFactoring) {
+                        const totalRequiredCoolers = Math.ceil((currentMiners * power) / (coolerHeatTransfer * 1000));
+                        const requiredCoolersCost = (totalRequiredCoolers - currentCoolers) * coolerCost; // Only include the amount needed this month
+                        const additionalPowerCost = calculatePowerChargePerHour(coolerPower, totalRequiredCoolers);
+                        
+                        // Check if the required cooler is greater then what already exists
+                        if (totalRequiredCoolers > currentCoolers)
+                        {
+                            cumulativeRevenue -= requiredCoolersCost;
+                            currentCoolers = totalRequiredCoolers;
+                            
+                            // Add to the equipment cost
+                            equipmentCost += requiredCoolersCost;
+                        }
+                        
+                        // Always subtract the price of the cooler
+                        cumulativeRevenue -= additionalPowerCost;
+                        
+                        // Add to the equipment cost
+                        equipmentCost += additionalPowerCost;
+                    }
+                    else
+                    {
+                        // Ensure no coolers exist if disabled
+                        currentCoolers = 0;
+                    }
+                    if (useRackFactoring) {
+                        const totalRequiredRacks = Math.ceil(currentMiners / rackCapacity);
+                        const requiredRacksCost = (totalRequiredRacks - currentRacks) * rackCost; // Only include the amount needed this month
+                        
+                        // Check if the required racks is greater then what already exists
+                        if (totalRequiredRacks > currentRacks)
+                        {
+                            cumulativeRevenue -= requiredRacksCost;
+                            currentRacks = totalRequiredRacks;
+                            
+                            // Add to the equipment cost
+                            equipmentCost += requiredRacksCost;
+                        }
+                    }
+                    else
+                    {
+                        // Ensure no racks exist if disabled
+                        currentRacks = 0;
+                    }
+                }
+                
+                // Calculate new miners that can be purchased
+                let newMiners = Math.max(0, Math.floor(cumulativeRevenue / minerCost)); // Ensure newMiners is never negative
+                
+                // Account for a scaling limit
+                if (useScalingStopLimit && (currentMiners + newMiners) >= scalingMaxMiners) {
+                
+                    // Limit will be reached
+                    //
+                    // Limit new miners to the remaining capacity
+                    if (currentMiners < scalingMaxMiners) {
+                        newMiners = Math.min(newMiners, scalingMaxMiners - currentMiners);
+                    }
+                    else {
+                        // Complete limit reached, dont use anymore funds
+                        newMiners = 0;
+                        maxMinersReached = true;
+                        
+                        // Update the equipment cost if max miners is achieved
+                        equipmentCost = 0;
+                    }
+                }
+                else {
+                    
+                    // Scaling limit not enabled or limit not yet reached
+                    // Use all revenue funds torwards scaling
+                    cumulativeRevenue -= newMiners * minerCost;
+                }
+                
+                // Apply scaling hashrate increase
+                if (useDifficultyFactoring && useContributedHashrate) {
+                    let contributedHashratePH = newMiners * (hashRate / 1000);
+                    currentNetworkHashratePH += contributedHashratePH;
+                }
+                
+                // Collect data for the table
+                if (selectedFactoringOption.value == "option1") {
+                    currentCoolers = currentContainers;
+                    currentRacks = "-";
+                } else if (selectedFactoringOption.value == "option2") {
+                    currentCoolers = currentCoolers;
+                    currentRacks = currentRacks;
+                }
+                if (!useDifficultyFactoring) {
+                    currentNetworkHashratePH = "-";
+                    contributedDifficulty = "-";
+                }
+                data.push({
+                    month,
+                    totalCoolers: currentCoolers,
+                    totalRacks: currentRacks,
+                    totalMiners: currentMiners,
+                    newMiners: newMiners,
+                    btcValue: currentBtcValue,
+                    monthlyProduction: Math.floor((currentMiners * (calculateRevenuePerHour(currentDifficulty + additionalDifficulty, currentBtcValue) * 720)) - providerCharge),
+                    deliveryCost: Math.floor(calculateDeliveryChargePerHour(currentMiners) * 720),
+                    annualProduction: Math.floor((currentMiners * (calculateRevenuePerHour(currentDifficulty + additionalDifficulty, currentBtcValue) * 8760)) - (providerCharge * 12)),
+                    miningDifficulty: currentDifficulty + additionalDifficulty,
+                    networkHashrate: currentNetworkHashratePH,
+                    contributedDifficulty: contributedDifficulty
+                });
+                
+                // Collect data for the chart
+                monthlyData.push({
+                    annualProduction: Math.floor((currentMiners * (calculateRevenuePerHour(currentDifficulty + additionalDifficulty, currentBtcValue) * 8760)) - (providerCharge * 12)),
+                    miningDifficulty: currentDifficulty + additionalDifficulty,
+                    btcValue: currentBtcValue,
+                    deliveryCost: Math.floor(calculateDeliveryChargePerHour(currentMiners) * 8760),
+                    equipmentCost: equipmentCost,
+                    networkHashrate: currentNetworkHashratePH
+                });
+                
+                // Update miner count
+                currentMiners += newMiners;
+                
+                // Increase Hashrate for the next month
+                currentNetworkHashratePH += monthlyHashrateIncreaseGH;
+                
+                // Increase difficulty for the next month
+                currentDifficulty += monthlyDifficultyIncrease;
+                
+                // Increase btc value for the next month
+                currentBtcValue += monthlyValueIncrease;
+            }
+        
+            // Update the scaling results table
+            const scalingResults = document.getElementById('scalingResults');
+            scalingResults.innerHTML = data.map((row, index) => {
+                const rowColor = (row.month % 12 === 0) ? 'background-color: #fffdab;' : ''; // Apply color to every 12th row; 12 === 1 for every 1, 13, exc.
+                return `
+                    <tr style="${rowColor}">
+                        <td>${row.month}</td>
+                        <td>${row.totalCoolers.toLocaleString()}</td>
+                        <td>${row.totalRacks.toLocaleString()}</td>
+                        <td>${row.totalMiners.toLocaleString()}</td>
+                        <td>${row.newMiners.toLocaleString()}</td>
+                        <td>${row.btcValue.toLocaleString()}</td>
+                        <td>$${row.monthlyProduction.toLocaleString()}</td>
+                        <td>$${row.deliveryCost.toLocaleString()}</td>
+                        <td>$${row.annualProduction.toLocaleString()}</td>
+                        <td>${row.miningDifficulty.toLocaleString()}</td>
+                        <td>${row.networkHashrate.toLocaleString()}</td>
+                        <td>${row.contributedDifficulty.toLocaleString()}</td>
+                    </tr>
+                `;
+            }).join('');
+            
+            // Add the Total Revenue row
+            addTotalRevenueRow();
+    
+            // Update the scaling results chart
+            renderChart(monthlyData);
+        }
+        
+        function addTotalRevenueRow() {
+            const scalingResultsTable = document.getElementById('scalingResults');
+            const rows = scalingResultsTable.querySelectorAll('tr');
+            let totalRevenue = 0;
+        
+            // Sum the values in the "Monthly Production ($)" column
+            rows.forEach((row, index) => {
+                if (index >= 0) { // Skip the header row
+                    const monthlyProductionCell = row.cells[6]; // 7th column (0-based index)
+                    const monthlyProductionCellTrimmed = parseFloat(monthlyProductionCell.textContent.replace(/[$,]/g, '')) || 0;
+                    // console.log(monthlyProductionCell.textContent.replace(/[$,]/g, ''));
+                    
+                    if (monthlyProductionCell) {
+                        const value = monthlyProductionCellTrimmed || 0;
+                        totalRevenue += value;
+                    }
+                }
+            });
+        
+            // Remove existing "Total Revenue" row if it exists
+            const existingTotalRow = document.getElementById('totalRevenueRow');
+            if (existingTotalRow) {
+                scalingResultsTable.removeChild(existingTotalRow);
+            }
+        
+            // Create and append the "Total Revenue" row
+            const totalRow = document.createElement('tr');
+            totalRow.id = 'totalRevenueRow';
+            totalRow.innerHTML = `
+                <td colspan="7"><strong>Total Revenue Generated:</strong></td>
+                <td colspan="5"><strong>$${Number(totalRevenue.toFixed(2)).toLocaleString()}</strong></td>
+            `;
+            scalingResultsTable.appendChild(totalRow);
+        }
+        
+        let chartInstance; // Variable to store the chart instance
+        function renderChart(data) {
+            const ctx = document.getElementById('monthlyChart').getContext('2d');
+        
+            // If the chart instance already exists, update its data
+            if (chartInstance) {
+                chartInstance.data.labels = Array.from({ length: data.length }, (_, i) => `Month ${i + 1}`);
+                chartInstance.data.datasets[0].data = data.map(item => item.annualProduction); // Profit dataset
+                chartInstance.data.datasets[1].data = data.map(item => item.miningDifficulty); // Difficulty dataset
+                chartInstance.data.datasets[2].data = data.map(item => item.deliveryCost);     // Delivery Cost dataset
+                chartInstance.data.datasets[3].data = data.map(item => item.btcValue);        // BTC Value dataset
+                chartInstance.data.datasets[4].data = data.map(item => item.equipmentCost);    // Equipment Cost dataset
+                chartInstance.data.datasets[5].data = data.map(item => item.networkHashrate);  // Network Hashrate dataset
+                chartInstance.update(); // Refresh the chart
+            } else {
+                // Create a new chart instance if it doesn't exist
+                chartInstance = new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: Array.from({ length: data.length }, (_, i) => `Month ${i + 1}`),
+                        datasets: [
+                            {
+                                label: 'Annual Profit ($)',
+                                data: data.map(item => item.annualProduction),
+                                borderColor: 'rgba(75, 192, 192, 1)', // Profit line color
+                                borderWidth: 2,
+                                fill: false
+                            },
+                            {
+                                label: 'Mining Difficulty',
+                                data: data.map(item => item.miningDifficulty),
+                                borderColor: 'rgba(255, 99, 132, 1)', // Difficulty line color
+                                borderWidth: 2,
+                                fill: false,
+                                yAxisID: 'y2' // Use a secondary y-axis for difficulty
+                            },
+                            {
+                                label: 'Annual Delivery Cost',
+                                data: data.map(item => item.deliveryCost),
+                                borderColor: 'rgba(54, 162, 235, 1)', // Delivery Cost line color
+                                borderWidth: 2,
+                                fill: false,
+                                hidden: true // Disabled by default
+                            },
+                            {
+                                label: 'BTC Value',
+                                data: data.map(item => item.btcValue),
+                                borderColor: 'rgba(255, 206, 86, 1)', // BTC Value line color
+                                borderWidth: 2,
+                                fill: false,
+                                hidden: true // Disabled by default
+                            },
+                            {
+                                label: 'Equipment Cost',
+                                data: data.map(item => item.equipmentCost), // New dataset for Equipment Cost
+                                borderColor: 'rgba(153, 102, 255, 1)', // Equipment Cost line color
+                                borderWidth: 2,
+                                fill: false,
+                                hidden: true // Disabled by default
+                            },
+                            {
+                                label: 'Network Hashrate',
+                                data: data.map(item => item.networkHashrate), // New dataset for Network Hashrate
+                                borderColor: 'rgba(255, 159, 64, 1)', // Network Hashrate line color
+                                borderWidth: 2,
+                                fill: false,
+                                hidden: true // Disabled by default
+                            }
+                        ]
+                    },
+                    options: {
+                        responsive: true,
+                        scales: {
+                            x: {
+                                title: {
+                                    display: true,
+                                    text: 'Months',
+                                    color: 'rgba(0, 0, 0, 0.8)' // X-axis title color
+                                },
+                                ticks: {
+                                    color: 'rgba(0, 0, 0, 0.8)' // X-axis tick labels color
+                                }
+                            },
+                            y: {
+                                title: {
+                                    display: true,
+                                    text: 'Profit ($)',
+                                    color: 'rgba(75, 192, 192, 1)' // Y-axis title color matching Profit
+                                },
+                                ticks: {
+                                    color: 'rgba(75, 192, 192, 1)' // Y-axis tick labels color matching Profit
+                                }
+                            },
+                            y2: {
+                                position: 'right',
+                                title: {
+                                    display: true,
+                                    text: 'Difficulty',
+                                    color: 'rgba(255, 99, 132, 1)' // Secondary Y-axis title color matching Difficulty
+                                },
+                                ticks: {
+                                    color: 'rgba(255, 99, 132, 1)' // Secondary Y-axis tick labels color matching Difficulty
+                                },
+                                grid: {
+                                    drawOnChartArea: false // Hide grid lines for the secondary axis
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+        }
+        
+        // Helper function to calculate rewards per hour
+        function calculateRevenuePerHour(difficulty, btcValue) {
+            const multiplier = document.getElementById('multiplier'); // Divide by multiplier to always represent one unit
+            const power = parseFloat(powerInput.value / multiplier.value);
+            const hashRate = parseFloat(hashRateInput.value / multiplier.value);
+            const blockReward = parseFloat(document.getElementById('blockReward').value);
+            const fees = parseFloat(document.getElementById('fees').value) / 100;
+            const cost = parseFloat(document.getElementById('cost').value);
+            const deliveryChargeRate = parseFloat(document.getElementById('deliveryChargeRate').value);
+            
+            // Calculate rewards per hour based on total miners, difficulty, and block reward
+            const blockRewardHours = blockReward * 3600;
+            const rewardsPerHourBTC = (hashRate * blockRewardHours) / (difficulty * Math.pow(2, 32));
+            const scaledRewardsPerHourBTC = rewardsPerHourBTC * Math.pow(10, 12); // Scale by 10^12
+            const rewardsPerHourUSD = scaledRewardsPerHourBTC * btcValue;
+            
+            // Calculate electricity
+            // const powerToKWH = ; // 5000W × 3h / 1000
+            const deliveryCharge = (power / 1000) * deliveryChargeRate; // ((Units * kWh day) * days) * Variable rate
+            const electricityCostPerHour = (power / 1000) * cost;
+            const feesCostUSD = rewardsPerHourUSD * fees;
+            const profitPerHourUSD = rewardsPerHourUSD - electricityCostPerHour - feesCostUSD - deliveryCharge;
+            
+            return profitPerHourUSD;
+        }
+        
+        // Helper function to calculate rewards per hour
+        function calculateDeliveryChargePerHour(currentMiners) {
+            const multiplier = document.getElementById('multiplier'); // Divide by multiplier to always represent one unit
+            const power = parseFloat(powerInput.value / multiplier.value);
+            const deliveryChargeRate = parseFloat(document.getElementById('deliveryChargeRate').value);
+            
+            // Calculate electricity
+            // const powerToKWH = ; // 5000W × 3h / 1000
+            // ((((power / 1000) * deliveryChargeRate) * 24 hours) * 30 days) * currentMiners
+            const deliveryChargePerHourUSD = ((power / 1000) * deliveryChargeRate) * currentMiners;
+            
+            return deliveryChargePerHourUSD;
+        }
+        
+        // Helper function to calculate rewards per hour
+        function calculatePowerChargePerHour(powerInput, unitsInput) {
+            const deliveryChargeRate = parseFloat(document.getElementById('deliveryChargeRate').value);
+            
+            // Calculate electricity
+            // const powerToKWH = ; // 5000W × 3h / 1000
+            // ((((power / 1000) * deliveryChargeRate) * 24 hours) * 30 days) * currentMiners
+            const powerChargePerHourUSD = ((powerInput / 1000) * deliveryChargeRate) * unitsInput;
+            
+            return powerChargePerHourUSD;
+        }
+    
+        updateDataButton.addEventListener('click', async () => {
+        
+            // Disable the button to prevent further clicks
+            updateDataButton.disabled = true;
+        
+            try {
+                const useBlockAverage = useBlockAverageCheckbox.checked;
+        
+                // Fetch the latest BTC blocks
+                const response = await fetch('https://api.blockchair.com/btccoin/blocks?limit=60');
+                const data = await response.json();
+                const btcPrice = data.context.market_price_usd;
+        
+                // Determine which blocks to use based on the checkbox
+                let totalDifficulty = 0;
+                let blockCount = useBlockAverage ? data.data.length : 1; // Use all blocks or just the most recent block
+        
+                // Calculate the total difficulty based on the selected blocks
+                for (let i = 0; i < blockCount; i++) {
+                    totalDifficulty += data.data[i].difficulty;
+                }
+        
+                // Calculate the average difficulty if using the last 10 blocks
+                const averageDifficulty = totalDifficulty / blockCount;
+        
+                // Calculate the network hashrate (H/s)
+                const blockTimeInSeconds = 60; // 1 minute
+                const hashrate = averageDifficulty / blockTimeInSeconds;
+                
+                // Debugging
+                // console.log(`BTC Price: ${btcPrice.toFixed(6)} USD`);
+                // console.log(`Average Difficulty: ${averageDifficulty.toFixed(2)}`);
+                // console.log(`Average Hashrate: ${(hashrate / 1e15).toFixed(3)} PH/s`);
+                
+                // Update the inputs with the fetched data
+                btcValueInput.value = btcPrice.toFixed(6);
+                difficultyInput.value = averageDifficulty.toFixed(2);
+                networkHashrateInput.value = (hashrate / 1e15).toFixed(3); // Convert to PH/s
+        
+                // Recalculate the numbers with the new data
+                calculate();
+            } catch (error) {
+                console.error('Error fetching BTC data. Might have attempted to fetch too many too quickly! Error:', error);
+            } finally {
+                // Re-enable the button after the task is completed
+                updateDataButton.disabled = false;
+            }
+        });
+        
+        // Function to toggle enabled state of inputs in the group
+        function toggleGroupBoxEnabledState(groupId, isEnabled) {
+            const groupBox = document.getElementById(groupId);
+            const inputs = groupBox.querySelectorAll('input[type="number"], input[id="useContributedDifficulty"], input[id="useContributedHashrate"]');
+            inputs.forEach(input => {
+                input.disabled = !isEnabled;
+                
+                // Handle specific checkboxes
+                if (input.type === 'checkbox' && ['useContributedDifficulty', 'useContributedHashrate'].includes(input.id)) {
+                    input.checked = isEnabled;
+                }
+            });
+        }
+        
+        document.addEventListener("DOMContentLoaded", () => {
+            function updateGroupBoxState() {
+                const selectedOption = document.querySelector('input[name="equipmentOption"]:checked').value;
+                const groupBoxes = {
+                    option1: ["useContainerFactoringBox"],
+                    option2: ["useDryCoolerFactoringBox", "useRackFactoringBox"]
+                };
+        
+                // Enable or disable groupboxes and manage checkboxes
+                Object.keys(groupBoxes).forEach(option => {
+                    groupBoxes[option].forEach(groupId => {
+                        const groupBox = document.getElementById(groupId);
+                        const checkboxes = groupBox.querySelectorAll("input[type='checkbox']");
+                        const inputs = groupBox.querySelectorAll("input[type='number']");
+                        const isEnabled = selectedOption === option;
+        
+                        if (isEnabled) {
+                            // Check all checkboxes and trigger their input events
+                            checkboxes.forEach(checkbox => {
+                                if (!["useBlockAverage", "useContributedDifficulty", "useContributedHashrate"].includes(checkbox.id) && !checkbox.checked) { 
+                                    checkbox.checked = true;
+                                    checkbox.dispatchEvent(new Event('input')); // Trigger input event
+                                }
+                            });
+                        } else {
+                            // Uncheck all checkboxes and trigger their input events
+                            checkboxes.forEach(checkbox => {
+                                if (!["useBlockAverage", "useContributedDifficulty", "useContributedHashrate"].includes(checkbox.id) && checkbox.checked) { 
+                                    checkbox.checked = false;
+                                    checkbox.dispatchEvent(new Event('input')); // Trigger input event
+                                }
+                            });
+                        }
+        
+                        // Enable or disable the groupbox and its inputs
+                        checkboxes.forEach(checkbox => {
+                            if (!["useBlockAverage", "useContributedDifficulty", "useContributedHashrate"].includes(checkbox.id)) { 
+                                checkbox.disabled = !isEnabled;
+                            }
+                        });
+        
+                        inputs.forEach(input => {
+                            input.disabled = !isEnabled || (input.type === "checkbox" && !input.checked);
+                        });
+                    });
+                });
+            }
+        
+            // Attach event listeners to radio buttons
+            const radioButtons = document.querySelectorAll('input[name="equipmentOption"]');
+            radioButtons.forEach(radio => {
+                radio.addEventListener("change", updateGroupBoxState);
+            });
+        
+            // Attach event listeners to checkboxes inside the groupboxes
+            const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+            checkboxes.forEach(checkbox => {
+                if (!["useBlockAverage", "useContributedDifficulty", "useContributedHashrate"].includes(checkbox.id)) { 
+                    checkbox.addEventListener("input", (event) => {
+                        toggleGroupBoxEnabledState(event.target.closest("fieldset").id, event.target.checked);
+                    });
+                }
+            });
+        
+            // Initial state update
+            updateGroupBoxState();
+        });
+        
+        function changeHeader() {
+            const useDifficultyFactoring = document.getElementById('useDifficultyFactoring').checked;
+            const selectedFactoringOption = document.querySelector('input[name="equipmentOption"]:checked');
+            const secondHeader = document.getElementById('secondHeader');
+            const thirdHeader = document.getElementById('thirdHeader');
+            const eleventhHeader = document.getElementById('eleventhHeader');
+            const twelfthHeader = document.getElementById('twelfthHeader');
+            
+            if (useDifficultyFactoring) {
+                eleventhHeader.textContent = "Hashrate";
+                twelfthHeader.textContent = "Contributed Difficulty";
+            }
+            else {
+                eleventhHeader.textContent = "N/A";
+                twelfthHeader.textContent = "N/A";
+            }
+            if (selectedFactoringOption && selectedFactoringOption.value == "option1") {
+                secondHeader.textContent = "Containers";
+                thirdHeader.textContent = "N/A";
+            } 
+            else if (selectedFactoringOption && selectedFactoringOption.value == "option2") {
+                secondHeader.textContent = "Coolers";
+                thirdHeader.textContent = "Racks";
+            }
+        }
+    </script>
+    <img src="https://006.free-counters.co.uk/count-133.pl?count=whosthere&type=greendigit&prog=unique" width="" height="" border="0" alt="" title="" hidden>
+</body>
+</html>
